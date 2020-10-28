@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#DD6031</color>
+    <color name="colorPrimaryDark">#5C3F29</color>
+    <color name="colorAccent">#D9DD92</color>
+    <color name="colorPrimarySoft">#EABE7C</color>
+    <color name="colorHighlight">#ece4b7</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="inactive">#636363</color>
+    <color name="active">#191919</color>
+    <color name="disabled">#D8D8D8</color>
+    <color name="f2">#f2f2f2</color>
+    <color name="text">#1C1C1C</color>
+    <color name="accept">#6ACC6A</color>
+    <color name="reject">#CC6A6A</color>
+
     <color name="link">#2196f3</color>
 </resources>
