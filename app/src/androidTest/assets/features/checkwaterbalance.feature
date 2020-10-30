@@ -23,6 +23,16 @@ Scenario Outline: Canceling action
     | balance | wateradd |  
     | 1.0     | 0.5      | 
     | 2.0     | 1.0	 |
+Scenario Outline: Notification when enough water has been drunk 
+	Given the waterbalance is $<balance> and waterlimit is $<limit>
+   When I press on the plus button
+   And I want to add $<wateradd>
+   And I press the add button
+   Then I get a Notification for reaching water limit
+  Examples: 
+    | balance | wateradd | limit| 
+    | 2.5     | 0.5      |3.0 |
+    | 2.0     | 1.5	 |3.0|
 Scenario: Press plus button and show add screen
 	Given: I am on the waterbalance screen
 	When I press plus button
