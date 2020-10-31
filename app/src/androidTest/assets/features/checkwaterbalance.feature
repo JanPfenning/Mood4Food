@@ -1,7 +1,7 @@
 Feature: Checking and managing waterbalance
 Background:
 	Given I started the Apllication
-    And I am on the add recipe screen
+    And I am on the water balance screen
   
 Scenario Outline: Adding water to waterbalance 
   Given the waterbalance is $<balance>
