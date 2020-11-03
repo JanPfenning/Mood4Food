@@ -1,8 +1,9 @@
 package com.jrk.mood4food.test;
 
 import android.content.Intent;
-import android.support.test.espresso.Espresso;
-import android.support.test.rule.ActivityTestRule;
+
+import androidx.test.espresso.Espresso;
+import androidx.test.rule.ActivityTestRule;
 
 import com.jrk.mood4food.R;
 import com.jrk.mood4food.SignupActivity;
@@ -15,11 +16,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.TestCase.assertNotNull;
 
 public class SignupActivitySteps {
