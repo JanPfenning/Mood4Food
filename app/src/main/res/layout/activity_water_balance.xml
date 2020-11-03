@@ -2,22 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/conLayWaterBal"
+    xmlns:wave="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ProgressBar
-        android:id="@+id/progBarWaterLevel"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="0dp"
+    <com.john.waveview.WaveView
+        android:id="@+id/waveView"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:progress="60"
-        android:progressDrawable="@drawable/water_level"
-        android:rotation="270"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/white"
+        wave:above_wave_color="@color/waterDark"
+        wave:blow_wave_color="@color/waterLight"
+        wave:progress="50"
+        wave:wave_height="little"
+        wave:wave_hz="normal"
+        wave:wave_length="middle" />
 
     <LinearLayout
         android:layout_width="match_parent"
