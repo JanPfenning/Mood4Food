@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@drawable/shadow"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:showIn="@layout/activity_main" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_baseline_home_24"
+                app:tint="@color/inactive" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Home"
+                android:textColor="@color/inactive"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_baseline_restaurant_menu_24"
+                app:tint="@color/inactive" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Recipes"
+                android:textColor="@color/inactive"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_baseline_local_drink_24"
+                app:tint="@color/inactive" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Water"
+                android:textColor="@color/inactive"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_baseline_pie_chart_24"
+                app:tint="@color/inactive" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Nutrients"
+                android:textColor="@color/inactive"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="1dp"
+                android:src="@drawable/ic_baseline_settings_24"
+                app:tint="@color/inactive" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:text="Settings"
+                android:textColor="@color/inactive"
+                android:textSize="12sp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
