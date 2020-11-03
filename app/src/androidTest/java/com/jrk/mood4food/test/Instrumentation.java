@@ -1,7 +1,8 @@
 package com.jrk.mood4food.test;
 
 import android.os.Bundle;
-import android.support.test.runner.MonitoringInstrumentation;
+
+import androidx.test.runner.MonitoringInstrumentation;
 
 import com.jrk.mood4food.BuildConfig;
 
