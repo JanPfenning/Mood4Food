@@ -2,11 +2,11 @@ package com.jrk.mood4food
 
 import android.os.Bundle
 
-class MainActivity : NavBarActivity() {
+class NutrientActivity : NavBarActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_nutrients)
         super.onCreate(savedInstanceState)
-        println("opened home")
+        println("opened nutrients")
     }
 }
