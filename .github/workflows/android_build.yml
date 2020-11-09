@@ -23,7 +23,7 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
       - name: Releasing using Hub
-        uses: JanPfenning/Mood4Food@master
+        uses: JanPfenning/Mood4Food@github-flow-build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_FOLDER: app
