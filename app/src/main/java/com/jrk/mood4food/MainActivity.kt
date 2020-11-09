@@ -8,7 +8,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_water_balance)
-        startActivity(Intent(this,WaterBalanceActivity::class.java))
+        setContentView(R.layout.activity_main)
     }
 }

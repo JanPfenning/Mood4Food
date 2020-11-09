@@ -6,8 +6,6 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -37,7 +35,7 @@ class WaterBalanceActivity : AppCompatActivity() {
         findViewById<AppCompatImageView>(R.id.addwater).setOnClickListener{
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
-            val view = inflater.inflate(R.layout.dialog,null)
+            val view = inflater.inflate(R.layout.wateradd_dialog,null)
             builder1.setView(view)
 
             builder1.setMessage("Wie viel hast du getrunken")
@@ -53,13 +51,9 @@ class WaterBalanceActivity : AppCompatActivity() {
 
                 }
 
-                override fun onStartTrackingTouch(p0: SeekBar?) {
+                override fun onStartTrackingTouch(p0: SeekBar?) {}
 
-                }
-
-                override fun onStopTrackingTouch(p0: SeekBar?) {
-
-                }
+                override fun onStopTrackingTouch(p0: SeekBar?) {}
             })
             builder1.setPositiveButton(
 
