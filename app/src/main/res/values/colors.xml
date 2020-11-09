@@ -17,4 +17,7 @@
     <color name="reject">#CC6A6A</color>
 
     <color name="link">#2196f3</color>
+
+    <color name="waterLight">#2196F3</color>
+    <color name="waterDark">#3F51B5</color>
 </resources>
