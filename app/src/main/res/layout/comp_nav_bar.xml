@@ -6,7 +6,7 @@
     android:layout_height="60dp"
     android:background="@drawable/shadow"
     app:layout_constraintBottom_toBottomOf="parent"
-    tools:showIn="@layout/activity_main" >
+    tools:showIn="@layout/activity_home" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
         android:weightSum="5">
 
         <LinearLayout
+            android:id="@+id/home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -38,6 +39,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/recipes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -59,6 +61,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/water_nav_bar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -80,6 +83,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/nutrients"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -101,6 +105,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/settings"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

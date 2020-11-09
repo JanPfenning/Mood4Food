@@ -16,18 +16,15 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-class WaterBalanceActivity : AppCompatActivity() {
+class WaterBalanceActivity : NavBarActivity() {
     private val sharedPrefFile = "mood4Food"
     private var  waterlevel:Float = 0.0F;
 
     @RequiresApi(Build.VERSION_CODES.O)
     private  var currentD = LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_water_balance)
         val sharedPref: SharedPreferences = getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
         waterlevel = getWaterlevelP();
@@ -77,7 +74,7 @@ class WaterBalanceActivity : AppCompatActivity() {
         val progress = (waterlevel)* (100/3)
         findViewById<WaveView>(R.id.waveView).setProgress(progress.toInt())
         findViewById<TextView>(R.id.waterlevelPercentage).setText(progress.toInt().toString()+ " %")
-
+      
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun getWaterlevelP():Float{
