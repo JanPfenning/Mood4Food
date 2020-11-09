@@ -25,7 +25,7 @@ jobs:
       - name: Releasing using Hub
         uses: ShaunLWM/action-release-debugapk@master
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ 7c31e19c1e600d9f3f58817ff67ebd59c8ef8f7c }}
           APP_FOLDER: app
           RELEASE_TITLE: New Build
 
