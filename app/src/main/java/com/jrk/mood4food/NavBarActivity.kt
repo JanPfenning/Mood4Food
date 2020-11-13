@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.jrk.mood4food.waterbalance.WaterBalanceActivity
+import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 
 open class NavBarActivity : AppCompatActivity() {
 

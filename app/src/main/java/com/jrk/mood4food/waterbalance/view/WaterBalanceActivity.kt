@@ -1,4 +1,4 @@
-package com.jrk.mood4food.waterbalance
+package com.jrk.mood4food.waterbalance.view
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -10,18 +10,21 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
+import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
+import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
+import com.jrk.mood4food.waterbalance.model.ModelModule
 
 
 class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObserver {
     private val model = ModelModule.dataAccessLayer
-    private val controler = WaterBalanceControler(model)
+    private val controller = WaterBalanceControler(model)
     private var waterAdd:Float = 0.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         setContentView(R.layout.activity_water_balance)
         super.onCreate(savedInstanceState)
-        controler.bind(this)
+        controller.bind(this)
         findViewById<ImageView>(R.id.addwater).setOnClickListener{
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -39,7 +42,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
                 override fun onStopTrackingTouch(p0: SeekBar?) {}
             })
             builder1.setPositiveButton(
-                    "Add", DialogInterface.OnClickListener { dialog, id ->  controler.onWaterAdd(waterAdd);dialog.cancel() })
+                    "Add", DialogInterface.OnClickListener { dialog, id ->  controller.onWaterAdd(waterAdd);dialog.cancel() })
             builder1.setNegativeButton("Cancel") { dialog, id -> dialog.cancel() }
             val alert11 = builder1.create()
             alert11.show()
@@ -66,7 +69,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     }
 
     override fun waterStoredIn() {
-       setWaterBalance(4.0F)
+       setWaterBalance(model.getCurrentWaterBalance())
         Log.i("test","test")
     }
 

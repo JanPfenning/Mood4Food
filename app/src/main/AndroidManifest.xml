@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".waterbalance.WaterBalanceActivity" />
+        <activity android:name=".waterbalance.view.WaterBalanceActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".NutrientActivity" />
         <activity android:name=".RecipesActivity" />
