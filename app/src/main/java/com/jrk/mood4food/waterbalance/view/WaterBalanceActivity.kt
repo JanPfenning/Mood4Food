@@ -70,7 +70,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
 
     override fun waterStoredIn() {
        setWaterBalance(model.getCurrentWaterBalance())
-        Log.i("test","test")
+
     }
 
 }

@@ -4,23 +4,25 @@ import android.content.Context
 import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.local.ExampleEntity
+import com.jrk.mood4food.model.local.LocalStorage
 
 class WaterRepository {
     public fun storeWaterBalance(waterBalance:Float){
-        var progress:Float = (100/getWaterLevel())*waterBalance
+
         val context: Context = App.getContext()
 
         val newEntity = WaterBalanceEntity(context)
-        newEntity.exampleFloat = waterBalance
+        newEntity.waterBalance = waterBalance
         newEntity.saveToLocalStorage(newEntity)
+
 
 
     }
     public fun getCurrentWaterBalance():Float{
-        val existingEntity = WaterBalanceEntity(App.getContext())
+        var progress:Float = (100/getWaterLevel())
+        val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<*> as List<WaterBalanceEntity>
 
-        existingEntity.loadFromLocalStorage("WaterBalance#1", existingEntity)
-        return  existingEntity.exampleFloat
+        return  entities.get(0).waterBalance
 
 
     }
