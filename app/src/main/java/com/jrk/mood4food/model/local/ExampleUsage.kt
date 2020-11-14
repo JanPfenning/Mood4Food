@@ -12,18 +12,18 @@ class ExampleUsage {
         // Save attribute values
         newEntity.saveToLocalStorage(newEntity)
 
-        // #2 Load Entity from Storage and update its values
-        val existingEntity = ExampleEntity(context!!)
-        existingEntity.loadFromLocalStorage("ExampleEntity#1", existingEntity)
-        existingEntity.isExampleBoolean = true
-        existingEntity.saveToLocalStorage(existingEntity)
-
-        // #3 Delete Entity from LocalStorage
-        val deleteEntity = ExampleEntity(context!!)
-        deleteEntity.loadFromLocalStorage("ExampleEntity#1", deleteEntity)
-        deleteEntity.removeFromLocalStorage()
-
-        // #4 Get all Entities with the same EntityType
+        // #2 Get all Entities with the same EntityType
+        // Functionality to filter will come soon
+        // Please always use this method to get one or more Entities
         val entities = LocalStorage.getAll(context!!, ExampleEntity::class.java) as List<*> as List<ExampleEntity>
+
+        // #3 Update Entity
+        val entity = entities.get(0);
+        entity.exampleInt = 3
+        entity.saveToLocalStorage(entity)
+
+        // #4 Delete Entity
+        entity.removeFromLocalStorage()
+
     }
 }

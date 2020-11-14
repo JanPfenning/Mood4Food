@@ -60,12 +60,20 @@ open class LocalEntity(private val context: Context, entity: Class<*>, hasEntity
         for (attribute in attributes) {
             try {
                 when (attribute.type.toString()) {
-                    "class java.lang.String" -> editor.putString(attribute.name, attribute[entity] as String)
+                    "class java.lang.String" -> {
+                        if(attribute[entity] != null) {
+                            editor.putString(attribute.name, attribute[entity] as String)
+                        }
+                    }
                     "int" -> editor.putInt(attribute.name, attribute[entity] as Int)
                     "boolean" -> editor.putBoolean(attribute.name, attribute[entity] as Boolean)
                     "long" -> editor.putLong(attribute.name, attribute[entity] as Long)
                     "float" -> editor.putFloat(attribute.name, attribute[entity] as Float)
-                    "interface java.util.Set" -> editor.putStringSet(attribute.name, attribute[entity] as Set<String?>)
+                    "interface java.util.Set" -> {
+                        if(attribute[entity] != null) {
+                            editor.putStringSet(attribute.name, attribute[entity] as Set<String?>)
+                        }
+                    }
                 }
             } catch (e: IllegalAccessException) {
                 e.printStackTrace()
@@ -93,16 +101,19 @@ open class LocalEntity(private val context: Context, entity: Class<*>, hasEntity
         for (attribute in entity.declaredFields) {
             var isValidAttribute = true
             if (!Arrays.asList(*validDataTypes).contains(attribute.type.toString())) {
-                Log.e("LocalStorage", "The class '" + entityName + "' has attributes of data types which can not be stored in SharedPreferences. Valid data types are: " + Arrays.toString(validDataTypes))
-                isValidAttribute = false
-            } else {
                 for (annotation in attribute.annotations) {
                     if (annotation.annotationClass == IgnoreInStorage::class.java) {
                         isValidAttribute = false
                     }
                 }
+                if(!isValidAttribute) {
+                    Log.e("LocalStorage", "The class '" + entityName + "' has attributes of data types which can not be stored in SharedPreferences. Valid data types are: " + Arrays.toString(validDataTypes))
+                }else{
+                    isValidAttribute = false;
+                }
             }
             if (isValidAttribute) {
+                attribute.isAccessible = true;
                 attributes.add(attribute)
             }
         }
