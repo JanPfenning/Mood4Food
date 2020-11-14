@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
-import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
+import com.jrk.mood4food.waterbalance.model.Observer.WaterBalanceObserver
 import com.jrk.mood4food.waterbalance.model.ModelModule
 
 

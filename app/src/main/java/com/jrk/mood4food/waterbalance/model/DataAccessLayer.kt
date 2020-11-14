@@ -1,5 +1,8 @@
 package com.jrk.mood4food.waterbalance.model
 
+import com.jrk.mood4food.waterbalance.model.Observer.DomainObservers
+import com.jrk.mood4food.waterbalance.model.Observer.WaterBalanceObserver
+
 class DataAccessLayer(
         private val waterRepository : WaterRepository
 ) {
@@ -8,7 +11,7 @@ class DataAccessLayer(
     fun register(observer: DomainObservers) = observers.add(observer)
     fun unregister(observer: DomainObservers) = observers.remove(observer)
     fun performWaterAdd(waterAdd: Float) {
-
+        setCurrentWaterBalance(waterAdd)
         notify(WaterBalanceObserver::waterStoredIn)
     }
     private fun notify(action: (WaterBalanceObserver) -> Unit) {

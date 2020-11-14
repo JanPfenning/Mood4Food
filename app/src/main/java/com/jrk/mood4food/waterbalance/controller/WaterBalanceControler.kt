@@ -11,11 +11,7 @@ class WaterBalanceControler(private val model: DataAccessLayer) {
     }
 
     fun onWaterAdd(waterAdd: Float) {
-        Log.i("test", waterAdd.toString())
         model.performWaterAdd(view.getWaterAdd())
-
-
-
     }
 
 
