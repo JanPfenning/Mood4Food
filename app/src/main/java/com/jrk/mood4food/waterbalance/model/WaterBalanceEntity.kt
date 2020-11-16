@@ -7,6 +7,9 @@ import java.util.*
 class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEntity::class.java, true) {
 
     var waterBalance = 0f
+    var currentDate = "--"
+
+
 
 
 
