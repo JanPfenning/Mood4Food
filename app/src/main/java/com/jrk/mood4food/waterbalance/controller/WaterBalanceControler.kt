@@ -1,7 +1,6 @@
 package com.jrk.mood4food.waterbalance.controller
 
-import android.util.Log
-import com.jrk.mood4food.waterbalance.model.DataAccessLayer
+import com.jrk.mood4food.model.DataAccessLayer
 import com.jrk.mood4food.waterbalance.view.WaterBalanceView
 
 class WaterBalanceControler(private val model: DataAccessLayer) {

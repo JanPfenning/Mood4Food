@@ -1,9 +1,8 @@
 package com.jrk.mood4food.waterbalance.model
 
 import android.content.Context
-import android.util.Log
 import com.jrk.mood4food.App
-import com.jrk.mood4food.model.local.LocalStorage
+import com.jrk.mood4food.model.localStorage.LocalStorage
 import java.text.SimpleDateFormat
 
 class WaterRepository {

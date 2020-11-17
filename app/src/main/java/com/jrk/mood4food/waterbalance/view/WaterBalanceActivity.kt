@@ -4,15 +4,14 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
-import com.jrk.mood4food.waterbalance.model.Observer.WaterBalanceObserver
-import com.jrk.mood4food.waterbalance.model.ModelModule
+import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
+import com.jrk.mood4food.model.ModelModule
 
 
 class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObserver {
@@ -69,7 +68,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     }
 
     override fun waterStoredIn() {
-       setWaterBalance(model.getCurrentWaterBalance())
+       setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
 
     }
 

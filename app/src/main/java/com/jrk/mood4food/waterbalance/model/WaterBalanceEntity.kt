@@ -1,8 +1,7 @@
 package com.jrk.mood4food.waterbalance.model
 
 import android.content.Context
-import com.jrk.mood4food.model.local.LocalEntity
-import java.util.*
+import com.jrk.mood4food.model.localStorage.LocalEntity
 
 class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEntity::class.java, true) {
 

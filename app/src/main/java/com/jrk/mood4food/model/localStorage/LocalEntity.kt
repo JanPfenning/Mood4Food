@@ -1,4 +1,4 @@
-package com.jrk.mood4food.model.local
+package com.jrk.mood4food.model.localStorage
 
 import android.content.Context
 import android.util.Log
