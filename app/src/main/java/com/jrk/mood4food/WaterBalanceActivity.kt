@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -24,12 +25,12 @@ class WaterBalanceActivity : NavBarActivity() {
     private  var currentD = LocalDateTime.now().format(DateTimeFormatter.BASIC_ISO_DATE)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_water_balance)
+        super.onCreate(savedInstanceState)
         val sharedPref: SharedPreferences = getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE)
         waterlevel = getWaterlevelP();
         update();
-        findViewById<AppCompatImageView>(R.id.addwater).setOnClickListener{
+        findViewById<ImageView>(R.id.addwater).setOnClickListener{
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
             val view = inflater.inflate(R.layout.wateradd_dialog,null)
