@@ -90,7 +90,7 @@ open class LocalEntity(private val context: Context, entity: Class<*>, hasEntity
             file.delete()
             if (hasEntitySet) {
                 val entitySetFile = context.getSharedPreferences(entityName, 0)
-                entityFile.edit().remove(storageAddress).apply()
+                entitySetFile.edit().remove(storageAddress).apply()
             }
         }
     }
