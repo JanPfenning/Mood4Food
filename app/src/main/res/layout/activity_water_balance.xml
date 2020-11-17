@@ -13,7 +13,7 @@
         android:background="@color/white"
         wave:above_wave_color="@color/waterDark"
         wave:blow_wave_color="@color/waterLight"
-        wave:progress="50"
+        wave:progress="0"
         wave:wave_height="little"
         wave:wave_hz="normal"
         wave:wave_length="middle" />
@@ -58,7 +58,7 @@
         android:id="@+id/waterlevelPercentage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="50%"
+        android:text="0%"
         android:textColor="@color/text"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"

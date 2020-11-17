@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -24,6 +25,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         setContentView(R.layout.activity_water_balance)
         super.onCreate(savedInstanceState)
         controller.bind(this)
+
         findViewById<ImageView>(R.id.addwater).setOnClickListener{
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -55,6 +57,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     override fun onStart() {
         super.onStart()
         model.register(this)
+        controller.onWaterAdd(0F)
     }
 
 

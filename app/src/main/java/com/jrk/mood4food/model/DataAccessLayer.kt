@@ -13,6 +13,7 @@ class DataAccessLayer(
     fun unregister(observer: DomainObservers) = observers.remove(observer)
     fun performWaterAdd(waterAdd: Float) {
         getWaterRepository().storeWaterBalance(waterAdd)
+
         notify(WaterBalanceObserver::waterStoredIn)
     }
     private fun notify(action: (WaterBalanceObserver) -> Unit) {
