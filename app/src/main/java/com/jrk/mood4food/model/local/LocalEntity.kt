@@ -85,8 +85,8 @@ open class LocalEntity(private val context: Context, entity: Class<*>, hasEntity
     fun removeFromLocalStorage() {
         if (storageAddress != null) {
             val entityFile = context.getSharedPreferences(storageAddress, 0)
-            entityFile.edit().clear().apply()
-            val file = File(context.filesDir.parent + "/shared_prefs/" + storageAddress)
+            entityFile.edit().clear().commit()
+            val file = File(context.filesDir.parent + "/shared_prefs/" + storageAddress + ".xml")
             file.delete()
             if (hasEntitySet) {
                 val entitySetFile = context.getSharedPreferences(entityName, 0)
