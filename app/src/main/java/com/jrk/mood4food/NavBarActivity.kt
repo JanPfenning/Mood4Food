@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 
 open class NavBarActivity : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ open class NavBarActivity : AppCompatActivity() {
         //Navigate to Waterbalance UI
         findViewById<LinearLayout>(R.id.water_nav_bar).setOnClickListener{
             //setContentView(R.layout.activity_water_balance)
-            startActivity(Intent(this,WaterBalanceActivity::class.java))
+            startActivity(Intent(this, WaterBalanceActivity::class.java))
         }
 
         //Navigate to Nutrietns UI
