@@ -1,7 +1,7 @@
 package com.jrk.mood4food.model
 
-import com.jrk.mood4food.recipes.model.RecipesObserver
-import com.jrk.mood4food.recipes.model.RecipeRepository
+import com.jrk.mood4food.recipe.model.RecipeObserver
+import com.jrk.mood4food.recipe.model.RecipeRepository
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
 import com.jrk.mood4food.waterbalance.model.WaterRepository
 
@@ -24,15 +24,15 @@ class DataAccessLayer(
 
     fun performRecipeAdd(title:String,ingredients:List<String>,materials:List<String>,description:String,steps:List<String>){
         getRecipeRepository().storeNewRecipe(title,ingredients,materials,description,steps)
-        notifyRecipe(RecipesObserver::recipeStoredIn)
+        notifyRecipe(RecipeObserver::recipeStoredIn)
     }
 
     //TODO
     private fun notify(action: (WaterBalanceObserver) -> Unit) {
         observers.filterIsInstance<WaterBalanceObserver>().onEach { action(it) }
     }
-    private fun notifyRecipe(action: (RecipesObserver) -> Unit) {
-        observers.filterIsInstance<RecipesObserver>().onEach { action(it) }
+    private fun notifyRecipe(action: (RecipeObserver) -> Unit) {
+        observers.filterIsInstance<RecipeObserver>().onEach { action(it) }
     }
 
 }
