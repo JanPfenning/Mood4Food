@@ -55,7 +55,7 @@ open class LocalEntity(private val context: Context, entity: Class<*>, hasEntity
                 storageAddress = entityName
             }
         }
-        val entityFile = context.getSharedPreferences(entityName, 0)
+        val entityFile = context.getSharedPreferences(storageAddress, 0)
         val editor = entityFile.edit()
         for (attribute in attributes) {
             try {
