@@ -1,7 +1,8 @@
-package com.jrk.mood4food.recipes.controller
+package com.jrk.mood4food.recipe.controller
 
 import com.jrk.mood4food.model.DataAccessLayer
-import com.jrk.mood4food.recipes.view.RecipeView
+import com.jrk.mood4food.recipe.model.RecipeEntity
+import com.jrk.mood4food.recipe.view.RecipeView
 
 class RecipeControler(private val model: DataAccessLayer) {
     private  lateinit var view: RecipeView
@@ -9,11 +10,7 @@ class RecipeControler(private val model: DataAccessLayer) {
         view = recipeView
     }
 
-    /*
-    fun onRecipeAdd(recipeAdd: Recipe) {
-        model.performWaterAdd(view.getWaterAdd())
+    fun onRecipeAdd(recipe: RecipeEntity) {
+        //model.performRecipeAdd()
     }
-    */
-
-
 }

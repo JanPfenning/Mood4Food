@@ -1,4 +1,4 @@
-package com.jrk.mood4food.recipes.model
+package com.jrk.mood4food.recipe.model
 
 import android.content.Context
 import com.jrk.mood4food.model.localStorage.LocalEntity

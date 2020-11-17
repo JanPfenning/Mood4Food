@@ -1,18 +1,11 @@
-package com.jrk.mood4food.recipes.view
-
-import android.app.AlertDialog
-import android.content.DialogInterface
+package com.jrk.mood4food.recipe.view
 
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.SeekBar
-import android.widget.TextView
-import com.john.waveview.WaveView
 import com.jrk.mood4food.*
-import com.jrk.mood4food.recipes.controller.RecipeControler
-import com.jrk.mood4food.recipes.model.RecipeObserver
+import com.jrk.mood4food.recipe.controller.RecipeControler
+import com.jrk.mood4food.recipe.model.RecipeObserver
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.recipes.model.RecipeEntity
+import com.jrk.mood4food.recipe.model.RecipeEntity
 
 
 class RecipeActivity : NavBarActivity(), RecipeView, RecipeObserver {
@@ -32,13 +25,16 @@ class RecipeActivity : NavBarActivity(), RecipeView, RecipeObserver {
         model.register(this)
     }
 
-
     override fun onStop() {
         super.onStop()
         model.unregister(this)
     }
 
     override fun getRecipe(x: RecipeEntity) {
+        TODO("Not yet implemented")
+    }
+
+    override fun recipeStoredIn() {
         TODO("Not yet implemented")
     }
 
