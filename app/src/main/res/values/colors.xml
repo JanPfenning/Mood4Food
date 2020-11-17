@@ -20,4 +20,5 @@
 
     <color name="waterLight">#2196F3</color>
     <color name="waterDark">#3F51B5</color>
+    <color name="star">#FFEB3B</color>
 </resources>
