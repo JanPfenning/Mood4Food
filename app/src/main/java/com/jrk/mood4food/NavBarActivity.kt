@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.detail.view.DetailView
+import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 
 open class NavBarActivity : AppCompatActivity() {
@@ -31,11 +32,21 @@ open class NavBarActivity : AppCompatActivity() {
             startActivity(Intent(this,SettingsActivity::class.java))
         }
 
-        //Navigate to Recipes Selection UI
+        //Navigate to Recipe Detail
         findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
-            //setContentView(R.layout.activity_recipes)
-            startActivity(Intent(this,DetailActivity::class.java))
+            //TODO move this to Recipes selection action
+            var intent = Intent(this,DetailActivity::class.java)
+            intent.putExtra("id","speicherort")
+            startActivity(intent)
         }
+
+        //TODO and then uncomment this
+        //Navigate to Recipes Selection UI
+        /*findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
+            //setContentView(R.layout.activity_recipes)
+            startActivity(Intent(this, SelectionActivity::class.java))
+        }*/
+
 
         //Navigate to Home UI
         findViewById<LinearLayout>(R.id.home).setOnClickListener{

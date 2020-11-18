@@ -22,11 +22,9 @@
         <activity android:name=".waterbalance.view.WaterBalanceActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".NutrientActivity" />
-        <activity android:name=".recipes.detail.view.DetailActivity">
-            <intent-filter>
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".recipes.detail.view.DetailActivity"/>
+        <activity android:name=".recipes.selection.view.SelectionActivity"/>
+        <activity android:name=".recipes.add_mod.view.Add_ModActivity"/>
 
         <activity android:name=".TestActivity" />
 
