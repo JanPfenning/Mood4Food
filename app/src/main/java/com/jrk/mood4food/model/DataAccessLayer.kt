@@ -1,9 +1,9 @@
 package com.jrk.mood4food.model
 
-import com.jrk.mood4food.recipe.model.RecipeObserver
-import com.jrk.mood4food.recipe.model.RecipeRepository
+import com.jrk.mood4food.recipes.detail.model.RecipeRepository
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
 import com.jrk.mood4food.waterbalance.model.WaterRepository
+import kotlin.reflect.KFunction1
 
 class DataAccessLayer(
         private val waterRepository : WaterRepository,
@@ -12,27 +12,27 @@ class DataAccessLayer(
     private val observers = mutableListOf<DomainObservers>()
 
     fun getWaterRepository(): WaterRepository {return waterRepository}
-    fun getRecipeRepository(): RecipeRepository{return recipeRepository}
+    fun getRecipeRepository(): RecipeRepository {return recipeRepository}
 
     fun register(observer: DomainObservers) = observers.add(observer)
     fun unregister(observer: DomainObservers) = observers.remove(observer)
 
-    fun performWaterAdd(waterAdd: Float) {
+    /*fun performWaterAdd(waterAdd: Float) {
         getWaterRepository().storeWaterBalance(waterAdd)
         notify(WaterBalanceObserver::waterStoredIn)
     }
 
-    fun performRecipeAdd(title:String,ingredients:List<String>,materials:List<String>,description:String,steps:List<String>){
-        getRecipeRepository().storeNewRecipe(title,ingredients,materials,description,steps)
-        notifyRecipe(RecipeObserver::recipeStoredIn)
-    }
-
-    //TODO
     private fun notify(action: (WaterBalanceObserver) -> Unit) {
         observers.filterIsInstance<WaterBalanceObserver>().onEach { action(it) }
+    }*/
+
+    fun performWaterAdd(waterAdd: Float) {
+        getWaterRepository().storeWaterBalance(waterAdd)
+        notify(WaterBalanceObserver::waterStoredIn as KFunction1<DomainObservers, Unit>)
     }
-    private fun notifyRecipe(action: (RecipeObserver) -> Unit) {
-        observers.filterIsInstance<RecipeObserver>().onEach { action(it) }
+
+    private fun notify(action: KFunction1<DomainObservers, Unit>) {
+        observers.filterIsInstance<DomainObservers>().onEach { action(it) }
     }
 
 }

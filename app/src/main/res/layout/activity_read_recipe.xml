@@ -21,11 +21,12 @@
             app:tint="@color/text"/>
 
         <TextView
+            android:id="@+id/recipe_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_weight="1"
-            android:text="Recipe"
+            android:text="Recipe Title"
             android:textColor="@color/text"
             android:textSize="24sp"/>
 
@@ -113,6 +114,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+            <!--android:visibility="gone"-->
 
         <LinearLayout
             android:layout_width="match_parent"
