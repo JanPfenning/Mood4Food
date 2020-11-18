@@ -2,6 +2,7 @@ package com.jrk.mood4food.model
 
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
 import com.jrk.mood4food.waterbalance.model.WaterRepository
+import kotlin.reflect.KFunction1
 
 class DataAccessLayer(
         private val waterRepository : WaterRepository
@@ -13,12 +14,11 @@ class DataAccessLayer(
     fun unregister(observer: DomainObservers) = observers.remove(observer)
     fun performWaterAdd(waterAdd: Float) {
         getWaterRepository().storeWaterBalance(waterAdd)
-
-        notify(WaterBalanceObserver::waterStoredIn)
+        notify(WaterBalanceObserver::waterStoredIn as KFunction1<DomainObservers, Unit>)
     }
-    private fun notify(action: (WaterBalanceObserver) -> Unit) {
 
-        observers.filterIsInstance<WaterBalanceObserver>().onEach { action(it) }
+    private fun notify(action: KFunction1<DomainObservers, Unit>) {
+        observers.filterIsInstance<DomainObservers>().onEach { action(it) }
     }
 
 }
