@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jrk.mood4food.R
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
+import com.jrk.mood4food.recipes.selection.view.RecipeClickListener
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 
 
-class RecipeAdapter(private val dataSet: Array<RecipeEntity>,private val recipeClickListener: View.OnClickListener) :
+class RecipeAdapter(private val dataSet: Array<RecipeEntity>,private val recipeClickListener: RecipeClickListener) :
         RecyclerView.Adapter<RecipeAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -32,7 +33,9 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,private val recipeC
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.textView.text = dataSet[position].title
-        viewHolder.cardView.setOnClickListener(recipeClickListener)
+        viewHolder.cardView.setOnClickListener{
+            recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString())
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -19,7 +19,7 @@ import com.jrk.mood4food.recipes.selection.RecipeAdapter
 import com.jrk.mood4food.recipes.selection.controller.SelectionController
 import com.jrk.mood4food.recipes.selection.model.SelectionObserver
 
-class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, View.OnClickListener {
+class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, RecipeClickListener {
     private val model = ModelModule.dataAccessLayer
     private val controller = SelectionController(model)
 
@@ -55,7 +55,11 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Vi
         model.unregister(this)
     }
 
-    override fun onClick(p0: View?) {
-        Log.i("JAN","CLICKED")
+    override fun onRecipeClickListener(id: String) {
+        Log.i("JAN",id)
     }
+}
+
+interface RecipeClickListener {
+    fun onRecipeClickListener(id:String)
 }
