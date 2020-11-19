@@ -1,9 +1,7 @@
 package com.jrk.mood4food.recipes.detail.view
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
@@ -12,7 +10,6 @@ import android.widget.ListView
 import android.widget.TextView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.model.localStorage.LocalStorage
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
@@ -65,13 +62,21 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             /*Title*/
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
             /*Ingredients*/
-            //TODO Adapter
-            //var adapter = ArrayAdapter(this, R.layout.adapter_read_ingredient, arrayOf(recipe.ingredients))
-            //findViewById<ListView>(R.id.ingredient_list).adapter = adapter
+            val ingredientView = findViewById<ListView>(R.id.ingredient_list)
+            //TODO change the Arrayadapter to custom adapter that uses adapter_read_ingredient
+            //view.adapter =
+            ingredientView.adapter = ArrayAdapter<String>(
+                    App.getContext(),
+                    R.layout.adapter_read_ingredient,
+                    R.id.ingredient_name,
+                    recipe.ingredients.toTypedArray())
             /*Materials*/
-            //TODO Adapter
-            //var adapter = ArrayAdapter(this, R.layout.adapter_read_item, arrayOf(recipe.materials))
-            //findViewById<ListView>(R.id.materials_list).adapter = adapter
+            val materialsView = findViewById<ListView>(R.id.materials_list)
+            materialsView.adapter = ArrayAdapter<String>(
+                    App.getContext(),
+                    R.layout.adapter_read_item,
+                    R.id.item_name,
+                    recipe.materials.toTypedArray())
             /*Description*/
             findViewById<TextView>(R.id.description_content).text = recipe.description
         }
