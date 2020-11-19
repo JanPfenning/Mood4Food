@@ -18,6 +18,7 @@ class Add_ModActivity : NavBarActivity(), Add_ModView, Add_ModObserver {
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
+        //TODO Functionality to save recipe
         findViewById<ImageView>(R.id.confirm).setOnClickListener{
             //controller.onSave(title,ingredients,...)
         }

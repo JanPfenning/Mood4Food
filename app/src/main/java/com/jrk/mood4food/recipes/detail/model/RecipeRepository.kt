@@ -1,8 +1,6 @@
 package com.jrk.mood4food.recipes.detail.model
 
-import android.content.Context
 import com.jrk.mood4food.App
-import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.model.localStorage.LocalStorage
 
 class RecipeRepository{
@@ -14,8 +12,8 @@ class RecipeRepository{
     fun storeRecipe(recipe:RecipeEntity){
         recipe.saveToLocalStorage(recipe)
     }
-    fun loadAllRecipes(): Set<LocalEntity> {
+    fun loadAllRecipes(): Set<RecipeEntity> {
         var recipes = LocalStorage.getAll(App.getContext(),RecipeEntity::class.java)
-        return recipes.toSet()
+        return recipes.toSet() as Set<RecipeEntity>
     }
 }
