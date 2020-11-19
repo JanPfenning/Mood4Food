@@ -64,7 +64,6 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
-            //TODO change the Arrayadapter to custom adapter that uses adapter_read_ingredient
             ingredientView.adapter = IngredientAdapter(
                     recipe.ingredients.toTypedArray(),
                     this)
