@@ -10,6 +10,7 @@ import android.widget.ListView
 import android.widget.TextView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
@@ -64,12 +65,9 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             //TODO change the Arrayadapter to custom adapter that uses adapter_read_ingredient
-            //view.adapter =
-            ingredientView.adapter = ArrayAdapter<String>(
-                    App.getContext(),
-                    R.layout.adapter_read_ingredient,
-                    R.id.ingredient_name,
-                    recipe.ingredients.toTypedArray())
+            ingredientView.adapter = IngredientAdapter(
+                    recipe.ingredients.toTypedArray(),
+                    this)
             /*Materials*/
             val materialsView = findViewById<ListView>(R.id.materials_list)
             materialsView.adapter = ArrayAdapter<String>(
