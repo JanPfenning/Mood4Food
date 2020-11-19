@@ -32,27 +32,16 @@ open class NavBarActivity : AppCompatActivity() {
             startActivity(Intent(this,SettingsActivity::class.java))
         }
 
-        //Navigate to Recipe Detail
-        findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
-            //TODO move this to Recipes selection action
-            var intent = Intent(this,DetailActivity::class.java)
-            intent.putExtra("id","speicherort")
-            startActivity(intent)
-        }
-
-        //TODO and then uncomment this
         //Navigate to Recipes Selection UI
-        /*findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
+        findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
             //setContentView(R.layout.activity_recipes)
             startActivity(Intent(this, SelectionActivity::class.java))
-        }*/
-
+        }
 
         //Navigate to Home UI
         findViewById<LinearLayout>(R.id.home).setOnClickListener{
             //setContentView(R.layout.activity_home)
             startActivity(Intent(this,MainActivity::class.java))
         }
-
     }
 }

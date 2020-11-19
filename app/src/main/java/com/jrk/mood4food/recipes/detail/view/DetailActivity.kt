@@ -29,18 +29,9 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
-        //var id = intent.getStringExtra("id")
+        val id = intent.getStringExtra("id")
 
-        //Testcode
-        var testRecipe = RecipeEntity(App.getContext())
-        testRecipe.title = "Test Rezept"
-        testRecipe.ingredients = setOf("1","2","3")
-        testRecipe.materials = setOf("1","2","3")
-        testRecipe.description = "Schritt für Schritt Anleitung"
-        testRecipe.saveToLocalStorage(testRecipe)
-        var id = testRecipe.storageAddress //TODO this id should be given to the activity via parameter
-
-        var recipe:RecipeEntity
+        val recipe:RecipeEntity
         if (id !is String){
             Log.e("RECIPE","id is not there")
         }else{

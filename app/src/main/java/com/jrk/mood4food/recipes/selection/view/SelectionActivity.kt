@@ -29,19 +29,38 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
+        //Load all recipes
         val recipes:Array<RecipeEntity> = model.getRecipeRepository().loadAllRecipes().toTypedArray()
 
+        //Add recipe button
         findViewById<ImageView>(R.id.addRecipe).setOnClickListener{
             startActivity(Intent(this,Add_ModActivity::class.java))
         }
 
-        val recyclerView:RecyclerView = findViewById(R.id.own_recipes_recycler);
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val adapter = RecipeAdapter(recipes,this)
+        //TODO Filter recipes for every adapter
+        //Fill Recommended recipes recycler
+        val recommendedView:RecyclerView = findViewById(R.id.recommended_recipes_recycler)
+        recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val recommendedAdapter = RecipeAdapter(recipes,this)
+        recommendedView.adapter = recommendedAdapter
 
-        //TODO make adapter clickable to open detail view
-        recyclerView.adapter = adapter
+        //Fill Recommended recipes recycler
+        val favoriteView:RecyclerView = findViewById(R.id.favorite_recipes_recycler)
+        favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val favoriteAdapter = RecipeAdapter(recipes,this)
+        favoriteView.adapter = favoriteAdapter
 
+        //Fill Recommended recipes recycler
+        val longagoView:RecyclerView = findViewById(R.id.longago_recipes_recycler)
+        longagoView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val longagoAdapter = RecipeAdapter(recipes,this)
+        longagoView.adapter = longagoAdapter
+
+        //Fill own recipes recycler
+        val ownRecipesView:RecyclerView = findViewById(R.id.own_recipes_recycler)
+        ownRecipesView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val recipesAdapter = RecipeAdapter(recipes,this)
+        ownRecipesView.adapter = recipesAdapter
     }
 
     override fun onStart() {
@@ -55,8 +74,12 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         model.unregister(this)
     }
 
+    //Forwarded listener
     override fun onRecipeClickListener(id: String) {
-        Log.i("JAN",id)
+        //Log.i("JAN",id)
+        val intent = Intent(this,DetailActivity::class.java)
+        intent.putExtra("id",id)
+        startActivity(intent)
     }
 }
 
