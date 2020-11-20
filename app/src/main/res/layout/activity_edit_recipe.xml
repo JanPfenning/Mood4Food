@@ -14,6 +14,7 @@
         android:layout_height="60dp">
 
         <ImageView
+            android:id="@+id/cancel_modify_recipe"
             android:src="@drawable/ic_baseline_navigate_before_24"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -179,7 +180,5 @@
             android:textColor="@color/text"/>
 
     </LinearLayout>
-
-    <include layout="@layout/comp_nav_bar"/>
 
 </LinearLayout>

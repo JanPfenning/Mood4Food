@@ -1,14 +1,19 @@
 package com.jrk.mood4food.recipes.add_mod.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
+import com.jrk.mood4food.recipes.detail.model.RecipeEntity
+import com.jrk.mood4food.recipes.detail.view.DetailActivity
+import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 
 
-class Add_ModActivity : NavBarActivity(), Add_ModView, Add_ModObserver {
+class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     private val model = ModelModule.dataAccessLayer
     private val controller = Add_ModController(model)
 
@@ -18,10 +23,20 @@ class Add_ModActivity : NavBarActivity(), Add_ModView, Add_ModObserver {
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
-        //TODO Functionality to save recipe
+        //TODO fill recipe data with the input fields
+        var recipe = RecipeEntity(App.getContext())
+
         findViewById<ImageView>(R.id.confirm).setOnClickListener{
-            //controller.onSave(title,ingredients,...)
+            controller.onSave(recipe)
         }
+
+        findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener{
+            startActivity(Intent(this, SelectionActivity::class.java))
+        }
+
+        //TODO Generate input Fields with adapters
+
+
 
     }
 
@@ -36,8 +51,11 @@ class Add_ModActivity : NavBarActivity(), Add_ModView, Add_ModObserver {
         model.unregister(this)
     }
 
-    override fun recipeSaved() {
-        //TODO what happens after recipe has been saved
+    //TODO Test this code, maybe recipeEntity is not given through DataAcessLayer
+    override fun recipeSaved(recipeEntity: RecipeEntity) {
+        val intent = Intent(this, DetailActivity::class.java)
+        intent.putExtra("id",recipeEntity.storageAddress)
+        startActivity(intent)
     }
 
 }

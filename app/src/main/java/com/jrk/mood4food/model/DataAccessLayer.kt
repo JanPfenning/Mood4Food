@@ -19,14 +19,6 @@ class DataAccessLayer(
     fun register(observer: DomainObservers) = observers.add(observer)
     fun unregister(observer: DomainObservers) = observers.remove(observer)
 
-    /*fun performWaterAdd(waterAdd: Float) {
-        getWaterRepository().storeWaterBalance(waterAdd)
-        notify(WaterBalanceObserver::waterStoredIn)
-    }
-
-    private fun notify(action: (WaterBalanceObserver) -> Unit) {
-        observers.filterIsInstance<WaterBalanceObserver>().onEach { action(it) }
-    }*/
 
     fun performWaterAdd(waterAdd: Float) {
         getWaterRepository().storeWaterBalance(waterAdd)
@@ -35,6 +27,7 @@ class DataAccessLayer(
 
     fun saveRecipe(recipe: RecipeEntity) {
         getRecipeRepository().storeRecipe(recipe)
+        //TODO how to give recipe as parameter to "recipeSaved()"?
         notify(Add_ModObserver::recipeSaved as KFunction1<DomainObservers, Unit>)
     }
 
