@@ -81,6 +81,13 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         intent.putExtra("id",id)
         startActivity(intent)
     }
+
+    fun newRecipe(){
+        var recipe = RecipeEntity(App.getContext())
+        recipe.title = "Testrezept"
+        recipe.ingredients = setOf(setOf("Tomaten", "100g"),setOf("Pommes","1Kg"),setOf("Schintzel","1Stück"))
+        recipe.saveToLocalStorage(recipe)
+    }
 }
 
 interface RecipeClickListener {

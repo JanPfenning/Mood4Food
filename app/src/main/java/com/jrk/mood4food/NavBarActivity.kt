@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.jrk.mood4food.recipes.detail.view.DetailActivity
-import com.jrk.mood4food.recipes.detail.view.DetailView
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 
