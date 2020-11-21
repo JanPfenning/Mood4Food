@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
@@ -72,7 +73,9 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
 
     override fun waterStoredIn() {
        setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
-
+        if(model.getWaterRepository().isWaterLevelReached()){
+            Toast.makeText(App.getContext(), "Glückwunsch \n Du hast dein Tagesziel erreicht!!", Toast.LENGTH_LONG).show()
+        }
     }
 
 }

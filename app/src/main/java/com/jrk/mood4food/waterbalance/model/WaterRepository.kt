@@ -1,60 +1,53 @@
 package com.jrk.mood4food.waterbalance.model
 
 import android.content.Context
-import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorage
 import java.text.SimpleDateFormat
+import java.util.*
 
 class WaterRepository {
     public fun storeWaterBalance(waterBalance: Float) {
-        val date = java.util.Calendar.getInstance().time
-        val formatter = SimpleDateFormat("dd.MM.yyyy")
-        val currentDate = formatter.format(date)
-        var entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<*> as List<WaterBalanceEntity>
-        var exist = false
-        entities.forEach {
-            if (it.currentDate == currentDate.toString()) {
-                exist = true
-
-                it.waterBalance += waterBalance
-                it.saveToLocalStorage(it)
-            }
-        }
-
-        if (!exist) {
-            newWaterEntity(currentDate, waterBalance)
-        }
+        val  entity = getEntityFromDate(java.util.Calendar.getInstance().time)
+        entity.waterBalance += waterBalance
+        entity.saveToLocalStorage(entity)
     }
 
-        private fun newWaterEntity(currentDate: String, waterBalance: Float) {
+        private fun createWaterEntity(currentDate: String, waterBalance: Float): WaterBalanceEntity {
             val context: Context = App.getContext()
             val newEntity = WaterBalanceEntity(context)
             newEntity.waterBalance = waterBalance
             newEntity.currentDate = currentDate
             newEntity.saveToLocalStorage(newEntity)
+            return newEntity
 
         }
 
-        public fun getCurrentWaterBalance(): Float {
-            val date = java.util.Calendar.getInstance().time
-            val formatter = SimpleDateFormat("dd.MM.yyyy")
-            val currentDate = formatter.format(date)
-            val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<*> as List<WaterBalanceEntity>
-            var currentBalance = 0.0F
-            entities.forEach {
-                if (it.currentDate == currentDate) {
+    public fun getCurrentWaterBalance(): Float {
+            val  entity = getEntityFromDate(java.util.Calendar.getInstance().time)
 
-                    currentBalance = it.waterBalance
-                    Log.i("test",currentBalance.toString())
+            return (100 / getWaterLevel()) * entity.waterBalance
+
+        }
+    public fun isWaterLevelReached():Boolean{
+            return getEntityFromDate(java.util.Calendar.getInstance().time).waterBalance >= getWaterLevel()
+
+        }
+    public fun getEntityFromDate(date:Date): WaterBalanceEntity {
+            val formatter = SimpleDateFormat("dd.MM.yyyy")
+            val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<*> as List<WaterBalanceEntity>
+            val dateFormatted = formatter.format(date)
+
+            entities.forEach {
+                if (it.currentDate == dateFormatted.toString()) {
+                    return  it
                 }
             }
-
-            return (100 / getWaterLevel()) * currentBalance
+            return createWaterEntity(dateFormatted, 0.0F)
 
         }
 
-        private fun getWaterLevel(): Float {
+    public fun getWaterLevel(): Float {
             return 3.0F
         }
 
