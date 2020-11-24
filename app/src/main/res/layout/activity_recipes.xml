@@ -112,6 +112,7 @@
         </LinearLayout>
     </ScrollView>
 
+
     <include
         android:id="@+id/compNavBar"
         layout="@layout/comp_nav_bar"/>
