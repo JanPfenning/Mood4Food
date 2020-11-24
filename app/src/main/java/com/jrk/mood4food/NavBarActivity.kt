@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 
 open class NavBarActivity : AppCompatActivity() {
@@ -29,10 +30,10 @@ open class NavBarActivity : AppCompatActivity() {
             startActivity(Intent(this,SettingsActivity::class.java))
         }
 
-        //Navigate to Recipes UI
+        //Navigate to Recipes Selection UI
         findViewById<LinearLayout>(R.id.recipes).setOnClickListener{
             //setContentView(R.layout.activity_recipes)
-            startActivity(Intent(this,RecipesActivity::class.java))
+            startActivity(Intent(this, SelectionActivity::class.java))
         }
 
         //Navigate to Home UI
@@ -40,6 +41,5 @@ open class NavBarActivity : AppCompatActivity() {
             //setContentView(R.layout.activity_home)
             startActivity(Intent(this,MainActivity::class.java))
         }
-
     }
 }
