@@ -6,7 +6,8 @@
     android:weightSum="1"
     android:orientation="horizontal">
 
-    <TextView
+    <EditText
+        android:id="@+id/input_ingredient"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
@@ -17,7 +18,8 @@
         android:textColor="@color/text"
         android:textSize="20sp"/>
 
-    <TextView
+    <EditText
+        android:id="@+id/input_amount"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
@@ -28,6 +30,7 @@
         android:textSize="20sp"/>
 
     <ImageView
+        android:id="@+id/remove_ingredient"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_baseline_delete_24"
