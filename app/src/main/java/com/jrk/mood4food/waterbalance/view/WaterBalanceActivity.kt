@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
@@ -24,6 +26,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         setContentView(R.layout.activity_water_balance)
         super.onCreate(savedInstanceState)
         controller.bind(this)
+
         findViewById<ImageView>(R.id.addwater).setOnClickListener{
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -55,6 +58,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     override fun onStart() {
         super.onStart()
         model.register(this)
+        controller.onWaterAdd(0F)
     }
 
 
@@ -69,7 +73,9 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
 
     override fun waterStoredIn() {
        setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
-
+        if(model.getWaterRepository().isWaterLevelReached()){
+            Toast.makeText(App.getContext(), "Glückwunsch \n Du hast dein Tagesziel erreicht!!", Toast.LENGTH_LONG).show()
+        }
     }
 
 }
