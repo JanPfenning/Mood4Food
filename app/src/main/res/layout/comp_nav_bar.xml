@@ -28,7 +28,8 @@
                 android:layout_height="40dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_baseline_home_24"
-                app:tint="@color/inactive" />
+                android:tint="@color/inactive"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -50,7 +51,8 @@
                 android:layout_height="40dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_baseline_restaurant_menu_24"
-                app:tint="@color/inactive" />
+                android:tint="@color/inactive"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -72,7 +74,8 @@
                 android:layout_height="40dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_baseline_local_drink_24"
-                app:tint="@color/inactive" />
+                android:tint="@color/inactive"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -94,7 +97,8 @@
                 android:layout_height="40dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_baseline_pie_chart_24"
-                app:tint="@color/inactive" />
+                android:tint="@color/inactive"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -116,7 +120,8 @@
                 android:layout_height="40dp"
                 android:padding="1dp"
                 android:src="@drawable/ic_baseline_settings_24"
-                app:tint="@color/inactive" />
+                android:tint="@color/inactive"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="20dp"

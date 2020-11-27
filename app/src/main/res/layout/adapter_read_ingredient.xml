@@ -26,7 +26,7 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:text="Amount"
-        android:textColor="@color/inactive"
+        android:textColor="@color/text"
         android:textSize="20sp"/>
 
 </LinearLayout>

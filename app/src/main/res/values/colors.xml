@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#DD6031</color>
-    <color name="colorPrimaryDark">#5C3F29</color>
-    <color name="colorAccent">#D9DD92</color>
-    <color name="colorPrimarySoft">#EABE7C</color>
-    <color name="colorHighlight">#ece4b7</color>
+    <color name="colorPrimary">#333D4A</color>
+    <color name="colorPrimaryDark">#222731</color>
+    <color name="colorAccent">#C6A334</color>
+    <color name="colorSoft">#EABE7C</color>
+    <color name="colorHighlight">#BA823F</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
@@ -12,13 +12,13 @@
     <color name="active">#191919</color>
     <color name="disabled">#D8D8D8</color>
     <color name="f2">#f2f2f2</color>
-    <color name="text">#1C1C1C</color>
-    <color name="accept">#6ACC6A</color>
-    <color name="reject">#CC6A6A</color>
+    <!--<color name="text">#1C1C1C</color>-->
+    <color name="text">#f2f2f2</color>
+    <color name="accept">#4ABF4A</color>
+    <color name="reject">#CF3939</color>
 
-    <color name="link">#2196f3</color>
+    <color name="link">@color/colorAccent</color>
 
     <color name="waterLight">#2196F3</color>
     <color name="waterDark">#3F51B5</color>
-    <color name="star">#FFEB3B</color>
 </resources>
