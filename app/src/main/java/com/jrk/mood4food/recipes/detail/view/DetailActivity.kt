@@ -10,6 +10,7 @@ import android.widget.ListView
 import android.widget.TextView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.recipes.add_mod.view.Add_ModActivity
 import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
@@ -34,6 +35,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             Log.e("RECIPE","id is not there")
         }else{
             recipe = model.getRecipeRepository().loadRecipeDetails(id)
+
+            findViewById<ImageView>(R.id.edit_recipe).setOnClickListener{
+                val intent = Intent(this, Add_ModActivity::class.java);
+                intent.putExtra("recipe_id",recipe.storageAddress)
+                startActivity(intent);
+            }
 
             //Initialization of on-click-listeners for views
             var toggleIngredients:View.OnClickListener = View.OnClickListener {

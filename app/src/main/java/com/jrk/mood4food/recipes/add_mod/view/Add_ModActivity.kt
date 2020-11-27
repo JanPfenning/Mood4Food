@@ -6,11 +6,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.storage.StorageManager
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.model.localStorage.LocalEntity
+import com.jrk.mood4food.recipes.MODE
 import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.add_mod.IngredientAdapter
@@ -23,6 +26,7 @@ import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     private val model = ModelModule.dataAccessLayer
     private val controller = Add_ModController(model)
+    private var mode = MODE.NEW
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -30,8 +34,34 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
-        //TODO fill recipe data with the input fields on read
+        if(intent.hasExtra("recipe_id")){
+            mode = MODE.EDIT;
+        }
+
         var recipe = RecipeEntity(App.getContext())
+        var ingredients : MutableSet<Set<String>> = mutableSetOf()
+        var materials : MutableSet<String> = mutableSetOf()
+
+        var ingredientsList = findViewById<ListView>(R.id.mod_ingredient_list)
+        var materialsList = findViewById<ListView>(R.id.mod_materials_list)
+
+        if(mode == MODE.EDIT){
+            recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("recipe_id")!!)
+            findViewById<TextView>(R.id.modify_recipe_name).text = recipe.title
+            ingredients = recipe.ingredients.toMutableSet()
+            materials = recipe.materials.toMutableSet()
+            findViewById<TextView>(R.id.modify_description).text = recipe.description
+
+            ingredientsList.adapter = IngredientAdapter(
+                    ingredients.toTypedArray(),
+                    this
+            )
+            materialsList.adapter = MaterialAdapter(
+                    materials.toTypedArray(),
+                    this
+            )
+
+        }
 
         findViewById<ImageView>(R.id.confirm).setOnClickListener{
             controller.onSave(recipe)
@@ -59,31 +89,33 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
 
         findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener{
-            startActivity(Intent(this, SelectionActivity::class.java))
+            if(mode == MODE.NEW){
+                startActivity(Intent(this, SelectionActivity::class.java))
+            }else if(mode == MODE.EDIT){
+                val intent = Intent(this, DetailActivity::class.java)
+                intent.putExtra("id",recipe.storageAddress)
+                startActivity(intent)
+            }
         }
 
         //TODO save data with input fields
-        var ingredients : MutableSet<Set<String>> = mutableSetOf()
         findViewById<ImageView>(R.id.add_ingredient).setOnClickListener{
             ingredients.add(setOf("","_"))
-            var listView = findViewById<ListView>(R.id.mod_ingredient_list)
-            listView.adapter = IngredientAdapter(
+            ingredientsList.adapter = IngredientAdapter(
                     ingredients.toTypedArray(),
                     this
             )
-            (listView.adapter as IngredientAdapter).notifyDataSetChanged()
+            (ingredientsList.adapter as IngredientAdapter).notifyDataSetChanged()
         }
 
         //TODO save data with input fields
-        var materials : MutableSet<String> = mutableSetOf()
         findViewById<ImageView>(R.id.add_material).setOnClickListener{
             materials.add("")
-            var listView = findViewById<ListView>(R.id.mod_materials_list)
-            listView.adapter = MaterialAdapter(
+            materialsList.adapter = MaterialAdapter(
                     materials.toTypedArray(),
                     this
             )
-            (listView.adapter as MaterialAdapter).notifyDataSetChanged()
+            (materialsList.adapter as MaterialAdapter).notifyDataSetChanged()
         }
     }
 
