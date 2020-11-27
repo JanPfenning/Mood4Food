@@ -38,7 +38,6 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
 
         findViewById<TextView>(R.id.upload_picture).setOnClickListener{
-            //TODO on clicking upload picture
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
