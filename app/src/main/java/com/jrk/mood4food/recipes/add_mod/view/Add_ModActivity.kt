@@ -7,6 +7,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -14,9 +16,11 @@ import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.recipes.MODE
+import com.jrk.mood4food.recipes.add_mod.Ingredient
 import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.add_mod.IngredientAdapter
+import com.jrk.mood4food.recipes.add_mod.Material
 import com.jrk.mood4food.recipes.add_mod.MaterialAdapter
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
@@ -39,18 +43,40 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
 
         var recipe = RecipeEntity(App.getContext())
-        var ingredients : MutableSet<Set<String>> = mutableSetOf()
-        var materials : MutableSet<String> = mutableSetOf()
+        var ingredients : MutableSet<Ingredient> = mutableSetOf()
+        var materials : MutableSet<Material> = mutableSetOf()
 
-        var ingredientsList = findViewById<ListView>(R.id.mod_ingredient_list)
-        var materialsList = findViewById<ListView>(R.id.mod_materials_list)
+        val ingredientsList = findViewById<ListView>(R.id.mod_ingredient_list)
+        val materialsList = findViewById<ListView>(R.id.mod_materials_list)
+        val titleView = findViewById<TextView>(R.id.modify_recipe_name)
+        val descriptionView = findViewById<TextView>(R.id.modify_description);
 
         if(mode == MODE.EDIT){
             recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("recipe_id")!!)
-            findViewById<TextView>(R.id.modify_recipe_name).text = recipe.title
-            ingredients = recipe.ingredients.toMutableSet()
-            materials = recipe.materials.toMutableSet()
-            findViewById<TextView>(R.id.modify_description).text = recipe.description
+            titleView.text = recipe.title
+            titleView.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    recipe.title = s.toString()
+                }
+            })
+            ingredients = toIngredient(recipe.ingredients)
+            materials = toMaterials(recipe.materials)
+            descriptionView.text = recipe.description
+            descriptionView.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                }
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    recipe.description = s.toString()
+                }
+            })
 
             ingredientsList.adapter = IngredientAdapter(
                     ingredients.toTypedArray(),
@@ -63,8 +89,20 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         }
 
+
         findViewById<ImageView>(R.id.confirm).setOnClickListener{
-            controller.onSave(recipe)
+            recipe.title = titleView.text.toString()
+            recipe.ingredients = ingToMutableSet(ingredients)
+            recipe.materials = matToMutableSet(materials)
+            recipe.description = descriptionView.text.toString()
+
+            //TODO Save via controller
+            recipe.saveToLocalStorage(recipe)
+            //controller.onSave(recipe)
+
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("id",recipe.storageAddress)
+            startActivity(intent)
         }
 
         findViewById<TextView>(R.id.upload_picture).setOnClickListener{
@@ -98,9 +136,8 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             }
         }
 
-        //TODO save data with input fields
         findViewById<ImageView>(R.id.add_ingredient).setOnClickListener{
-            ingredients.add(setOf("","_"))
+            ingredients.add(Ingredient())
             ingredientsList.adapter = IngredientAdapter(
                     ingredients.toTypedArray(),
                     this
@@ -108,9 +145,8 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             (ingredientsList.adapter as IngredientAdapter).notifyDataSetChanged()
         }
 
-        //TODO save data with input fields
         findViewById<ImageView>(R.id.add_material).setOnClickListener{
-            materials.add("")
+            materials.add(Material())
             materialsList.adapter = MaterialAdapter(
                     materials.toTypedArray(),
                     this
@@ -176,5 +212,43 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             findViewById<ImageView>(R.id.imageView).setImageURI(data?.data)
         }
     }
+
+    fun toIngredient(set: Set<Set<String>>): MutableSet<Ingredient> {
+        val retSet = mutableSetOf<Ingredient>()
+        set.forEach{e ->
+            var i = Ingredient()
+            i.name = e.elementAt(0)
+            i.amount = e.elementAt(1)
+            retSet.add(i)
+        }
+        return retSet
+    }
+
+    fun toMaterials(set: Set<String>): MutableSet<Material> {
+        val retSet = mutableSetOf<Material>()
+        set.forEach{e ->
+            var i = Material()
+            i.name = e
+            retSet.add(i)
+        }
+        return retSet
+    }
+
+    fun ingToMutableSet(set: Set<Ingredient>): MutableSet<Set<String>> {
+        val retSet = mutableSetOf<Set<String>>()
+        set.forEach{e ->
+            retSet.add(setOf(e.name,e.amount))
+        }
+        return retSet
+    }
+
+    fun matToMutableSet(set: Set<Material>): MutableSet<String> {
+        val retSet = mutableSetOf<String>()
+        set.forEach{e ->
+            retSet.add(e.name)
+        }
+        return retSet
+    }
+
 
 }
