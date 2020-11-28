@@ -1,6 +1,7 @@
 package com.jrk.mood4food.recipes.detail.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -70,6 +71,8 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             //Filling the Recipe Data into the Views
             /*Title*/
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
+            /*Picture*/
+            findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             ingredientView.adapter = IngredientAdapter(

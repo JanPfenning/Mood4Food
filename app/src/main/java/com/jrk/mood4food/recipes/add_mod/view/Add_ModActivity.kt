@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
@@ -31,6 +32,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     private val model = ModelModule.dataAccessLayer
     private val controller = Add_ModController(model)
     private var mode = MODE.NEW
+    private var imageUri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -50,6 +52,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         val materialsList = findViewById<ListView>(R.id.mod_materials_list)
         val titleView = findViewById<TextView>(R.id.modify_recipe_name)
         val descriptionView = findViewById<TextView>(R.id.modify_description);
+        val imageView = findViewById<ImageView>(R.id.imageView)
 
         if(mode == MODE.EDIT){
             recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("recipe_id")!!)
@@ -65,6 +68,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
                 }
             })
             ingredients = model.getRecipeRepository().setToIngredient(recipe.ingredients)
+            if(!recipe.imageUri.equals("")){imageUri = Uri.parse(recipe.imageUri)}
             materials = model.getRecipeRepository().setToMaterials(recipe.materials)
             descriptionView.text = recipe.description
             descriptionView.addTextChangedListener(object : TextWatcher {
@@ -86,7 +90,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
                     materials.toTypedArray(),
                     this
             )
-
+            imageView.setImageURI(imageUri)
         }
 
 
@@ -95,6 +99,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             recipe.ingredients = model.getRecipeRepository().ingToMutableSet(ingredients)
             recipe.materials = model.getRecipeRepository().matToMutableSet(materials)
             recipe.description = descriptionView.text.toString()
+            recipe.imageUri = imageUri.toString()
 
             //TODO Save via controller
             recipe.saveToLocalStorage(recipe)
@@ -157,7 +162,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
     private fun pickImageFromGallery() {
         //Intent to pick image
-        val intent = Intent(Intent.ACTION_PICK)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
@@ -210,6 +215,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
             findViewById<ImageView>(R.id.imageView).setImageURI(data?.data)
+            this.imageUri = data?.data
         }
     }
 
