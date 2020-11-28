@@ -15,6 +15,7 @@ import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
+import com.jrk.mood4food.recipes.detail.model.RecipeRepository
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 
 
@@ -72,7 +73,7 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             ingredientView.adapter = IngredientAdapter(
-                    recipe.ingredients.toTypedArray(),
+                    model.getRecipeRepository().setToIngredient(recipe.ingredients).toTypedArray(),
                     this)
             /*Materials*/
             val materialsView = findViewById<ListView>(R.id.materials_list)

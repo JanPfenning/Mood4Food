@@ -53,9 +53,12 @@ class IngredientAdapter(private var ingredients: Array<Ingredient>,
             }
         })
 
-        remove_ingredient.setOnClickListener({
-
-        })
+        remove_ingredient.setOnClickListener{
+            listItem!!.amount = ""
+            listItem.name = ""
+            ingredient_amount.setText(listItem.amount)
+            ingredient_name.setText(listItem.name)
+        }
 
         return rowView
     }

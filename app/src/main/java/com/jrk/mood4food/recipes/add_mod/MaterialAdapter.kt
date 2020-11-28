@@ -28,6 +28,7 @@ class MaterialAdapter(private var materials: Array<Material>,
         material_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
@@ -36,10 +37,9 @@ class MaterialAdapter(private var materials: Array<Material>,
             }
         })
 
-        //TODO make Material removable (same issue at ingredient adapter)
-        remove_material.setOnClickListener({
-
-        })
+        remove_material.setOnClickListener{
+            listItem!!.name = ""
+        }
 
         return rowView
     }

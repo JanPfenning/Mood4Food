@@ -213,6 +213,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
     }
 
+    //TODO use functions in model.getRecipeRepository()
     fun toIngredient(set: Set<Set<String>>): MutableSet<Ingredient> {
         val retSet = mutableSetOf<Ingredient>()
         set.forEach{e ->
@@ -237,7 +238,9 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     fun ingToMutableSet(set: Set<Ingredient>): MutableSet<Set<String>> {
         val retSet = mutableSetOf<Set<String>>()
         set.forEach{e ->
-            retSet.add(setOf(e.name,e.amount))
+            if(!e.name.equals("") && !e.amount.equals("")) {
+                retSet.add(setOf(e.name, e.amount))
+            }
         }
         return retSet
     }
@@ -245,7 +248,9 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     fun matToMutableSet(set: Set<Material>): MutableSet<String> {
         val retSet = mutableSetOf<String>()
         set.forEach{e ->
-            retSet.add(e.name)
+            if(!e.name.equals("")) {
+                retSet.add(e.name)
+            }
         }
         return retSet
     }
