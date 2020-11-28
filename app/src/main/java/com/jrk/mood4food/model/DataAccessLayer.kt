@@ -1,8 +1,10 @@
 package com.jrk.mood4food.model
 
+import android.util.Log
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.model.RecipeRepository
+import com.jrk.mood4food.settings.view.SettingsPhysicalConditionData
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
 import com.jrk.mood4food.waterbalance.model.SettingsRepository
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
@@ -10,13 +12,15 @@ import com.jrk.mood4food.waterbalance.model.WaterRepository
 import kotlin.reflect.KFunction1
 
 class DataAccessLayer(
-        private val waterRepository : WaterRepository,
-        private val recipeRepository: RecipeRepository
+        private val waterRepository: WaterRepository,
+        private val recipeRepository: RecipeRepository,
+        private val settingsObserver: SettingsRepository
 ) {
     private val observers = mutableListOf<DomainObservers>()
 
     fun getWaterRepository(): WaterRepository {return waterRepository}
     fun getRecipeRepository(): RecipeRepository {return recipeRepository}
+    fun getSettingsRepository(): SettingsRepository { return  settingsObserver}
 
     fun register(observer: DomainObservers) = observers.add(observer)
     fun unregister(observer: DomainObservers) = observers.remove(observer)
@@ -36,4 +40,13 @@ class DataAccessLayer(
     private fun notify(action: KFunction1<DomainObservers, Unit>) {
         observers.filterIsInstance<DomainObservers>().onEach { action(it) }
     }
+
+    fun performCalculateNeeds(calculationData: SettingsPhysicalConditionData) {
+        getSettingsRepository().calculateNeeds(calculationData)
+        Log.i("test","hier")
+        notify(SettingsObserver::calculationOfNeedsDone as KFunction1<DomainObservers, Unit>)
+
+    }
+
+
 }

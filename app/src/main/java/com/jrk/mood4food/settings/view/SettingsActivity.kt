@@ -1,7 +1,10 @@
 package com.jrk.mood4food.settings.view
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatSpinner
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
@@ -24,6 +27,34 @@ class SettingsActivity : NavBarActivity(), SettingsView, SettingsObserver {
 
         }
         super.onCreate(savedInstanceState)
+
+    }
+    override fun onStart() {
+        super.onStart()
+        model.register(this)
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        model.unregister(this)
+    }
+
+    override fun getCalculationData(): SettingsPhysicalConditionData {
+        var settingsPhysicalConditionData = SettingsPhysicalConditionData()
+        settingsPhysicalConditionData.actualBodyWeight = findViewById<TextView>(R.id.actualBodyWeight).text.toString().toFloat()
+        settingsPhysicalConditionData.aimBodyWeight = findViewById<TextView>(R.id.aimBodyWeight).text.toString().toFloat()
+        //settingsPhysicalConditionData.weightChange = findViewById<androidx.appcompat.widget.AppCompatSpinner>(R.id.weightChange).texttoString().toFloat()
+        settingsPhysicalConditionData.weightChangePerMonth = findViewById<TextView>(R.id.weightChangePerMonth).text.toString().toFloat()
+        //settingsPhysicalConditionData.physicalActivity = findViewById<TextView>(R.id.physicalActivity).text.toString()
+
+        return settingsPhysicalConditionData
+    }
+
+    override fun calculationOfNeedsDone() {
+        var data = model.getSettingsRepository().getCalculatedNeeds()
+        Log.i("Test", data.waterPerDay.toString() + "hier2" )
+        findViewById<TextView>(R.id.waterPerDay).text = data.waterPerDay.toString()
 
     }
 }
