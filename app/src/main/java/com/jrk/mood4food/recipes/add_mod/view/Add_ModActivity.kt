@@ -64,8 +64,8 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
                     recipe.title = s.toString()
                 }
             })
-            ingredients = toIngredient(recipe.ingredients)
-            materials = toMaterials(recipe.materials)
+            ingredients = model.getRecipeRepository().setToIngredient(recipe.ingredients)
+            materials = model.getRecipeRepository().setToMaterials(recipe.materials)
             descriptionView.text = recipe.description
             descriptionView.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
@@ -92,8 +92,8 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         findViewById<ImageView>(R.id.confirm).setOnClickListener{
             recipe.title = titleView.text.toString()
-            recipe.ingredients = ingToMutableSet(ingredients)
-            recipe.materials = matToMutableSet(materials)
+            recipe.ingredients = model.getRecipeRepository().ingToMutableSet(ingredients)
+            recipe.materials = model.getRecipeRepository().matToMutableSet(materials)
             recipe.description = descriptionView.text.toString()
 
             //TODO Save via controller
@@ -212,48 +212,5 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             findViewById<ImageView>(R.id.imageView).setImageURI(data?.data)
         }
     }
-
-    //TODO use functions in model.getRecipeRepository()
-    fun toIngredient(set: Set<Set<String>>): MutableSet<Ingredient> {
-        val retSet = mutableSetOf<Ingredient>()
-        set.forEach{e ->
-            var i = Ingredient()
-            i.name = e.elementAt(0)
-            i.amount = e.elementAt(1)
-            retSet.add(i)
-        }
-        return retSet
-    }
-
-    fun toMaterials(set: Set<String>): MutableSet<Material> {
-        val retSet = mutableSetOf<Material>()
-        set.forEach{e ->
-            var i = Material()
-            i.name = e
-            retSet.add(i)
-        }
-        return retSet
-    }
-
-    fun ingToMutableSet(set: Set<Ingredient>): MutableSet<Set<String>> {
-        val retSet = mutableSetOf<Set<String>>()
-        set.forEach{e ->
-            if(!e.name.equals("") && !e.amount.equals("")) {
-                retSet.add(setOf(e.name, e.amount))
-            }
-        }
-        return retSet
-    }
-
-    fun matToMutableSet(set: Set<Material>): MutableSet<String> {
-        val retSet = mutableSetOf<String>()
-        set.forEach{e ->
-            if(!e.name.equals("")) {
-                retSet.add(e.name)
-            }
-        }
-        return retSet
-    }
-
 
 }
