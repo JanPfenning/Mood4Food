@@ -9,6 +9,7 @@ class WaterBalanceControler(private val model: DataAccessLayer) {
     private  lateinit var view: WaterBalanceView
     fun bind(waterView: WaterBalanceActivity) {
         view = waterView
+
     }
 
     fun onWaterAdd(waterAdd: Float) {

@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
@@ -49,6 +50,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
             alert11.show()
 
         }
+
     }
     override fun setWaterBalance(x:Float){
         findViewById<WaveView>(R.id.waveView).setProgress(x.toInt())
@@ -57,7 +59,8 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     override fun onStart() {
         super.onStart()
         model.register(this)
-        controller.onWaterAdd(0F)
+        setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
+
     }
 
 

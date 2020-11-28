@@ -6,15 +6,11 @@ import com.jrk.mood4food.waterbalance.view.SettingsView
 
 class SettingsControler(private val model: DataAccessLayer) {
     private  lateinit var view: SettingsView
-    fun bind(waterView: SettingsActivity) {
-        view = waterView
+    fun bind(settingsView: SettingsActivity) {
+        view = settingsView
     }
 
-    fun calculateNeeds() {
 
-        model.performCalculateNeeds(view.getCalculationData())
-
-    }
 
 
 }

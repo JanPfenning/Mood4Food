@@ -43,7 +43,6 @@ class DataAccessLayer(
 
     fun performCalculateNeeds(calculationData: SettingsPhysicalConditionData) {
         getSettingsRepository().calculateNeeds(calculationData)
-        Log.i("test","hier")
         notify(SettingsObserver::calculationOfNeedsDone as KFunction1<DomainObservers, Unit>)
 
     }
