@@ -3,6 +3,8 @@ package com.jrk.mood4food.model
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.model.RecipeRepository
+import com.jrk.mood4food.waterbalance.model.SettingsObserver
+import com.jrk.mood4food.waterbalance.model.SettingsRepository
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
 import com.jrk.mood4food.waterbalance.model.WaterRepository
 import kotlin.reflect.KFunction1

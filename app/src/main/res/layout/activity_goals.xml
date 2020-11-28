@@ -254,13 +254,15 @@
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/inactive"/>
+
             <TextView
+                android:id="@+id/caculateNeeds"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Calculate Needs"
                 android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:textColor="@color/link"/>
+                android:text="Calculate Needs"
+                android:textColor="@color/link"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout

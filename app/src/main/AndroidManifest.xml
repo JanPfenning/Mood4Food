@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".waterbalance.view.WaterBalanceActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".settings.view.SettingsActivity" />
         <activity android:name=".NutrientActivity" />
         <activity android:name=".recipes.detail.view.DetailActivity"/>
         <activity android:name=".recipes.selection.view.SelectionActivity"/>
