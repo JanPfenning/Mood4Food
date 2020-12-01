@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     android:weightSum="1">
 
     <LinearLayout
@@ -40,7 +42,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_calculate_24"
-                app:tint="#3F51B5" />
+                android:tint="@color/waterDark"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -56,7 +59,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_navigate_next_24"
-                app:tint="@color/text" />
+                android:tint="@color/text"
+                tools:ignore="UseAppTint" />
         </LinearLayout>
 
         <TextView
@@ -78,7 +82,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_flag_24"
-                app:tint="#8BC34A" />
+                android:tint="@color/accept"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -94,7 +99,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_navigate_next_24"
-                app:tint="@color/text" />
+                android:tint="@color/text"
+                tools:ignore="UseAppTint" />
         </LinearLayout>
 
         <LinearLayout
@@ -107,7 +113,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_favorite_24"
-                app:tint="#DF3939" />
+                android:tint="@color/reject"
+                tools:ignore="UseAppTint" />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -123,7 +130,8 @@
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_navigate_next_24"
-                app:tint="@color/text" />
+                android:tint="@color/text"
+                tools:ignore="UseAppTint" />
         </LinearLayout>
 
     </LinearLayout>

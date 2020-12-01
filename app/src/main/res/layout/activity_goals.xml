@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     android:weightSum="1">
 
     <LinearLayout
@@ -72,29 +73,34 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:background="@color/disabled"
+                android:layout_width="100dp"
+                android:weightSum="1"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
+                android:background="@color/disabled"
                 android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:text="70"/>
+                    android:text="70"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="kg"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -114,7 +120,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -122,7 +129,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
@@ -184,7 +192,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -192,7 +201,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
@@ -279,7 +289,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -287,7 +298,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
@@ -320,7 +332,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -328,7 +341,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
@@ -361,7 +375,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -369,7 +384,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
@@ -402,7 +418,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -411,7 +428,8 @@
                 android:layout_height="40dp">
 
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:inputType="number"
                     android:paddingStart="10dp"
@@ -447,7 +465,8 @@
                 android:textSize="16sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -455,7 +474,8 @@
                 android:orientation="horizontal"
                 android:layout_height="40dp">
                 <EditText
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
