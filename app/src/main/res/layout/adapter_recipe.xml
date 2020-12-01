@@ -23,6 +23,7 @@
             android:layout_height="0dp">
 
             <ImageView
+                android:id="@+id/recipe_card_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/active"

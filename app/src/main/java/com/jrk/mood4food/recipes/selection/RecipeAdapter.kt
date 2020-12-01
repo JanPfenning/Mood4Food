@@ -1,8 +1,10 @@
 package com.jrk.mood4food.recipes.selection
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jrk.mood4food.R
@@ -16,6 +18,7 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
         //Define Views which are used in "onBindViewHolder"
         val textView = view.findViewById<TextView>(R.id.recipe_card_title)
         val cardView = view.findViewById<androidx.cardview.widget.CardView>(R.id.recipe_card)
+        val imageView = view.findViewById<ImageView>(R.id.recipe_card_image)
     }
 
     // Create new views (invoked by the layout manager)
@@ -33,6 +36,7 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
         viewHolder.cardView.setOnClickListener{
             recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString())
         }
+        viewHolder.imageView.setImageURI(Uri.parse(dataSet[position].imageUri))
     }
 
     // Return the size of your dataset (invoked by the layout manager)

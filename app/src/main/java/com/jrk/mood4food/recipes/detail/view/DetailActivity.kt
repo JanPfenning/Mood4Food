@@ -1,6 +1,7 @@
 package com.jrk.mood4food.recipes.detail.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,10 +11,12 @@ import android.widget.ListView
 import android.widget.TextView
 import com.jrk.mood4food.*
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.recipes.add_mod.view.Add_ModActivity
 import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
+import com.jrk.mood4food.recipes.detail.model.RecipeRepository
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 
 
@@ -34,6 +37,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             Log.e("RECIPE","id is not there")
         }else{
             recipe = model.getRecipeRepository().loadRecipeDetails(id)
+
+            findViewById<ImageView>(R.id.edit_recipe).setOnClickListener{
+                val intent = Intent(this, Add_ModActivity::class.java);
+                intent.putExtra("recipe_id",recipe.storageAddress)
+                startActivity(intent);
+            }
 
             //Initialization of on-click-listeners for views
             var toggleIngredients:View.OnClickListener = View.OnClickListener {
@@ -62,10 +71,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             //Filling the Recipe Data into the Views
             /*Title*/
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
+            /*Picture*/
+            findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             ingredientView.adapter = IngredientAdapter(
-                    recipe.ingredients.toTypedArray(),
+                    model.getRecipeRepository().setToIngredient(recipe.ingredients).toTypedArray(),
                     this)
             /*Materials*/
             val materialsView = findViewById<ListView>(R.id.materials_list)
