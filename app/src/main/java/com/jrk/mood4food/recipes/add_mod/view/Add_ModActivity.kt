@@ -212,10 +212,14 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
             findViewById<ImageView>(R.id.imageView).setImageURI(data?.data)
-            this.imageUri = data?.data
+            data?.data?.let {
+                getContentResolver().takePersistableUriPermission(it,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                this.imageUri = data.data
+            };
         }
     }
 
