@@ -3,10 +3,10 @@ package com.jrk.mood4food.settings.view
 import com.jrk.mood4food.settings.Gender
 
 class SettingsPhysicalConditionData {
-    var age = 20
-    var gender = Gender.Male
-    var  actualBodyWeight:Float = 0F;
-    var bodyHeight = 178
+    var age = 0
+    lateinit var gender:Gender
+    var currentBodyWeight:Float = 0F;
+    var bodySize = 0
     var aimBodyWeight:Float = 0F;
     var weightChange:Float = 0F;
     var weightChangePerMonth:Float = 0F;

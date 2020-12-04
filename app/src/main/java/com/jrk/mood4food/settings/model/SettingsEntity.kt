@@ -5,10 +5,10 @@ import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.settings.Gender
 
 class SettingsEntity(context: Context) : LocalEntity(context, SettingsEntity::class.java, false) {
-    var age = 20
-    var gender = Gender.Male
-    var  actualBodyWeight:Float = 0F;
-    var bodyHeight = 178
+    var age = 0
+    var gender = ""
+    var currentBodyWeight:Float = 0F;
+    var bodySize = 0
     var aimBodyWeight:Float = 0F;
     var weightChange:Float = 0F;
     var weightChangePerMonth:Float = 0F;

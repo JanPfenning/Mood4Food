@@ -25,7 +25,8 @@
         <activity android:name=".recipes.detail.view.DetailActivity"/>
         <activity android:name=".recipes.selection.view.SelectionActivity"/>
         <activity android:name=".recipes.add_mod.view.Add_ModActivity"/>
-        <activity android:name=".settings.view.GoalsActivty"/>
+        <activity android:name=".settings.view.CalculationNeedsActivty"/>
+        <activity android:name=".settings.view.ResultsCalculationActivty"/>
 
         <activity android:name=".TestActivity" />
 

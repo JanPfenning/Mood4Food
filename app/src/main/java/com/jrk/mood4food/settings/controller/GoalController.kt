@@ -1,13 +1,11 @@
 package com.jrk.mood4food.settings.controller
 
 import com.jrk.mood4food.model.DataAccessLayer
-import com.jrk.mood4food.settings.view.GoalsActivty
-import com.jrk.mood4food.settings.view.SettingsActivity
-import com.jrk.mood4food.waterbalance.view.SettingsView
+import com.jrk.mood4food.settings.view.CalculationNeedsActivty
 
 class GoalController(private val model: DataAccessLayer) {
-    private  lateinit var view: GoalsActivty
-    fun bind(settingsView: GoalsActivty) {
+    private  lateinit var view: CalculationNeedsActivty
+    fun bind(settingsView: CalculationNeedsActivty) {
         view = settingsView
     }
 

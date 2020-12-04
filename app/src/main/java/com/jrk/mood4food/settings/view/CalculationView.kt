@@ -1,5 +1,6 @@
 package com.jrk.mood4food.settings.view
 
-interface GoalView {
+interface CalculationView {
     fun getCalculationData():SettingsPhysicalConditionData
+    fun showCurrentSettings()
 }
