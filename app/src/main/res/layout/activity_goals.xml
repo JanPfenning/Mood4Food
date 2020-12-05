@@ -14,11 +14,12 @@
         android:layout_height="60dp">
 
         <ImageView
-            android:src="@drawable/ic_baseline_navigate_before_24"
+            android:id="@+id/backToSettings"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            app:tint="@color/text"/>
+            android:src="@drawable/ic_baseline_navigate_before_24"
+            app:tint="@color/text" />
 
         <TextView
             android:layout_width="0dp"
@@ -63,17 +64,17 @@
             android:layout_height="50dp"
             android:weightSum="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Actual Body Weight"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
-
+                android:text="Actual Body Weight"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="100dp"
                 android:weightSum="1"
@@ -81,10 +82,10 @@
                 android:layout_gravity="center"
                 android:background="@color/disabled"
                 android:orientation="horizontal"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp">
+                >
 
                 <EditText
+                    android:id="@+id/currentWeight"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -128,15 +129,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/aimWeight"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="numberDecimal"
-                    android:text="74"/>
+                    android:text="74"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -162,13 +165,14 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <Spinner
+                android:id="@+id/weightChange"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:minWidth="100dp"
                 android:layout_gravity="center"
                 android:background="@color/disabled"
-                />
+                android:minWidth="100dp" />
             <!--
                 Spinner Items:
                 - Gain Weight
@@ -200,15 +204,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/weightChangePerMonth"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="numberDecimal"
-                    android:text="0.5"/>
+                    android:text="0.5"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -234,13 +240,14 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <Spinner
+                android:id="@+id/physicialActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:minWidth="100dp"
                 android:layout_gravity="center"
                 android:background="@color/disabled"
-                />
+                android:minWidth="100dp" />
             <!--
                 Spinner Items:
                 - Not active
@@ -264,13 +271,15 @@
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/inactive"/>
+
             <TextView
+                android:id="@+id/caculateNeeds"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Calculate Needs"
                 android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:textColor="@color/link"/>
+                android:text="Calculate Needs"
+                android:textColor="@color/link"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -297,15 +306,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/waterPerDay"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:text="3.5"/>
+                    android:text="3.5"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -340,15 +351,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/caloriesPerDay"                   
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:text="2500"/>
+                    android:text="2500"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -383,15 +396,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/carbohydratesPerDay"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:text="250"/>
+                    android:text="250"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -428,6 +443,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/proteinPerDay"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -473,15 +489,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/fatPerDay"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:text="80"/>
+                    android:text="80"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"

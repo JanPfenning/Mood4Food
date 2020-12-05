@@ -11,9 +11,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.john.waveview.WaveView
 import com.jrk.mood4food.*
+import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceControler
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
-import com.jrk.mood4food.model.ModelModule
 
 
 class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObserver {
@@ -50,6 +50,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
             alert11.show()
 
         }
+
     }
     override fun setWaterBalance(x:Float){
         findViewById<WaveView>(R.id.waveView).setProgress(x.toInt())
@@ -58,7 +59,8 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     override fun onStart() {
         super.onStart()
         model.register(this)
-        controller.onWaterAdd(0F)
+        setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
+
     }
 
 

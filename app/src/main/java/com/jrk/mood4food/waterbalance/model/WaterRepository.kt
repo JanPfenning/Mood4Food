@@ -48,7 +48,12 @@ class WaterRepository {
         }
 
     public fun getWaterLevel(): Float {
-            return 3.0F
+            var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
+
+            if(entities.isEmpty()){
+                return 2.0F
+            }
+            return entities[0].waterPerDay
         }
 
 

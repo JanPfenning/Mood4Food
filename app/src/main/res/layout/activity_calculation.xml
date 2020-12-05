@@ -14,11 +14,12 @@
         android:layout_height="60dp">
 
         <ImageView
-            android:src="@drawable/ic_baseline_navigate_before_24"
+            android:id="@+id/backToSettings"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            app:tint="@color/text"/>
+            android:src="@drawable/ic_baseline_navigate_before_24"
+            app:tint="@color/text" />
 
         <TextView
             android:layout_width="0dp"
@@ -72,14 +73,16 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/age"
                     android:layout_width="match_parent"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="number"
-                    android:text="18"/>
+                    android:text="18"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -98,13 +101,14 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <Spinner
+                android:id="@+id/gender"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:minWidth="100dp"
                 android:layout_gravity="center"
                 android:background="@color/disabled"
-                />
+                android:minWidth="100dp" />
             <!--
                 Spinner Items:
                 - Male
@@ -137,22 +141,25 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/bodySize"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:textSize="16sp"
-                    android:inputType="numberDecimal"
-                    android:text="1.80"/>
+                    android:text="180"
+                    android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="m"
+                    android:gravity="center"
+                    android:text="cm"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -180,15 +187,17 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <EditText
+                    android:id="@+id/currentWeight"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
-                    android:textSize="16sp"
                     android:inputType="numberDecimal"
-                    android:text="70"/>
+                    android:text="70"
+                    android:textSize="16sp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -245,11 +254,13 @@
                 android:orientation="horizontal"
                 android:gravity="end"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/aimBodyWeight"
                     android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:textColor="@color/text"
@@ -279,10 +290,13 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <TextView
+                android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -314,12 +328,14 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/weightChangePerMonth"
                     android:layout_width="wrap_content"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:textSize="16sp"
                     android:textColor="@color/text"
                     android:text="0.5"/>
@@ -348,10 +364,13 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
+
             <TextView
+                android:id="@+id/physicalAcivity"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -371,12 +390,13 @@
             android:textColor="@color/reject"/>
 
         <Button
+            android:id="@+id/calcResult"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Get Result"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
+            android:text="Get Result"
             android:background="@color/colorAccent"
             />
 

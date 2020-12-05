@@ -67,23 +67,27 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/waterPerDay"
                     android:layout_width="wrap_content"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:textSize="16sp"
                     android:textColor="@color/text"
                     android:inputType="numberDecimal"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:text="3.5"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="l"
                     android:textColor="@color/text"
                     android:textSize="14sp"
-                    android:gravity="center"/>
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -109,12 +113,14 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/caloriesPerDay"
                     android:layout_width="wrap_content"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:textSize="16sp"
                     android:textColor="@color/text"
                     android:text="2500"/>
@@ -150,12 +156,14 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/carbohydratesPerDay"
                     android:layout_width="wrap_content"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:textSize="16sp"
                     android:textColor="@color/text"
                     android:text="250"/>
@@ -193,6 +201,7 @@
                 android:layout_height="40dp">
 
                 <TextView
+                    android:id="@+id/proteinPerDay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -234,12 +243,14 @@
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
                 android:layout_height="40dp">
+
                 <TextView
+                    android:id="@+id/fatPerDay"
                     android:layout_width="wrap_content"
-                    android:paddingStart="5dp"
-                    android:paddingEnd="5dp"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
                     android:textSize="16sp"
                     android:textColor="@color/text"
                     android:text="80"/>
@@ -263,6 +274,7 @@
             android:textColor="@color/reject"/>
 
         <Button
+            android:id="@+id/saveCalcResults"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -270,7 +282,7 @@
             android:backgroundTint="@color/colorAccent"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            />
+           />
 
     </LinearLayout>
 
