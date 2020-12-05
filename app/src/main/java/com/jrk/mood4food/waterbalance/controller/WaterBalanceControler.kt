@@ -7,7 +7,7 @@ import com.jrk.mood4food.waterbalance.view.WaterBalanceView
 
 class WaterBalanceControler(private val model: DataAccessLayer) {
     private  lateinit var view: WaterBalanceView
-    fun bind(waterView: WaterBalanceActivity) {
+    fun bind(waterView: WaterBalanceView) {
         view = waterView
 
     }
