@@ -2,10 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,9 +20,11 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            app:tint="@color/text"/>
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
 
         <EditText
+            android:id="@+id/modify_recipe_name"
             android:inputType="textPersonName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -36,7 +39,8 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="10dp"
-            app:tint="@color/text" />
+            android:tint="@color/accept"
+            tools:ignore="UseAppTint" />
 
     </LinearLayout>
 
@@ -76,7 +80,7 @@
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"
                     android:text="Click to upload new Image"
-                    android:textColor="@color/text"
+                    android:textColor="@color/inactive"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/imageView"
@@ -108,7 +112,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="5dp"
-                    app:tint="@color/text" />
+                    android:tint="@color/text"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -141,7 +146,8 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="5dp"
-                    app:tint="@color/text" />
+                    android:tint="@color/text"
+                    tools:ignore="UseAppTint" />
 
             </LinearLayout>
 
@@ -170,7 +176,7 @@
             </LinearLayout>
 
             <EditText
-
+                android:id="@+id/modify_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -187,8 +193,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:drawablePadding="10dp"
-                android:text="Delete Recipe"
-                android:textColor="@color/text"/>
+                android:backgroundTint="@color/reject"
+                android:text="Delete Recipe"/>
 
         </LinearLayout>
 

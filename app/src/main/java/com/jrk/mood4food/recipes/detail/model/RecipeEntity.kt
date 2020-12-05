@@ -1,7 +1,7 @@
 package com.jrk.mood4food.recipes.detail.model
 
 import android.content.Context
-import com.jrk.mood4food.Tuple
+import android.net.Uri
 import com.jrk.mood4food.model.localStorage.LocalEntity
 
 class RecipeEntity(context: Context) : LocalEntity(context, RecipeEntity::class.java, true) {
@@ -10,6 +10,7 @@ class RecipeEntity(context: Context) : LocalEntity(context, RecipeEntity::class.
     var ingredients:Set<Set<String>> = emptySet()
     var materials:Set<String> = emptySet()
     var description = ""
+    var imageUri:String = ""
     var lastEaten = ""
 
 }

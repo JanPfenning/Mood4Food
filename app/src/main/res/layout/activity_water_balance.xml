@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:id="@+id/conLayWaterBal"
+    android:background="@color/colorPrimaryDark"
     xmlns:wave="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -10,7 +12,7 @@
         android:id="@+id/waveView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/colorPrimaryDark"
         wave:above_wave_color="@color/waterDark"
         wave:blow_wave_color="@color/waterLight"
         wave:progress="0"
@@ -32,8 +34,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
-            android:src="@drawable/ic_baseline_bar_chart_24"
-            app:tint="@color/text"/>
+            android:src="@drawable/ic_baseline_replay_24"
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
 
         <TextView
             android:layout_width="0dp"
@@ -50,21 +53,36 @@
             android:layout_height="60dp"
             android:padding="5dp"
             android:src="@drawable/ic_baseline_add_24"
-            app:tint="@color/text" />
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/waterlevelPercentage"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0%"
-        android:textColor="@color/text"
-        android:textSize="30sp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <TextView
+            android:id="@+id/waterlevelPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0%"
+            android:textColor="@color/text"
+            android:textSize="30sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0 / 5 l"
+            android:textColor="@color/text"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <include
         android:id="@+id/compNavBar"

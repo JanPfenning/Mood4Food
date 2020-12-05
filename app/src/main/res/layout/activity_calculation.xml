@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     android:weightSum="1">
 
     <LinearLayout
@@ -65,7 +66,7 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -75,7 +76,9 @@
 
                 <EditText
                     android:id="@+id/age"
-                    android:layout_width="60dp"
+                    android:layout_width="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
                     android:paddingStart="10dp"
@@ -132,7 +135,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -142,9 +146,10 @@
 
                 <EditText
                     android:id="@+id/bodySize"
-                    android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="180"
@@ -176,7 +181,8 @@
                 android:paddingEnd="10dp"
                 android:gravity="center_vertical"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
+                android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
@@ -186,7 +192,10 @@
 
                 <EditText
                     android:id="@+id/currentWeight"
-                    android:layout_width="60dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
                     android:paddingStart="10dp"
@@ -243,28 +252,28 @@
                 android:gravity="center_vertical"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:orientation="horizontal"
+                android:gravity="end"
                 android:layout_height="40dp">
 
                 <TextView
                     android:id="@+id/aimBodyWeight"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="74"
-                    android:textColor="@color/inactive"
-                    android:textSize="16sp" />
+                    android:gravity="center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    android:text="74"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="kg"
-                    android:textColor="@color/inactive"
+                    android:textColor="@color/text"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -295,7 +304,10 @@
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Gain Weight" />
+                android:text="Gain Weight"
+                android:textColor="@color/text"
+                android:textSize="16sp"
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -315,7 +327,6 @@
                 android:gravity="center_vertical"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:background="@color/disabled"
                 android:layout_gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -329,14 +340,14 @@
                     android:gravity="center"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="0.5"
-                    android:textColor="@color/inactive"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/text"
+                    android:text="0.5"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="kg/m"
-                    android:textColor="@color/inactive"
+                    android:textColor="@color/text"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>
@@ -367,7 +378,10 @@
                 android:gravity="center"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:text="Active" />
+                android:text="Active"
+                android:textSize="16sp"
+                android:textColor="@color/text"
+                />
         </LinearLayout>
 
         <TextView
@@ -386,7 +400,9 @@
             android:layout_margin="10dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Get Result" />
+            android:text="Get Result"
+            android:background="@color/colorAccent"
+            />
 
     </LinearLayout>
 
