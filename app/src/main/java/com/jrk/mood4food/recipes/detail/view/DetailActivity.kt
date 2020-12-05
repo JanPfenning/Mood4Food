@@ -65,7 +65,9 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
 
             //Backnavigation
             findViewById<ImageView>(R.id.back).setOnClickListener {
-                startActivity(Intent(this, SelectionActivity::class.java))
+                intent = Intent(this, SelectionActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent)
             }
 
             //Filling the Recipe Data into the Views
