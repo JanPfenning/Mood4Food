@@ -78,9 +78,7 @@
                     android:inputType="numberDecimal"
                     android:paddingStart="5dp"
                     android:paddingEnd="5dp"
-                    android:text="3.5"
-                    android:textColor="@color/inactive"
-                    android:textSize="16sp" />
+                    android:text="3.5"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,7 +87,7 @@
                     android:text="l"
                     android:textColor="@color/text"
                     android:textSize="14sp"
-                    android:gravity="center"/>
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -284,7 +282,7 @@
             android:backgroundTint="@color/colorAccent"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="Save Result as Goal" />
+           />
 
     </LinearLayout>
 

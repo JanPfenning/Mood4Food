@@ -82,7 +82,7 @@
                 android:layout_gravity="center"
                 android:background="@color/disabled"
                 android:orientation="horizontal"
-                android:layout_height="40dp">
+                >
 
                 <EditText
                     android:id="@+id/currentWeight"
@@ -138,8 +138,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="74"
                     android:textSize="16sp" />
                 <TextView
@@ -215,8 +213,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="0.5"
                     android:textSize="16sp" />
                 <TextView
@@ -319,8 +315,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="3.5"
                     android:textSize="16sp" />
                 <TextView
@@ -366,8 +360,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="2500"
                     android:textSize="16sp" />
                 <TextView
@@ -413,8 +405,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="250"
                     android:textSize="16sp" />
                 <TextView
@@ -491,15 +481,14 @@
                 android:textSize="16sp" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_width="100dp"
                 android:weightSum="1"
                 android:background="@color/disabled"
                 android:layout_gravity="center"
-                android:background="@color/disabled"
-                android:orientation="horizontal"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp">
+                android:paddingEnd="10dp"
+                android:orientation="horizontal"
+                android:layout_height="40dp">
 
                 <EditText
                     android:id="@+id/fatPerDay"
@@ -509,8 +498,6 @@
                     android:paddingEnd="10dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
                     android:text="80"
                     android:textSize="16sp" />
 
