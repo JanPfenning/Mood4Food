@@ -73,26 +73,30 @@
             android:textColor="@color/inactive"/>
 
         <LinearLayout
+            android:id="@+id/editGoals"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="5dp"
                 android:src="@drawable/ic_baseline_flag_24"
                 app:tint="#8BC34A" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Edit your Goals"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:text="Edit your Goals"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"

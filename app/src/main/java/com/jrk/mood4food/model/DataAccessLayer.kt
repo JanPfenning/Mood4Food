@@ -47,5 +47,13 @@ class DataAccessLayer(
 
     }
 
+    fun saveCalculationResults() {
+        getSettingsRepository().saveCalculationResults()
+    }
+
+    fun saveChangedGoals(data: SettingsPhysicalConditionData) {
+        getSettingsRepository().saveChangedGoals(data)
+    }
+
 
 }

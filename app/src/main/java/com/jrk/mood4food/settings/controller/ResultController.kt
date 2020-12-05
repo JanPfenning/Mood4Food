@@ -10,4 +10,8 @@ class ResultController (private val model: DataAccessLayer) {
         view = settingsView
     }
 
+    fun saveCalculationResults() {
+        model.saveCalculationResults()
+    }
+
 }

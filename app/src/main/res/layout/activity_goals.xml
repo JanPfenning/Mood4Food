@@ -84,6 +84,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/currentWeight"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
@@ -126,6 +127,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/aimWeight"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
@@ -160,6 +162,7 @@
                 android:gravity="center_vertical"/>
 
             <Spinner
+                android:id="@+id/weightChange"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -197,6 +200,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/weightChangePerMonth"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal"
@@ -231,6 +235,7 @@
                 android:gravity="center_vertical"/>
 
             <Spinner
+                android:id="@+id/physicialActivity"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
@@ -295,6 +300,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/waterPerDay"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -337,6 +343,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/caloriesPerDay"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -379,6 +386,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/carbohydratesPerDay"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="number"
@@ -421,6 +429,7 @@
                 android:layout_height="40dp">
 
                 <EditText
+                    android:id="@+id/proteinPerDay"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:inputType="number"

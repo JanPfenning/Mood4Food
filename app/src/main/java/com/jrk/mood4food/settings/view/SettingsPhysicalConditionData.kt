@@ -4,7 +4,7 @@ import com.jrk.mood4food.settings.Gender
 
 class SettingsPhysicalConditionData {
     var age = 0
-    lateinit var gender:Gender
+    var gender:Gender = Gender.Fail
     var currentBodyWeight:Float = 0F;
     var bodySize = 0
     var aimBodyWeight:Float = 0F;

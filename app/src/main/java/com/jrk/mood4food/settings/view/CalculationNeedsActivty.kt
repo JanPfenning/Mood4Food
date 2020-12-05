@@ -79,5 +79,6 @@ class CalculationNeedsActivty: NavBarActivity(), SettingsObserver, CalculationVi
     override fun onStop() {
         super.onStop()
         model.unregister(this)
+        finish()
     }
 }

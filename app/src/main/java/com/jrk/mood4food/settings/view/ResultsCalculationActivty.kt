@@ -20,7 +20,9 @@ class ResultsCalculationActivty: NavBarActivity(), SettingsObserver{
         findViewById<TextView>(R.id.carbohydratesPerDay).text = data.carbohydratesPerDay.toString()
         findViewById<TextView>(R.id.proteinPerDay).text = data.proteinPerDay.toString()
         findViewById<TextView>(R.id.fatPerDay).text = data.fatPerDay.toString()
-
+        findViewById<TextView>(R.id.saveCalcResults).setOnClickListener(){
+            controller.saveCalculationResults()
+        }
         super.onCreate(savedInstanceState)
 
     }
