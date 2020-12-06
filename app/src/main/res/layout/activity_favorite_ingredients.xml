@@ -63,7 +63,7 @@
                 app:tint="@color/text" />
         </LinearLayout>
 
-        <ListView
+        <com.jrk.mood4food.components.StretchingListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -91,7 +91,7 @@
                 app:tint="@color/text" />
         </LinearLayout>
 
-        <ListView
+        <com.jrk.mood4food.components.StretchingListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
