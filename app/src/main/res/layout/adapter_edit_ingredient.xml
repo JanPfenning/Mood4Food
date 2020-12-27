@@ -28,7 +28,7 @@
         android:paddingEnd="20dp"
         android:text="Amount"
         android:textColor="@color/inactive"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/remove_ingredient"

@@ -1,10 +1,9 @@
 package com.jrk.mood4food.model
 
-import android.util.Log
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.model.RecipeRepository
-import com.jrk.mood4food.settings.view.SettingsPhysicalConditionData
+import com.jrk.mood4food.settings.SettingsPhysicalConditionData
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
 import com.jrk.mood4food.waterbalance.model.SettingsRepository
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver

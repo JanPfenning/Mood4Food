@@ -3,8 +3,10 @@ package com.jrk.mood4food.waterbalance.model
 import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorage
+import com.jrk.mood4food.recipes.add_mod.Ingredient
 import com.jrk.mood4food.settings.Gender
 import com.jrk.mood4food.settings.SettingsPhysicalConditionData
+import com.jrk.mood4food.settings.view.IngredientSettings
 
 class SettingsRepository {
     var currentSettings: SettingsPhysicalConditionData = SettingsPhysicalConditionData();
@@ -40,7 +42,6 @@ class SettingsRepository {
         entitie.fatPerDay = if(currentSettings.caloriesPerDay != 0) calcFatPerDay() else entitie.fatPerDay
         entitie.gender =  if(currentSettings.gender != Gender.Fail )this.currentSettings.gender.name else entitie.gender
         entitie.waterPerDay = if(currentSettings.waterPerDay != 0F) this.currentSettings.waterPerDay else entitie.waterPerDay
-        Log.i("test", entitie.age.toString())
         entitie.saveToLocalStorage(entitie)
     }
 
@@ -115,6 +116,61 @@ class SettingsRepository {
     fun saveChangedGoals(data: SettingsPhysicalConditionData) {
         currentSettings = data
         storeSettings()
+    }
+
+    fun saveIngredients(ingredientsGood: MutableSet<IngredientSettings>, ingredientsBad: MutableSet<IngredientSettings>) {
+        var ingredientsGood = ingToMutableSet(ingredientsGood)
+        var ingredientsBad = ingToMutableSet(ingredientsBad)
+        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+
+        var entity: IngredientsSettingsEntity = entities[0]
+        if(entity.ingredientsGood.isNullOrEmpty()){
+            entity = IngredientsSettingsEntity(App.getContext())
+        }
+        entity.ingredientsBad = ingredientsBad
+        entity.ingredientsGood = ingredientsGood
+        entity.saveToLocalStorage(entity)
+
+
+    }
+    fun getGoodIngredients(): MutableSet<IngredientSettings> {
+        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+
+        var entity: IngredientsSettingsEntity = entities[0]
+        if(entity.ingredientsGood.isNullOrEmpty()){
+            entity = IngredientsSettingsEntity(App.getContext())
+        }
+        var ingredientsGood = setToIngredient(entity.ingredientsGood)
+
+        return ingredientsGood
+    }
+    fun getBadIngredients(): MutableSet<IngredientSettings> {
+        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+
+        var entity: IngredientsSettingsEntity = entities[0]
+        if(entity.ingredientsGood.isNullOrEmpty()){
+            entity = IngredientsSettingsEntity(App.getContext())
+        }
+        var ingredientsBad = setToIngredient(entity.ingredientsBad)
+        return ingredientsBad
+    }
+    private fun ingToMutableSet(set: Set<IngredientSettings>): MutableSet<Set<String>> {
+        val retSet = mutableSetOf<Set<String>>()
+        set.forEach{e ->
+            if(!e.name.equals("")) {
+                retSet.add(setOf(e.name))
+            }
+        }
+        return retSet
+    }
+    private fun setToIngredient(set: Set<Set<String>>): MutableSet<IngredientSettings> {
+        val retSet = mutableSetOf<IngredientSettings>()
+        set.forEach{e ->
+            var i = IngredientSettings()
+            i.name = e.elementAt(0)
+            retSet.add(i)
+        }
+        return retSet
     }
 
 
