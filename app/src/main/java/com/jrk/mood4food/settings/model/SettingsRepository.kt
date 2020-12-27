@@ -1,11 +1,10 @@
 package com.jrk.mood4food.waterbalance.model
 
-import android.content.Context
 import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorage
 import com.jrk.mood4food.settings.Gender
-import com.jrk.mood4food.settings.view.SettingsPhysicalConditionData
+import com.jrk.mood4food.settings.SettingsPhysicalConditionData
 
 class SettingsRepository {
     var currentSettings: SettingsPhysicalConditionData = SettingsPhysicalConditionData();
