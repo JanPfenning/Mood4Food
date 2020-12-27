@@ -117,7 +117,7 @@
 
             </LinearLayout>
 
-            <ListView
+            <com.jrk.mood4food.components.StretchingListView
                 android:id="@+id/mod_ingredient_list"
                 android:visibility="visible"
                 android:layout_width="match_parent"
@@ -151,7 +151,7 @@
 
             </LinearLayout>
 
-            <ListView
+            <com.jrk.mood4food.components.StretchingListView
                 android:id="@+id/mod_materials_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

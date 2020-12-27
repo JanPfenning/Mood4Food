@@ -107,6 +107,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("id",recipe.storageAddress)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent)
         }
 
@@ -133,9 +134,12 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener{
             if(mode == MODE.NEW){
-                startActivity(Intent(this, SelectionActivity::class.java))
+                intent = Intent(this, SelectionActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent)
             }else if(mode == MODE.EDIT){
                 val intent = Intent(this, DetailActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("id",recipe.storageAddress)
                 startActivity(intent)
             }
@@ -212,10 +216,14 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
             findViewById<ImageView>(R.id.imageView).setImageURI(data?.data)
-            this.imageUri = data?.data
+            data?.data?.let {
+                getContentResolver().takePersistableUriPermission(it,
+                        Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                this.imageUri = data.data
+            };
         }
     }
 

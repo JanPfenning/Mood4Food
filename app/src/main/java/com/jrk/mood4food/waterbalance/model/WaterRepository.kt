@@ -26,8 +26,8 @@ class WaterRepository {
     public fun getCurrentWaterBalance(): Float {
             val  entity = getEntityFromDate(java.util.Calendar.getInstance().time)
 
-            return (100 / getWaterLevel()) * entity.waterBalance
-
+            //Log.i("RICO","${entity.waterBalance} of ${getWaterLevel()} (${entity.waterBalance * 100/ getWaterLevel()}) is drunk at the ${entity.currentDate}");
+            return (entity.waterBalance *100 / getWaterLevel())
         }
     public fun isWaterLevelReached():Boolean{
             return getEntityFromDate(java.util.Calendar.getInstance().time).waterBalance >= getWaterLevel()
@@ -49,10 +49,6 @@ class WaterRepository {
 
     public fun getWaterLevel(): Float {
             var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
-
-            if(entities.isEmpty()){
-                return 2.0F
-            }
             return entities[0].waterPerDay
         }
 

@@ -1,6 +1,9 @@
 package com.jrk.mood4food.recipes.selection.view
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -37,6 +40,21 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
             startActivity(Intent(this,Add_ModActivity::class.java))
         }
 
+        showRecipeLists(recipes);
+    }
+
+    override fun onStart() {
+        super.onStart()
+        model.register(this)
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        model.unregister(this)
+    }
+
+    fun showRecipeLists(recipes:Array<RecipeEntity>){
         //TODO Filter recipes for every adapter
         //Fill Recommended recipes recycler
         val recommendedView:RecyclerView = findViewById(R.id.recommended_recipes_recycler)
@@ -61,17 +79,6 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         ownRecipesView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
         val recipesAdapter = RecipeAdapter(recipes,this)
         ownRecipesView.adapter = recipesAdapter
-    }
-
-    override fun onStart() {
-        super.onStart()
-        model.register(this)
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        model.unregister(this)
     }
 
     //Forwarded listener
