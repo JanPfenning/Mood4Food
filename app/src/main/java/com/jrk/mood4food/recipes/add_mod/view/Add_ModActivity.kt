@@ -2,27 +2,26 @@ package com.jrk.mood4food.recipes.add_mod.view
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.storage.StorageManager
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.jrk.mood4food.*
+import com.jrk.mood4food.App
+import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.recipes.MODE
 import com.jrk.mood4food.recipes.add_mod.Ingredient
-import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
-import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.add_mod.IngredientAdapter
 import com.jrk.mood4food.recipes.add_mod.Material
 import com.jrk.mood4food.recipes.add_mod.MaterialAdapter
+import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
+import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
@@ -91,6 +90,25 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
                     this
             )
             imageView.setImageURI(imageUri)
+
+            findViewById<Button>(R.id.delete_recipe).setOnClickListener{
+                val builder = AlertDialog.Builder(this)
+
+                builder.setTitle("Confirm")
+                builder.setMessage("Are you sure?")
+
+                builder.setPositiveButton("YES") { dialog, which -> // Do nothing but close the dialog
+                    removeRecipe(recipe)
+                    dialog.dismiss()
+                }
+
+                builder.setNegativeButton("NO") { dialog, which -> // Do nothing
+                    dialog.dismiss()
+                }
+
+                val alert = builder.create()
+                alert.show()
+            }
         }
 
 
@@ -164,6 +182,12 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
     }
 
+    private fun removeRecipe(recipe : RecipeEntity){
+        model.getRecipeRepository().removeRecipe(recipe)
+        val intent = Intent(this, SelectionActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+    }
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)

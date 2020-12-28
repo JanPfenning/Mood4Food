@@ -59,4 +59,8 @@ class RecipeRepository{
         }
         return retSet
     }
+
+    fun removeRecipe(recipe: RecipeEntity) {
+        recipe.removeFromLocalStorage();
+    }
 }
