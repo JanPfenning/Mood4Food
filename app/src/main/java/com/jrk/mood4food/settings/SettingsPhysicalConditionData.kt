@@ -1,4 +1,4 @@
-package com.jrk.mood4food.settings.view
+package com.jrk.mood4food.settings
 
 import com.jrk.mood4food.settings.Gender
 

@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_height="60dp">
+        android:weightSum="1">
 
         <ImageView
             android:id="@+id/backToSettings"
@@ -24,13 +24,13 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
             android:layout_weight="1"
-            android:text="Goals"
+            android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:text="Goals"
             android:textColor="@color/text"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -38,32 +38,32 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:orientation="vertical"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:orientation="vertical" >
+        android:paddingEnd="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:text="Error Message"
-            android:gravity="center_vertical"
-            android:visibility="gone"
+            android:textColor="@color/reject"
             android:textSize="16sp"
-            android:textColor="@color/reject"/>
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Physical Condition"
             android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:textColor="@color/inactive"/>
+            android:text="Physical Condition"
+            android:textColor="@color/inactive"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -75,20 +75,20 @@
                 android:text="Actual Body Weight"
                 android:textColor="@color/text"
                 android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:background="@color/disabled"
                 android:orientation="horizontal"
-                >
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/currentWeight"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:inputType="numberDecimal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
@@ -108,63 +108,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Aim Body Weight"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/aimWeight"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="numberDecimal"
                     android:text="74"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="kg"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Weight Change"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:text="Weight Change"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/weightChange"
@@ -183,63 +187,67 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Weight Change per Month"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/weightChangePerMonth"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="numberDecimal"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="numberDecimal"
                     android:text="0.5"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="kg/m"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Physical Activity"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:text="Physical Activity"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/physicialActivity"
@@ -260,17 +268,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:orientation="horizontal"
             android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="Nutrition (per Day)"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textSize="16sp"
-                android:textColor="@color/inactive"/>
+                android:text="Nutrition (per Day)"
+                android:textColor="@color/inactive"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/caculateNeeds"
@@ -285,168 +294,179 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Water"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/waterPerDay"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
                     android:text="3.5"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="l"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Calories"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
-                    android:id="@+id/caloriesPerDay"                   
+                    android:id="@+id/caloriesPerDay"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
                     android:text="2500"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="kcal"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Carbohydrates"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/carbohydratesPerDay"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
                     android:text="250"
                     android:textSize="16sp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="g"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:text="Protein"
                 android:textColor="@color/text"
-                android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:textSize="16sp" />
+
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/proteinPerDay"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
@@ -456,18 +476,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:gravity="center"
                     android:text="g"
                     android:textColor="@color/inactive"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:layout_width="0dp"
@@ -482,22 +502,22 @@
 
             <LinearLayout
                 android:layout_width="100dp"
-                android:weightSum="1"
-                android:background="@color/disabled"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:background="@color/disabled"
+                android:orientation="horizontal"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:orientation="horizontal"
-                android:layout_height="40dp">
+                android:weightSum="1">
 
                 <EditText
                     android:id="@+id/fatPerDay"
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:inputType="number"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    android:layout_height="match_parent"
-                    android:inputType="number"
                     android:text="80"
                     android:textSize="16sp" />
 
@@ -515,6 +535,6 @@
 
     <include
         android:id="@+id/compNavBar"
-        layout="@layout/comp_nav_bar"/>
+        layout="@layout/comp_nav_bar" />
 
 </LinearLayout>

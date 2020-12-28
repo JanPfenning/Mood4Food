@@ -110,10 +110,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/setIngredients"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:weightSum="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
+
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -121,16 +123,18 @@
                 android:src="@drawable/ic_baseline_favorite_24"
                 android:tint="@color/reject"
                 tools:ignore="UseAppTint" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Set favorite Ingredients"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:text="Set favorite Ingredients"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"

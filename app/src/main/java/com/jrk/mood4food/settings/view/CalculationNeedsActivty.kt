@@ -2,7 +2,6 @@ package com.jrk.mood4food.settings.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -11,6 +10,7 @@ import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.settings.Gender
+import com.jrk.mood4food.settings.SettingsPhysicalConditionData
 import com.jrk.mood4food.settings.controller.GoalController
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
 
@@ -29,7 +29,7 @@ class CalculationNeedsActivty: NavBarActivity(), SettingsObserver, CalculationVi
         }
 
         findViewById<ImageView>(R.id.backToSettings).setOnClickListener{
-            startActivity(Intent(this, SettingsActivity::class.java))
+            finish()
         }
 
         val genderSpinnerItems: MutableList<String> = ArrayList()

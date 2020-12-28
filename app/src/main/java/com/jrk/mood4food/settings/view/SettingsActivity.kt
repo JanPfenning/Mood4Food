@@ -25,6 +25,9 @@ class SettingsActivity : NavBarActivity(), SettingsView, SettingsObserver {
         findViewById<LinearLayout>(R.id.editGoals).setOnClickListener(){
             startActivity(Intent(this, EditGoalsActivity::class.java))
         }
+        findViewById<LinearLayout>(R.id.setIngredients).setOnClickListener(){
+            startActivity(Intent(this, SetIngredientsActivity::class.java))
+        }
 
         super.onCreate(savedInstanceState)
 
