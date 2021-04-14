@@ -1,9 +1,7 @@
 package com.jrk.mood4food.waterbalance.model
 
-import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorage
-import com.jrk.mood4food.recipes.add_mod.Ingredient
 import com.jrk.mood4food.settings.Gender
 import com.jrk.mood4food.settings.SettingsPhysicalConditionData
 import com.jrk.mood4food.settings.view.IngredientSettings
@@ -42,7 +40,7 @@ class SettingsRepository {
         entitie.fatPerDay = if(currentSettings.caloriesPerDay != 0) calcFatPerDay() else entitie.fatPerDay
         entitie.gender =  if(currentSettings.gender != Gender.Fail )this.currentSettings.gender.name else entitie.gender
         entitie.waterPerDay = if(currentSettings.waterPerDay != 0F) this.currentSettings.waterPerDay else entitie.waterPerDay
-        entitie.saveToLocalStorage(entitie)
+        //entitie.saveToLocalStorage(entitie) //TODO
     }
 
 
@@ -129,7 +127,7 @@ class SettingsRepository {
         }
         entity.ingredientsBad = ingredientsBad
         entity.ingredientsGood = ingredientsGood
-        entity.saveToLocalStorage(entity)
+        //entity.saveToLocalStorage(entity)
 
 
     }

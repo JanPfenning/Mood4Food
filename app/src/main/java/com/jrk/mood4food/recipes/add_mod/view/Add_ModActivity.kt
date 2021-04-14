@@ -120,7 +120,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             recipe.imageUri = imageUri.toString()
 
             //TODO Save via controller
-            recipe.saveToLocalStorage(recipe)
+            //recipe.saveToLocalStorage(recipe)
             //controller.onSave(recipe)
 
             val intent = Intent(this, DetailActivity::class.java)

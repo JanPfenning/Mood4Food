@@ -1,14 +1,8 @@
 package com.jrk.mood4food.recipes.selection.view
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jrk.mood4food.App
@@ -93,7 +87,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         var recipe = RecipeEntity(App.getContext())
         recipe.title = "Testrezept"
         recipe.ingredients = setOf(setOf("Tomaten", "100g"),setOf("Pommes","1Kg"),setOf("Schintzel","1Stück"))
-        recipe.saveToLocalStorage(recipe)
+        //recipe.saveToLocalStorage(recipe)
     }
 }
 

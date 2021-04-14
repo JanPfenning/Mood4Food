@@ -8,11 +8,11 @@ import com.jrk.mood4food.recipes.add_mod.Material
 class RecipeRepository{
     fun loadRecipeDetails(id:String):RecipeEntity{
         var recipe = RecipeEntity(App.getContext())
-        recipe.loadFromLocalStorage(id,recipe)
+        //recipe.loadFromLocalStorage(id,recipe) //TODO
         return recipe
     }
     fun storeRecipe(recipe:RecipeEntity){
-        recipe.saveToLocalStorage(recipe)
+        //recipe.saveToLocalStorage(recipe) //TODO
     }
     fun loadAllRecipes(): Set<RecipeEntity> {
         var recipes = LocalStorage.getAll(App.getContext(),RecipeEntity::class.java)
@@ -61,6 +61,6 @@ class RecipeRepository{
     }
 
     fun removeRecipe(recipe: RecipeEntity) {
-        recipe.removeFromLocalStorage();
+        //recipe.removeFromLocalStorage();
     }
 }
