@@ -48,17 +48,17 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         model.unregister(this)
     }
 
-    fun showRecipeLists(recipes:Array<RecipeEntity>){
+    private fun showRecipeLists(recipes: Array<RecipeEntity>) {
         //TODO Filter recipes for every adapter
         //Fill Recommended recipes recycler
-        val recommendedView:RecyclerView = findViewById(R.id.recommended_recipes_recycler)
-        recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val recommendedAdapter = RecipeAdapter(recipes,this)
+        val recommendedView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
+        recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val recommendedAdapter = RecipeAdapter(recipes, this)
         recommendedView.adapter = recommendedAdapter
 
         //Fill Recommended recipes recycler
-        val favoriteView:RecyclerView = findViewById(R.id.favorite_recipes_recycler)
-        favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
+        val favoriteView: RecyclerView = findViewById(R.id.favorite_recipes_recycler)
+        favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val favoriteAdapter = RecipeAdapter(recipes,this)
         favoriteView.adapter = favoriteAdapter
 
@@ -87,6 +87,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         var recipe = RecipeEntity(App.getContext())
         recipe.title = "Testrezept"
         recipe.ingredients = setOf(setOf("Tomaten", "100g"),setOf("Pommes","1Kg"),setOf("Schintzel","1Stück"))
+        //TODO über Controller
         //recipe.saveToLocalStorage(recipe)
     }
 }

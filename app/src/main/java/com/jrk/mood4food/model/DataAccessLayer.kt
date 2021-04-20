@@ -3,11 +3,7 @@ package com.jrk.mood4food.model
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.model.RecipeRepository
-import com.jrk.mood4food.settings.SettingsPhysicalConditionData
-import com.jrk.mood4food.waterbalance.model.SettingsObserver
-import com.jrk.mood4food.waterbalance.model.SettingsRepository
-import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
-import com.jrk.mood4food.waterbalance.model.WaterRepository
+import com.jrk.mood4food.waterbalance.model.*
 import kotlin.reflect.KFunction1
 
 class DataAccessLayer(
@@ -40,18 +36,15 @@ class DataAccessLayer(
         observers.filterIsInstance<DomainObservers>().onEach { action(it) }
     }
 
-    fun performCalculateNeeds(calculationData: SettingsPhysicalConditionData) {
+    fun performCalculateNeeds(calculationData: SettingsEntity) {
         getSettingsRepository().calculateNeeds(calculationData)
         notify(SettingsObserver::calculationOfNeedsDone as KFunction1<DomainObservers, Unit>)
 
     }
 
-    fun saveCalculationResults() {
-        getSettingsRepository().saveCalculationResults()
-    }
 
-    fun saveChangedGoals(data: SettingsPhysicalConditionData) {
-        getSettingsRepository().saveChangedGoals(data)
+    fun saveChangedGoals(data: SettingsEntity) {
+        getSettingsRepository().storeSettings(data)
     }
 
 
