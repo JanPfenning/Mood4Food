@@ -6,6 +6,7 @@ import android.widget.ProgressBar
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.model.api.RecipeEndpoint
 
 class MainActivity : NavBarActivity() {
 
@@ -19,6 +20,9 @@ class MainActivity : NavBarActivity() {
 
         val waterProgressBar = findViewById<ProgressBar>(R.id.homeWaterProgressBar)
         waterProgressBar.setProgress(waterBalance.toInt(), false)
+
+
+        RecipeEndpoint.getAll(applicationContext)
 
     }
 
