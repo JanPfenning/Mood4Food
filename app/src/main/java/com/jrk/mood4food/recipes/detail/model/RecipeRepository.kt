@@ -20,6 +20,6 @@ class RecipeRepository{
     }
 
     fun removeRecipe(recipe: RecipeEntity) {
-        //recipe.removeFromLocalStorage();
+        LocalStorage.remove(App.getContext(), recipe);
     }
 }

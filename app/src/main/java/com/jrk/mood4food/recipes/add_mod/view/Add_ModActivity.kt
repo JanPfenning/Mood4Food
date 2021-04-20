@@ -31,7 +31,6 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     private var imageUri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         setContentView(R.layout.activity_edit_recipe)
         super.onCreate(savedInstanceState)
         controller.bind(this)
@@ -50,6 +49,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         val descriptionView = findViewById<TextView>(R.id.modify_description);
         val imageView = findViewById<ImageView>(R.id.imageView)
 
+        // If not new Recipe, read existing data, which is to be updated
         if (mode == MODE.EDIT) {
             recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("recipe_id")!!)
             titleView.text = recipe.title
@@ -92,6 +92,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             )
             imageView.setImageURI(imageUri)
 
+            // On delete recipe
             findViewById<Button>(R.id.delete_recipe).setOnClickListener {
                 val builder = AlertDialog.Builder(this)
 
@@ -112,14 +113,14 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             }
         }
 
-
+        // On confirm (Save button):
         findViewById<ImageView>(R.id.confirm).setOnClickListener {
             recipe.title = titleView.text.toString()
             recipe.ingredients = Converter.ingToMutableSet(ingredients)
             recipe.materials = Converter.matToMutableSet(materials)
             recipe.description = descriptionView.text.toString()
             recipe.imageUri = imageUri.toString()
-            //TODO Überlegen ob Rezept direkt mitgeben werden soll
+
             controller.onSave(recipe)
 
             val intent = Intent(this, DetailActivity::class.java)
@@ -128,6 +129,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             startActivity(intent)
         }
 
+        // On upload picutre:
         findViewById<TextView>(R.id.upload_picture).setOnClickListener {
             //check runtime permission
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -147,6 +149,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             }
         }
 
+        // On cancle modification
         findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener {
             if (mode == MODE.NEW) {
                 intent = Intent(this, SelectionActivity::class.java)
@@ -179,9 +182,16 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
     }
 
+    /**
+     * Called after Successfull passing the deletion confirmation dialog
+     *
+     * */
     private fun removeRecipe(recipe: RecipeEntity) {
         controller.removeRecipe(recipe)
 
+        val intent = Intent(this, SelectionActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
     }
 
     private fun pickImageFromGallery() {
@@ -209,19 +219,6 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     override fun onStop() {
         super.onStop()
         model.unregister(this)
-    }
-
-    //TODO Recipe Entity darf nicht mitgegeben werden sondern sollte gohlt werden
-    override fun recipeSaved() {
-        //val intent = Intent(this, DetailActivity::class.java)
-        //intent.putExtra("id", recipeEntity.storageAddress)
-        //startActivity(intent)
-    }
-
-    override fun recipeDeleted() {
-        val intent = Intent(this, SelectionActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(intent)
     }
 
     //handle requested permission result
