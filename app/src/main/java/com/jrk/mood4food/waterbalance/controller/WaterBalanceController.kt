@@ -1,12 +1,10 @@
 package com.jrk.mood4food.waterbalance.controller
 
 import com.jrk.mood4food.model.DataAccessLayer
-import com.jrk.mood4food.waterbalance.view.SettingsView
-import com.jrk.mood4food.waterbalance.view.WaterBalanceActivity
 import com.jrk.mood4food.waterbalance.view.WaterBalanceView
 
-class WaterBalanceControler(private val model: DataAccessLayer) {
-    private  lateinit var view: WaterBalanceView
+class WaterBalanceController(private val model: DataAccessLayer) {
+    private lateinit var view: WaterBalanceView
     fun bind(waterView: WaterBalanceView) {
         view = waterView
 

@@ -1,14 +1,13 @@
 package com.jrk.mood4food.settings.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.settings.SettingsPhysicalConditionData
 import com.jrk.mood4food.settings.controller.EditGoalsController
+import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
 class EditGoalsActivity  : NavBarActivity(){
     private val model = ModelModule.dataAccessLayer
@@ -40,7 +39,7 @@ class EditGoalsActivity  : NavBarActivity(){
 
 
     override fun onStop() {
-        var data: SettingsPhysicalConditionData = SettingsPhysicalConditionData()
+        var data: SettingsEntity = model.getSettingsRepository().getSettings()
         data.currentBodyWeight = findViewById<TextView>(R.id.currentWeight).text.toString().toFloat()
         data.aimBodyWeight = findViewById<TextView>(R.id.aimWeight).text.toString().toFloat()
         //findViewById<Spinner>(R.id.weightChange).text = data.weightChange.toString()

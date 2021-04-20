@@ -7,51 +7,52 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WaterRepository {
-    public fun storeWaterBalance(waterBalance: Float) {
-        val  entity = getEntityFromDate(java.util.Calendar.getInstance().time)
-        entity.waterBalance += waterBalance
-        entity.saveToLocalStorage(entity)
+    fun storeWaterBalance(waterBalance: Float) {
+        val context: Context = App.getContext()
+        val waterEntity = getEntityFromDate(Calendar.getInstance().time)
+        waterEntity.waterBalance += waterBalance
+        LocalStorage.save(context, waterEntity)
     }
 
-        private fun createWaterEntity(currentDate: String, waterBalance: Float): WaterBalanceEntity {
-            val context: Context = App.getContext()
-            val newEntity = WaterBalanceEntity(context)
-            newEntity.waterBalance = waterBalance
-            newEntity.currentDate = currentDate
-            newEntity.saveToLocalStorage(newEntity)
-            return newEntity
+    private fun createWaterEntity(currentDate: String, waterBalance: Float): WaterBalanceEntity {
+        val context: Context = App.getContext()
+        val waterEntity = WaterBalanceEntity(context)
+        waterEntity.waterBalance = waterBalance
+        waterEntity.currentDate = currentDate
+        LocalStorage.save(context, waterEntity)
+        return waterEntity
 
-        }
+    }
 
-    public fun getCurrentWaterBalance(): Float {
-            val  entity = getEntityFromDate(java.util.Calendar.getInstance().time)
+    fun getCurrentWaterBalance(): Float {
+        val entity = getEntityFromDate(Calendar.getInstance().time)
+        return (entity.waterBalance * 100 / getWaterLevel())
 
-            //Log.i("RICO","${entity.waterBalance} of ${getWaterLevel()} (${entity.waterBalance * 100/ getWaterLevel()}) is drunk at the ${entity.currentDate}");
-            return (entity.waterBalance *100 / getWaterLevel())
-        }
-    public fun isWaterLevelReached():Boolean{
-            return getEntityFromDate(java.util.Calendar.getInstance().time).waterBalance >= getWaterLevel()
+    }
 
-        }
-    public fun getEntityFromDate(date:Date): WaterBalanceEntity {
-            val formatter = SimpleDateFormat("dd.MM.yyyy")
-            val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<*> as List<WaterBalanceEntity>
-            val dateFormatted = formatter.format(date)
+    fun isWaterLevelReached(): Boolean {
+        return getEntityFromDate(Calendar.getInstance().time).waterBalance >= getWaterLevel()
 
-            entities.forEach {
-                if (it.currentDate == dateFormatted.toString()) {
-                    return  it
-                }
+    }
+
+    private fun getEntityFromDate(date: Date): WaterBalanceEntity {
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
+        val dateFormatted = formatter.format(date)
+
+        entities.forEach {
+            if (it.currentDate == dateFormatted.toString()) {
+                return it
             }
-            return createWaterEntity(dateFormatted, 0.0F)
-
         }
+        return createWaterEntity(dateFormatted, 0.0F)
 
-    public fun getWaterLevel(): Float {
-            var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
-            return entities[0].waterPerDay
-        }
+    }
 
+    private fun getWaterLevel(): Float {
+        var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
+        return entities[0].waterPerDay
+    }
 
 
 }

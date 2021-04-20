@@ -1,8 +1,8 @@
 package com.jrk.mood4food.settings.view
 
-import com.jrk.mood4food.settings.SettingsPhysicalConditionData
+import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
 interface CalculationView {
-    fun getCalculationData(): SettingsPhysicalConditionData
+    fun getCalculationData(): SettingsEntity
     fun showCurrentSettings()
 }
