@@ -49,7 +49,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
     }
 
     private fun showRecipeLists(recipes: Array<RecipeEntity>) {
-        //TODO Filter recipes for every adapter
+        //TODO Show all Recipes coming from API based on Searchresult
         //Fill Recommended recipes recycler
         val recommendedView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
         recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -59,14 +59,9 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         //Fill Recommended recipes recycler
         val favoriteView: RecyclerView = findViewById(R.id.favorite_recipes_recycler)
         favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        // TODO filter for recipes that have "recipe.favorite = true"
         val favoriteAdapter = RecipeAdapter(recipes,this)
         favoriteView.adapter = favoriteAdapter
-
-        //Fill Recommended recipes recycler
-        val longagoView:RecyclerView = findViewById(R.id.longago_recipes_recycler)
-        longagoView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val longagoAdapter = RecipeAdapter(recipes,this)
-        longagoView.adapter = longagoAdapter
 
         //Fill own recipes recycler
         val ownRecipesView:RecyclerView = findViewById(R.id.own_recipes_recycler)

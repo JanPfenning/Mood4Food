@@ -77,6 +77,16 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
             /*Picture*/
             findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+            /*Fav*/
+            drawFav(recipe)
+            findViewById<ImageView>(R.id.noFav).setOnClickListener{
+                toggleFav(recipe)
+                drawFav(recipe)
+            }
+            findViewById<ImageView>(R.id.Fav).setOnClickListener{
+                toggleFav(recipe)
+                drawFav(recipe)
+            }
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             ingredientView.adapter = IngredientAdapter(
@@ -116,4 +126,18 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         model.unregister(this)
     }
 
+    fun drawFav(recipe: RecipeEntity){
+        if(recipe.favorite){
+            findViewById<ImageView>(R.id.noFav).visibility = View.GONE
+            findViewById<ImageView>(R.id.Fav).visibility = View.VISIBLE
+        }else{
+            findViewById<ImageView>(R.id.noFav).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.Fav).visibility = View.GONE
+        }
+    }
+
+    fun toggleFav(recipe: RecipeEntity){
+        recipe.favorite = !recipe.favorite
+        controller.updateFav(recipe)
+    }
 }
