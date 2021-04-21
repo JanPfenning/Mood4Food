@@ -2,41 +2,40 @@ package com.jrk.mood4food.model.api
 
 import android.content.Context
 import android.util.Log
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.jrk.mood4food.model.api.entity.Recipe
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
-import org.json.JSONException
+import kotlin.reflect.KFunction1
 
-object RecipeEndpoint {
+object RecipeEndpoint{
 
-    fun getAll(context: Context): List<RecipeEntity>{
-        Log.d("APICON", "test")
+    private val endpoint = Endpoint.RECIPES
+    private val gson = GsonBuilder().create()
 
-        val recipes = ArrayList<RecipeEntity>()
+    fun getAll(context: Context, callback: KFunction1<List<Any>, Unit>){
+        Backend.getArray(context, endpoint, mapOf(), ::getAllCallback, callback)
+    }
+    fun getAllCallback(jsonArray: JsonArray, callback: KFunction1<List<Any>, Unit>) {
+        callback(convertArray(jsonArray))
+    }
 
-        // Instantiate the RequestQueue.
-        val queue = Volley.newRequestQueue(context)
-        val url = "http://irowall-tactical.com/mood4food/api/recipes/"
+    fun get(context: Context, recipeId: String): List<Recipe>{
 
-        // Request a string response from the provided URL.
-        val jsonObjectRequest = JsonArrayRequest(Request.Method.GET, url, null, Response.Listener { response ->
-            try {
-                for (i in 0 until response.length()) {
+        val recipes = ArrayList<Recipe>()
 
-                    val jsonObject = response.getJSONObject(i)
-
-                }
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }, Response.ErrorListener { error -> error.printStackTrace() })
-
-        queue.add(jsonObjectRequest)
 
         return recipes
+    }
+
+    private fun convert(jsonObject: JsonObject) {
+        TODO("Not yet implemented")
+    }
+
+    private fun convertArray(jsonArray: JsonArray): List<Recipe> {
+        Log.e("APICON", "ee" + jsonArray.toString())
+        return gson.fromJson(jsonArray, Array<Recipe>::class.java).toList()
     }
 
 }

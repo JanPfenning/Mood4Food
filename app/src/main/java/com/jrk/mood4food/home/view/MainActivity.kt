@@ -7,6 +7,8 @@ import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.model.api.RecipeEndpoint
+import com.jrk.mood4food.model.api.entity.Recipe
+import kotlin.reflect.KFunction1
 
 class MainActivity : NavBarActivity() {
 
@@ -22,8 +24,12 @@ class MainActivity : NavBarActivity() {
         waterProgressBar.setProgress(waterBalance.toInt(), false)
 
 
-        RecipeEndpoint.getAll(applicationContext)
+        RecipeEndpoint.getAll(applicationContext, ::printAll as KFunction1<List<Any>, Unit>)
 
+    }
+
+    fun printAll(recipes: List<Recipe>){
+        recipes.forEach { Log.e("APICON", it.title) }
     }
 
 }
