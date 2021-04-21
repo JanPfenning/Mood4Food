@@ -24,12 +24,17 @@ class MainActivity : NavBarActivity() {
         waterProgressBar.setProgress(waterBalance.toInt(), false)
 
 
-        RecipeEndpoint.getAll(applicationContext, ::printAll as KFunction1<List<Any>, Unit>)
+        //RecipeEndpoint.getAll(applicationContext, ::printAll as KFunction1<List<Any>, Unit>)
+        //RecipeEndpoint.get(applicationContext, 401, ::printOne as KFunction1<Any, Unit>)
 
     }
 
     fun printAll(recipes: List<Recipe>){
         recipes.forEach { Log.e("APICON", it.title) }
+    }
+
+    fun printOne(recipe: Recipe){
+        Log.e("APICONXX", recipe.imageUri)
     }
 
 }
