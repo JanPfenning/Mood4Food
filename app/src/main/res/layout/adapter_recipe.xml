@@ -19,7 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="7"
             android:layout_height="0dp">
 
             <ImageView
@@ -34,15 +34,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="1.5dp"
-                android:layout_margin="1.5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:padding="2dp"
                 android:src="@drawable/ic_baseline_star_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:tint="@color/colorAccent"
-                app:ignore="UseAppTint" />
+                app:ignore="UseAppTint"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,18 +57,6 @@
             android:paddingEnd="15dp"
             android:textColor="@color/text"
             android:textSize="18sp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:text="From: Author"
-            android:gravity="center_vertical"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            android:textColor="@color/text"
-            android:textSize="14sp"
             />
 
     </LinearLayout>
