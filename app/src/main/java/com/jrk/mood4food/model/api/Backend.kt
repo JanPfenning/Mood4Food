@@ -20,10 +20,10 @@ object Backend {
     val DOMAIN = "irowall-tactical.com"
     val SERVICE_PATH = "/mood4food/api"
 
-    fun getArray(context: Context, endpoint: Endpoint, params: Map<String, String>, callback: KFunction2<JsonArray, KFunction1<List<Any>, Unit>, Unit>, endpointCallback: KFunction1<List<Any>, Unit>) {
+    fun getArray(context: Context, endpoints: Endpoints, params: Map<String, String>, callback: KFunction2<JsonArray, KFunction1<List<Any>, Unit>, Unit>, endpointCallback: KFunction1<List<Any>, Unit>) {
         var objects = JsonArray()
         val queue = Volley.newRequestQueue(context)
-        val url = PROTOCOL + "://" + DOMAIN +  SERVICE_PATH + endpoint.path + getQuery(params)
+        val url = PROTOCOL + "://" + DOMAIN +  SERVICE_PATH + endpoints.path + getQuery(params)
         val jsonObjectRequest = JsonArrayRequest(Request.Method.GET, url, null, Response.Listener { response ->
             try {
                 objects = JsonParser.parseString(response.toString()).asJsonArray
@@ -39,10 +39,10 @@ object Backend {
         queue.add(jsonObjectRequest)
     }
 
-    fun get(context: Context, endpoint: Endpoint, params: Map<String, String>, callback: KFunction2<JsonObject, KFunction1<Any, Unit>, Unit>, endpointCallback: KFunction1<Any, Unit>) {
+    fun get(context: Context, endpoints: Endpoints, params: Map<String, String>, callback: KFunction2<JsonObject, KFunction1<Any, Unit>, Unit>, endpointCallback: KFunction1<Any, Unit>) {
         var jsonObject = JsonObject()
         val queue = Volley.newRequestQueue(context)
-        val url = PROTOCOL + "://" + DOMAIN +  SERVICE_PATH + endpoint.path + getQuery(params)
+        val url = PROTOCOL + "://" + DOMAIN +  SERVICE_PATH + endpoints.path + getQuery(params)
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener { response ->
             try {
                 jsonObject = JsonParser.parseString(response.toString()).asJsonObject

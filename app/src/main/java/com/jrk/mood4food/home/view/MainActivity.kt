@@ -1,14 +1,10 @@
 package com.jrk.mood4food.home.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ProgressBar
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.model.api.RecipeEndpoint
-import com.jrk.mood4food.model.api.entity.Recipe
-import kotlin.reflect.KFunction1
 
 class MainActivity : NavBarActivity() {
 
@@ -23,18 +19,6 @@ class MainActivity : NavBarActivity() {
         val waterProgressBar = findViewById<ProgressBar>(R.id.homeWaterProgressBar)
         waterProgressBar.setProgress(waterBalance.toInt(), false)
 
-
-        //RecipeEndpoint.getAll(applicationContext, ::printAll as KFunction1<List<Any>, Unit>)
-        //RecipeEndpoint.get(applicationContext, 401, ::printOne as KFunction1<Any, Unit>)
-
-    }
-
-    fun printAll(recipes: List<Recipe>){
-        recipes.forEach { Log.e("APICON", it.title) }
-    }
-
-    fun printOne(recipe: Recipe){
-        Log.e("APICONXX", recipe.imageUri)
     }
 
 }
