@@ -84,6 +84,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
 
+    // Chart Lib
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
 
 def getTestTags() {
