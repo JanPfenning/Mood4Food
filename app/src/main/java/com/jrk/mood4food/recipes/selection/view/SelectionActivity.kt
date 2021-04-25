@@ -50,17 +50,18 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
 
     private fun showRecipeLists(recipes: Array<RecipeEntity>) {
         //TODO Show all Recipes coming from API based on Searchresult
-        //Fill Recommended recipes recycler
+        //Fill Cloud recipes recycler
         val recommendedView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
         recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val recommendedAdapter = RecipeAdapter(recipes, this)
         recommendedView.adapter = recommendedAdapter
 
-        //Fill Recommended recipes recycler
+        //Fill Favorite recipes recycler
         val favoriteView: RecyclerView = findViewById(R.id.favorite_recipes_recycler)
         favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         // TODO filter for recipes that have "recipe.favorite = true"
-        val favoriteAdapter = RecipeAdapter(recipes,this)
+        val favs = recipes.filter { recipeEntity -> recipeEntity.favorite }
+        val favoriteAdapter = RecipeAdapter(favs.toTypedArray(),this)
         favoriteView.adapter = favoriteAdapter
 
         //Fill own recipes recycler
@@ -76,14 +77,6 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         val intent = Intent(this,DetailActivity::class.java)
         intent.putExtra("id",id)
         startActivity(intent)
-    }
-
-    fun newRecipe(){
-        var recipe = RecipeEntity(App.getContext())
-        recipe.title = "Testrezept"
-        recipe.ingredients = setOf(setOf("Tomaten", "100g"),setOf("Pommes","1Kg"),setOf("Schintzel","1Stück"))
-        //TODO über Controller
-        //recipe.saveToLocalStorage(recipe)
     }
 }
 
