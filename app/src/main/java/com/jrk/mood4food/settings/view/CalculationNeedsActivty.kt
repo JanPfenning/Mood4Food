@@ -2,7 +2,6 @@ package com.jrk.mood4food.settings.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Spinner
@@ -46,6 +45,7 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
     }
 
     override fun calculationOfNeedsDone() {
+
         startActivity(Intent(this, ResultsCalculationActivty::class.java))
 
     }
@@ -63,9 +63,6 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
 
     override fun showCurrentSettings() {
         var currentSettings = model.getSettingsRepository().getSettings()
-        Log.i("Test", currentSettings.bodySize.toString())
-        Log.i("Test", currentSettings.currentBodyWeight.toString())
-
         findViewById<TextView>(R.id.currentWeight).text = currentSettings.currentBodyWeight.toString()
         findViewById<TextView>(R.id.aimBodyWeight).text = currentSettings.aimBodyWeight.toString()
         findViewById<TextView>(R.id.bodySize).text = currentSettings.bodySize.toString()

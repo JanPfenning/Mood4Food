@@ -26,10 +26,10 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         super.onCreate(savedInstanceState)
         controller.bind(this)
 
-        findViewById<ImageView>(R.id.addwater).setOnClickListener{
+        findViewById<ImageView>(R.id.addwater).setOnClickListener {
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
-            val view = inflater.inflate(R.layout.wateradd_dialog,null)
+            val view = inflater.inflate(R.layout.wateradd_dialog, null)
             builder1.setView(view)
             builder1.setMessage("Wie viel hast du getrunken")
             builder1.setCancelable(true)
@@ -50,16 +50,31 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
             alert11.show()
 
         }
+        findViewById<ImageView>(R.id.reset).setOnClickListener {
+            controller.resetWaterbalance()
+        }
 
     }
-    override fun setWaterBalance(x:Float){
-        findViewById<WaveView>(R.id.waveView).setProgress(x.toInt())
-        findViewById<TextView>(R.id.waterlevelPercentage).text = x.toInt().toString() + " %"
+
+
+    override fun setWaterBalance() {
+        val percentage = model.getWaterRepository().getCurrentWaterBalancePercentage()
+        val absolut = model.getWaterRepository().getCurrentWaterBalanceAbsolut()
+        val level = model.getWaterRepository().getWaterLevel()
+        val sb = StringBuilder()
+        findViewById<WaveView>(R.id.waveView).setProgress(percentage.toInt())
+        sb.append(percentage).append(" %")
+        findViewById<TextView>(R.id.waterlevelPercentage).text = sb.toString()
+        sb.clear()
+        sb.append(absolut).append("/").append(level)
+        findViewById<TextView>(R.id.water_absolut).text = sb.toString()
     }
+
     override fun onStart() {
         super.onStart()
         model.register(this)
-        setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
+        setWaterBalance()
+
 
     }
 
@@ -74,10 +89,15 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
     }
 
     override fun waterStoredIn() {
-       setWaterBalance(model.getWaterRepository().getCurrentWaterBalance())
-        if(model.getWaterRepository().isWaterLevelReached()){
+        setWaterBalance()
+        if (model.getWaterRepository().isWaterLevelReached()) {
             Toast.makeText(App.getContext(), "Glückwunsch \n Du hast dein Tagesziel erreicht!!", Toast.LENGTH_LONG).show()
         }
     }
+
+    override fun goalsChanged() {
+        setWaterBalance()
+    }
+
 
 }
