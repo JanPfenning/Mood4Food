@@ -28,7 +28,7 @@ class DataAccessLayer(
 
     fun saveRecipe(recipe: RecipeEntity) {
         getRecipeRepository().storeRecipe(recipe)
-        //how to give recipe as parameter to "recipeSaved()"?
+        //TODO how to give recipe as parameter to "recipeSaved()"?
         //notify(Add_ModObserver::recipeSaved as KFunction1<DomainObservers, Unit>)
     }
 
