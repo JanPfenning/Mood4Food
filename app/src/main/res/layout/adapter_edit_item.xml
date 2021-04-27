@@ -15,10 +15,11 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="10dp"
         android:text="Item"
         android:textColor="@color/text"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@color/white"
         android:textSize="20sp"/>
 
     <ImageView
