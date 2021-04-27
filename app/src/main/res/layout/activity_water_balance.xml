@@ -49,6 +49,14 @@
             android:textSize="24sp"/>
 
         <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_bar_chart_24"
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
+
+        <ImageView
             android:id="@+id/addwater"
             android:layout_width="60dp"
             android:layout_height="60dp"
