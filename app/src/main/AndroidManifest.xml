@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".waterbalance.view.WaterBalanceActivity" />
+        <activity android:name=".waterbalance.view.WaterAnalysisActivity"/>
         <activity android:name=".settings.view.SettingsActivity" />
         <activity android:name=".settings.view.SetIngredientsActivity" />
         <activity android:name=".NutrientActivity" />

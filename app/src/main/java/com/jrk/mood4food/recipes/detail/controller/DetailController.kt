@@ -9,4 +9,7 @@ class DetailController(private val model: DataAccessLayer) {
     fun bind(detailView: DetailView) {
         view = detailView
     }
+    fun updateFav(recipe: RecipeEntity){
+        model.saveRecipe(recipe)
+    }
 }

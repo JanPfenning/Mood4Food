@@ -39,6 +39,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             mode = MODE.EDIT;
         }
 
+
         var recipe = RecipeEntity(App.getContext())
         var ingredients: MutableSet<Ingredient> = mutableSetOf()
         var materials: MutableSet<Material> = mutableSetOf()

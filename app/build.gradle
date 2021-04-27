@@ -87,6 +87,10 @@ dependencies {
     // HTTP Requests
     implementation 'com.android.volley:volley:1.2.0'
     implementation 'com.google.code.gson:gson:2.8.6'
+    
+    // Chart Lib
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 }
 
 def getTestTags() {

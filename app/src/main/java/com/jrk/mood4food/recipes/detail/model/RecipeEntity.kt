@@ -12,5 +12,6 @@ class RecipeEntity(context: Context) : LocalEntity(context, RecipeEntity::class.
     var description = ""
     var imageUri:String = ""
     var lastEaten = ""
+    var favorite = false
 
 }
