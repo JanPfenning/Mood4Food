@@ -1,6 +1,7 @@
 package com.jrk.mood4food.settings.view
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.TextView
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
@@ -22,6 +23,9 @@ class ResultsCalculationActivty : NavBarActivity(), SettingsObserver {
         findViewById<TextView>(R.id.fatPerDay).text = data.fatPerDay.toString()
         findViewById<TextView>(R.id.saveCalcResults).setOnClickListener() {
             controller.saveCalculationResults(data)
+        }
+        findViewById<ImageView>(R.id.back).setOnClickListener {
+            finish()
         }
         super.onCreate(savedInstanceState)
 

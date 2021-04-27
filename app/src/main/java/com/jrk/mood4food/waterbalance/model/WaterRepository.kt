@@ -24,9 +24,15 @@ class WaterRepository {
 
     }
 
-    fun getCurrentWaterBalance(): Float {
+    fun getCurrentWaterBalancePercentage(): Float {
         val entity = getEntityFromDate(Calendar.getInstance().time)
         return (entity.waterBalance * 100 / getWaterLevel())
+
+    }
+
+    fun getCurrentWaterBalanceAbsolut(): Float {
+        val entity = getEntityFromDate(Calendar.getInstance().time)
+        return (entity.waterBalance)
 
     }
 
@@ -49,9 +55,15 @@ class WaterRepository {
 
     }
 
-    private fun getWaterLevel(): Float {
+    fun getWaterLevel(): Float {
         var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
         return entities[0].waterPerDay
+    }
+
+    fun resetWaterbalance() {
+        val waterEntity = getEntityFromDate(Calendar.getInstance().time)
+        waterEntity.waterBalance = 0F
+        LocalStorage.save(App.getContext(), waterEntity)
     }
 
 

@@ -9,7 +9,7 @@ import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.settings.controller.EditGoalsController
 import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
-class EditGoalsActivity  : NavBarActivity(){
+class EditGoalsActivity : NavBarActivity() {
     private val model = ModelModule.dataAccessLayer
     private val controller = EditGoalsController(model)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +17,7 @@ class EditGoalsActivity  : NavBarActivity(){
         controller.bind(this)
         super.onCreate(savedInstanceState)
     }
+
     override fun onStart() {
         val data = model.getSettingsRepository().getSettings()
         findViewById<TextView>(R.id.currentWeight).text = data.currentBodyWeight.toString()

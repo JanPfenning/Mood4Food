@@ -14,5 +14,9 @@ class WaterBalanceController(private val model: DataAccessLayer) {
         model.performWaterAdd(view.getWaterAdd())
     }
 
+    fun resetWaterbalance() {
+        model.performWaterReset()
+    }
+
 
 }
