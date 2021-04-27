@@ -9,12 +9,15 @@ import com.jrk.mood4food.App
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.model.api.endpoints.RecipeEndpoint
+import com.jrk.mood4food.model.api.entity.Recipe
 import com.jrk.mood4food.recipes.add_mod.view.Add_ModActivity
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.selection.RecipeAdapter
 import com.jrk.mood4food.recipes.selection.controller.SelectionController
 import com.jrk.mood4food.recipes.selection.model.SelectionObserver
+import kotlin.reflect.KFunction1
 
 class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, RecipeClickListener {
     private val model = ModelModule.dataAccessLayer
@@ -32,6 +35,11 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         //Add recipe button
         findViewById<ImageView>(R.id.addRecipe).setOnClickListener{
             startActivity(Intent(this,Add_ModActivity::class.java))
+        }
+
+        //Add Search functionality
+        findViewById<ImageView>(R.id.searchRecipe).setOnClickListener{
+            // TODO open Input field
         }
 
         showRecipeLists(recipes);
@@ -77,6 +85,15 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         val intent = Intent(this,DetailActivity::class.java)
         intent.putExtra("id",id)
         startActivity(intent)
+    }
+
+    //Called when users sends the query string
+    fun onApiSearch(){
+        RecipeEndpoint.getAll(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>)
+    }
+    //Called when async backend call arrives
+    fun onApiResult(recipes: List<Recipe>){
+
     }
 }
 
