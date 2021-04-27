@@ -49,24 +49,20 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
     }
 
     private fun showRecipeLists(recipes: Array<RecipeEntity>) {
-        //TODO Filter recipes for every adapter
-        //Fill Recommended recipes recycler
+        //TODO Show all Recipes coming from API based on Searchresult
+        //Fill Cloud recipes recycler
         val recommendedView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
         recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val recommendedAdapter = RecipeAdapter(recipes, this)
         recommendedView.adapter = recommendedAdapter
 
-        //Fill Recommended recipes recycler
+        //Fill Favorite recipes recycler
         val favoriteView: RecyclerView = findViewById(R.id.favorite_recipes_recycler)
         favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val favoriteAdapter = RecipeAdapter(recipes,this)
+        // TODO filter for recipes that have "recipe.favorite = true"
+        val favs = recipes.filter { recipeEntity -> recipeEntity.favorite }
+        val favoriteAdapter = RecipeAdapter(favs.toTypedArray(),this)
         favoriteView.adapter = favoriteAdapter
-
-        //Fill Recommended recipes recycler
-        val longagoView:RecyclerView = findViewById(R.id.longago_recipes_recycler)
-        longagoView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val longagoAdapter = RecipeAdapter(recipes,this)
-        longagoView.adapter = longagoAdapter
 
         //Fill own recipes recycler
         val ownRecipesView:RecyclerView = findViewById(R.id.own_recipes_recycler)
@@ -81,14 +77,6 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         val intent = Intent(this,DetailActivity::class.java)
         intent.putExtra("id",id)
         startActivity(intent)
-    }
-
-    fun newRecipe(){
-        var recipe = RecipeEntity(App.getContext())
-        recipe.title = "Testrezept"
-        recipe.ingredients = setOf(setOf("Tomaten", "100g"),setOf("Pommes","1Kg"),setOf("Schintzel","1Stück"))
-        //TODO über Controller
-        //recipe.saveToLocalStorage(recipe)
     }
 }
 
