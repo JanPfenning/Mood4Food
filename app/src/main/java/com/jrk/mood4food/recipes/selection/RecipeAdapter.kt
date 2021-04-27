@@ -1,6 +1,7 @@
 package com.jrk.mood4food.recipes.selection
 
 import android.net.Uri
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,9 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
         val textView = view.findViewById<TextView>(R.id.recipe_card_title)
         val cardView = view.findViewById<androidx.cardview.widget.CardView>(R.id.recipe_card)
         val imageView = view.findViewById<ImageView>(R.id.recipe_card_image)
+        val favView = view.findViewById<ImageView>(R.id.Fav)
+        val nofavView = view.findViewById<ImageView>(R.id.noFav)
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -37,6 +41,11 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
             recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString())
         }
         viewHolder.imageView.setImageURI(Uri.parse(dataSet[position].imageUri))
+        if(dataSet[position].favorite){
+            viewHolder.nofavView.visibility = View.GONE
+        }else{
+            viewHolder.favView.visibility = View.GONE
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
