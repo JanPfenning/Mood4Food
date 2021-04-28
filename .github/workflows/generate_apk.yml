@@ -1,12 +1,12 @@
-name: Android Pull Request & Master CI
+name: Android App Build & APK Generation
 
 on:
   pull_request:
     branches:
-      - 'master'
+      - 'develop'
   push:
     branches:
-      - 'master'
+      - 'develop'
 
 jobs:
   apk:
