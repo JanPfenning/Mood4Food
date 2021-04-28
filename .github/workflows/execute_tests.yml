@@ -22,7 +22,7 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./gradlew
       - name: Restore Gradle wrapper
-        run: gradle wrapper
+        run: gradle wrapper --gradle-version 6.1.1
 
       # Execute unit tests
       - name: Unit Test
