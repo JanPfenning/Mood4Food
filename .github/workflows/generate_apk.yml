@@ -23,10 +23,8 @@ jobs:
         run: chmod +x ./gradlew
       - name: Restore Gradle wrapper
         run: gradle wrapper
-      - name: Clean Gradle
-        run: ./gradlew clean
       - name: Build debug APK
-        run: bash ./gradlew assembleDebug --stacktrace
+        run: bash ./gradlew assembleDebug --stacktrace --info
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
