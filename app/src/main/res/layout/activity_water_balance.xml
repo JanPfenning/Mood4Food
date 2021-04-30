@@ -49,6 +49,7 @@
             android:textSize="24sp"/>
 
         <ImageView
+            android:id="@+id/analyse_waterbalance"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"

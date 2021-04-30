@@ -1,6 +1,7 @@
 package com.jrk.mood4food.waterbalance.view
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.SeekBar
@@ -25,7 +26,6 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         setContentView(R.layout.activity_water_balance)
         super.onCreate(savedInstanceState)
         controller.bind(this)
-
         findViewById<ImageView>(R.id.addwater).setOnClickListener {
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -53,6 +53,11 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         findViewById<ImageView>(R.id.reset).setOnClickListener {
             controller.resetWaterbalance()
         }
+        findViewById<ImageView>(R.id.analyse_waterbalance).setOnClickListener {
+
+            startActivity(Intent(this, WaterAnalysisActivity::class.java))
+        }
+
 
     }
 
