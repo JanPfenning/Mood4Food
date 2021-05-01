@@ -41,7 +41,7 @@ class WaterRepository {
     }
 
     private fun getDayofWeek(currentDate: String, cal: Calendar): Int {
-        return cal[Calendar.DAY_OF_WEEK] - 1
+        return cal[Calendar.DAY_OF_WEEK] - 2
     }
 
     private fun getCalenderWeekfromDate(currentDate: String, cal: Calendar): Int {
@@ -61,7 +61,8 @@ class WaterRepository {
 
     }
 
-    fun getWaterEntityFromWeekofYear(Calenderweek: Int): List<WaterBalanceEntity> {
+    //TODO REFCTOR
+    fun getWaterEntityFromWeekofYear(Calenderweek: Int): Pair<MutableList<WaterBalanceEntity>, MutableList<Boolean>> {
         val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
         val entitiesFromWeek: MutableList<WaterBalanceEntity> = mutableListOf()
         entities.forEach {
@@ -82,13 +83,21 @@ class WaterRepository {
             entitiesFromWeek.add(waterEntity)
 
         }
+        var isreached: MutableList<Boolean> = arrayListOf()
         entitiesFromWeek.sortedBy { it.dayOfWeek }
-        return entitiesFromWeek
+        for (entitiy in entitiesFromWeek) {
+            if (entitiy.waterBalance >= getWaterLevel()) {
+                isreached.add(true)
+            } else {
+                isreached.add(false)
+            }
+        }
+        return Pair(entitiesFromWeek, isreached)
 
     }
 
-    fun isWaterLevelReached(): Boolean {
-        return getEntityFromDate(Calendar.getInstance().time).waterBalance >= getWaterLevel()
+    fun isWaterLevelReached(date: Date): Boolean {
+        return getEntityFromDate(date).waterBalance >= getWaterLevel()
 
     }
 
