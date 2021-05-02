@@ -70,8 +70,8 @@
                 android:id="@+id/noFav"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:padding="2.5dp"
-                android:layout_margin="2.5dp"
+                android:padding="1.5dp"
+                android:layout_margin="1.5dp"
                 android:src="@drawable/ic_baseline_star_border_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -79,14 +79,14 @@
                 tools:ignore="UseAppTint" />
             <ImageView
                 android:id="@+id/Fav"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:padding="1.5dp"
                 android:layout_margin="1.5dp"
                 android:src="@drawable/ic_baseline_star_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/colorAccent"
+                android:tint="@color/colorAccent"
                 tools:ignore="UseAppTint" />
 
             <!--
