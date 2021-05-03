@@ -2,7 +2,6 @@ package com.jrk.mood4food.waterbalance.view
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.mikephil.charting.charts.BarChart
@@ -32,7 +31,6 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
         setContentView(R.layout.activity_water_analysis)
         super.onCreate(savedInstanceState)
         controller.bind(this)
-        // Please keep these design settings
         val chart = findViewById<BarChart>(R.id.fragment_verticalbarchart_chart)
         chart.setDrawGridBackground(false)
         chart.setDrawBorders(false)
@@ -49,47 +47,53 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
         chart.xAxis.setDrawGridLines(false)
         chart.description.isEnabled = false
         chart.legend.isEnabled = false
+        chart.axisLeft.axisMaximum = model.getWaterRepository().getWaterLevel()
         val xAxisLabel = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel);
         val formatter = SimpleDateFormat("dd.MM.yyyy")
         val dateFormatted = formatter.format(Calendar.getInstance().time)
-        val cal = getcalenderfromDate(dateFormatted)
-        weekOfYear = getCalenderWeekfromDate(cal)
+        val cal = getCalenderFromDate(dateFormatted)
+        weekOfYear = getCalenderWeekFromDate(cal)
+        findViewById<TextView>(R.id.week).text = """Week $weekOfYear"""
         chart.data = createChartData()
         chart.invalidate()
 
         findViewById<TextView>(R.id.waterlevel).text = model.getWaterRepository().getWaterLevel().toString()
+
         findViewById<ImageView>(R.id.back).setOnClickListener {
             finish()
         }
         findViewById<ImageView>(R.id.backward_week).setOnClickListener {
             weekOfYear--
-            Log.i("test", weekOfYear.toString())
+            findViewById<TextView>(R.id.week).text = """Week $weekOfYear"""
             chart.data = createChartData()
             chart.invalidate()
         }
         findViewById<ImageView>(R.id.forward_week).setOnClickListener {
             weekOfYear++
+            findViewById<TextView>(R.id.week).text = """Week $weekOfYear"""
             chart.data = createChartData()
             chart.invalidate()
         }
-
-
     }
 
     private fun createChartData(): BarData? {
 
-        val ret = model.getWaterRepository().getWaterEntityFromWeekofYear(weekOfYear)
+        val ret = model.getWaterRepository().getWaterEntityFromWeekOfYear(weekOfYear)
         val entities = ret.first
-        val isreached = ret.second
+        val isReached = ret.second
 
 
         val values: ArrayList<BarEntry> = ArrayList()
         val colors: ArrayList<Int> = ArrayList()
         for (i in entities.indices) {
-
-            val bar = BarEntry(entities[i].dayOfWeek.toFloat(), entities[i].waterBalance)
-            if (isreached[i]) {
+            //Copyright Leonhard Stengel---
+            var rico = entities[i].dayOfWeek.toFloat() - 2
+            if (rico < 0)
+                rico = 7 + rico
+            val bar = BarEntry(rico, entities[i].waterBalance)
+            //-----------------------------
+            if (isReached[i]) {
                 colors.add(resources.getColor(R.color.waterLight))
             } else {
                 colors.add(resources.getColor(R.color.waterDark))
@@ -99,18 +103,14 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
         }
         val set1 = BarDataSet(values, "")
         set1.colors = colors
-
-
         set1.valueTextColor = Color.WHITE
         set1.valueTextSize = 12F
-
-
         val dataSets: ArrayList<IBarDataSet> = ArrayList()
         dataSets.add(set1)
         return BarData(dataSets)
     }
 
-    private fun getcalenderfromDate(currentDate: String): Calendar {
+    private fun getCalenderFromDate(currentDate: String): Calendar {
         val format = "dd.MM.yyyy"
 
         val df = SimpleDateFormat(format)
@@ -125,7 +125,7 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
         return cal[Calendar.DAY_OF_WEEK]
     }
 
-    private fun getCalenderWeekfromDate(cal: Calendar): Int {
+    private fun getCalenderWeekFromDate(cal: Calendar): Int {
         return cal[Calendar.WEEK_OF_YEAR]
     }
 

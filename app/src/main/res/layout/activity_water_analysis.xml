@@ -54,6 +54,7 @@
             tools:ignore="UseAppTint" />
 
         <TextView
+            android:id="@+id/week"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
