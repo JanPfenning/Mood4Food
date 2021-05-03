@@ -112,18 +112,13 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
 
     private fun getCalenderFromDate(currentDate: String): Calendar {
         val format = "dd.MM.yyyy"
-
         val df = SimpleDateFormat(format)
         val date = df.parse(currentDate)
-
         val cal = Calendar.getInstance()
         cal.time = date
         return cal
     }
 
-    private fun getDayofWeek(cal: Calendar): Int {
-        return cal[Calendar.DAY_OF_WEEK]
-    }
 
     private fun getCalenderWeekFromDate(cal: Calendar): Int {
         return cal[Calendar.WEEK_OF_YEAR]

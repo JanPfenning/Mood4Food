@@ -20,8 +20,8 @@ class WaterRepository {
         val cal: Calendar = getCalenderFromDate(currentDate)
         waterEntity.waterBalance = waterBalance
         waterEntity.currentDate = currentDate
-        waterEntity.calenderWeek = getCalenderWeekFromDate(currentDate, cal)
-        waterEntity.dayOfWeek = getDayOfWeek(currentDate, cal)
+        waterEntity.calenderWeek = getCalenderWeekFromDate(cal)
+        waterEntity.dayOfWeek = getDayOfWeek(cal)
         LocalStorage.save(context, waterEntity)
         return waterEntity
 
@@ -38,11 +38,11 @@ class WaterRepository {
         return cal
     }
 
-    private fun getDayOfWeek(currentDate: String, cal: Calendar): Int {
+    private fun getDayOfWeek(cal: Calendar): Int {
         return cal[Calendar.DAY_OF_WEEK]
     }
 
-    private fun getCalenderWeekFromDate(currentDate: String, cal: Calendar): Int {
+    private fun getCalenderWeekFromDate(cal: Calendar): Int {
         return cal[Calendar.WEEK_OF_YEAR]
     }
 
@@ -63,16 +63,13 @@ class WaterRepository {
     fun getWaterEntityFromWeekOfYear(Calenderweek: Int): Pair<MutableList<WaterBalanceEntity>, MutableList<Boolean>> {
         val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
         val entitiesFromWeek: MutableList<WaterBalanceEntity> = mutableListOf()
+        var d = listOf(1, 2, 3, 4, 5, 6, 7).toMutableList()
         entities.forEach {
             if (it.calenderWeek == Calenderweek) {
                 entitiesFromWeek.add(it)
-            }
-        }
-        entitiesFromWeek.sortedBy { it.dayOfWeek }
-        var d = listOf(0, 1, 2, 3, 4, 5, 6).toMutableList()
-        for (entity in entitiesFromWeek) {
-            d.remove(entity.dayOfWeek)
+                d.remove(it.dayOfWeek)
 
+            }
         }
         for (i in d) {
             val waterEntity = WaterBalanceEntity(App.getContext())
