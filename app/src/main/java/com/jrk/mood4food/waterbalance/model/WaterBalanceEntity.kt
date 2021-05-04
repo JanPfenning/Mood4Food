@@ -7,10 +7,8 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
 
     var waterBalance = 0f
     var currentDate = "--"
-
-
-
-
+    var calenderWeek = 0
+    var dayOfWeek = 0
 
 
 }

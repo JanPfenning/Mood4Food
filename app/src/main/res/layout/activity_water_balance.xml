@@ -31,6 +31,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/reset"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
@@ -46,6 +47,15 @@
             android:text="Water Balance"
             android:textColor="@color/text"
             android:textSize="24sp"/>
+
+        <ImageView
+            android:id="@+id/analyse_waterbalance"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_bar_chart_24"
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
 
         <ImageView
             android:id="@+id/addwater"
@@ -75,7 +85,9 @@
             android:text="0%"
             android:textColor="@color/text"
             android:textSize="30sp" />
+
         <TextView
+            android:id="@+id/water_absolut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

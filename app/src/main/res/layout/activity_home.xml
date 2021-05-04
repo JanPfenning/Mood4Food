@@ -28,19 +28,22 @@
             android:id="@+id/homeWaterProgressBar"
             android:layout_width="match_parent"
             android:layout_height="6dp"
-            android:progressDrawable="@drawable/progressbar"
+            android:progressDrawable="@drawable/waterbalance_progressbar"
             android:progress="50"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Today's Recipes"
+            android:text="Recipe Recommendations"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:textColor="@color/text"
             android:textSize="20sp"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

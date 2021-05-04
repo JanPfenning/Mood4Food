@@ -1,7 +1,6 @@
 package com.jrk.mood4food.home.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ProgressBar
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
@@ -15,7 +14,7 @@ class MainActivity : NavBarActivity() {
         setContentView(R.layout.activity_home)
         super.onCreate(savedInstanceState)
 
-        val waterBalance = model.getWaterRepository().getCurrentWaterBalance()
+        val waterBalance = model.getWaterRepository().getCurrentWaterBalancePercentage()
 
         val waterProgressBar = findViewById<ProgressBar>(R.id.homeWaterProgressBar)
         waterProgressBar.setProgress(waterBalance.toInt(), false)

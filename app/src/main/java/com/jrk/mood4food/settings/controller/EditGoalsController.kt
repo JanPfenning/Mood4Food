@@ -2,7 +2,7 @@ package com.jrk.mood4food.settings.controller
 
 import com.jrk.mood4food.model.DataAccessLayer
 import com.jrk.mood4food.settings.view.EditGoalsActivity
-import com.jrk.mood4food.settings.SettingsPhysicalConditionData
+import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
 class EditGoalsController(private val model: DataAccessLayer) {
     private  lateinit var view: EditGoalsActivity
@@ -10,7 +10,7 @@ class EditGoalsController(private val model: DataAccessLayer) {
         view = settingsView
     }
 
-    fun saveChangedGoals(data: SettingsPhysicalConditionData) {
+    fun saveChangedGoals(data: SettingsEntity) {
         model.saveChangedGoals(data)
     }
 

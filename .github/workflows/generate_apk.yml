@@ -1,12 +1,12 @@
-name: Android Pull Request & Master CI
+name: Android App Build & APK Generation
 
 on:
   pull_request:
     branches:
-      - 'master'
+      - 'develop'
   push:
     branches:
-      - 'master'
+      - 'develop'
 
 jobs:
   apk:
@@ -22,7 +22,7 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x ./gradlew
       - name: Restore Gradle wrapper
-        run: gradle wrapper
+        run: gradle wrapper --gradle-version 6.1.1
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK

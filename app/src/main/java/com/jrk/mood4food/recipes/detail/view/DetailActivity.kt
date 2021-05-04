@@ -9,14 +9,16 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import com.jrk.mood4food.*
+import com.jrk.mood4food.App
+import com.jrk.mood4food.NavBarActivity
+import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.recipes.add_mod.Converter
 import com.jrk.mood4food.recipes.add_mod.view.Add_ModActivity
 import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
-import com.jrk.mood4food.recipes.detail.model.RecipeRepository
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
 
 
@@ -75,10 +77,20 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             findViewById<TextView>(R.id.recipe_title).text = recipe.title
             /*Picture*/
             findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+            /*Fav*/
+            drawFav(recipe)
+            findViewById<ImageView>(R.id.noFav).setOnClickListener{
+                toggleFav(recipe)
+                drawFav(recipe)
+            }
+            findViewById<ImageView>(R.id.Fav).setOnClickListener{
+                toggleFav(recipe)
+                drawFav(recipe)
+            }
             /*Ingredients*/
             val ingredientView = findViewById<ListView>(R.id.ingredient_list)
             ingredientView.adapter = IngredientAdapter(
-                    model.getRecipeRepository().setToIngredient(recipe.ingredients).toTypedArray(),
+                    Converter.setToIngredient(recipe.ingredients).toTypedArray(),
                     this)
             /*Materials*/
             val materialsView = findViewById<ListView>(R.id.materials_list)
@@ -114,4 +126,18 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         model.unregister(this)
     }
 
+    fun drawFav(recipe: RecipeEntity){
+        if(recipe.favorite){
+            findViewById<ImageView>(R.id.noFav).visibility = View.GONE
+            findViewById<ImageView>(R.id.Fav).visibility = View.VISIBLE
+        }else{
+            findViewById<ImageView>(R.id.noFav).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.Fav).visibility = View.GONE
+        }
+    }
+
+    fun toggleFav(recipe: RecipeEntity){
+        recipe.favorite = !recipe.favorite
+        controller.updateFav(recipe)
+    }
 }
