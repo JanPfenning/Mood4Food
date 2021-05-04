@@ -107,11 +107,11 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
     //Helper function to toggle the visibility of the content and the corresponding button
     fun toggle(content:View,button:ImageView){
         if(content.visibility==View.VISIBLE){
+            button.setImageResource(R.drawable.ic_baseline_navigate_next_24)
             content.visibility=View.GONE
-            button.setBackgroundResource(R.drawable.ic_baseline_navigate_next_24)
         }else{
+            button.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
             content.visibility=View.VISIBLE
-            button.setBackgroundResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
         }
     }
 
