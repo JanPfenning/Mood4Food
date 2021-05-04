@@ -1,6 +1,7 @@
 package com.jrk.mood4food.waterbalance.view
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.SeekBar
@@ -13,6 +14,7 @@ import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.waterbalance.controller.WaterBalanceController
 import com.jrk.mood4food.waterbalance.model.WaterBalanceObserver
+import java.util.*
 
 
 class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObserver {
@@ -25,7 +27,6 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         setContentView(R.layout.activity_water_balance)
         super.onCreate(savedInstanceState)
         controller.bind(this)
-
         findViewById<ImageView>(R.id.addwater).setOnClickListener {
             val builder1 = AlertDialog.Builder(this)
             val inflater = layoutInflater
@@ -53,6 +54,10 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         findViewById<ImageView>(R.id.reset).setOnClickListener {
             controller.resetWaterbalance()
         }
+        findViewById<ImageView>(R.id.analyse_waterbalance).setOnClickListener {
+            startActivity(Intent(this, WaterAnalysisActivity::class.java))
+        }
+
 
     }
 
@@ -90,7 +95,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
 
     override fun waterStoredIn() {
         setWaterBalance()
-        if (model.getWaterRepository().isWaterLevelReached()) {
+        if (model.getWaterRepository().isWaterLevelReached(Calendar.getInstance().time)) {
             Toast.makeText(App.getContext(), "Glückwunsch \n Du hast dein Tagesziel erreicht!!", Toast.LENGTH_LONG).show()
         }
     }

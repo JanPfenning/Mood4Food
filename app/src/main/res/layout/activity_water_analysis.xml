@@ -16,6 +16,7 @@
         android:weightSum="1">
 
         <ImageView
+            android:id="@+id/back"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
@@ -44,6 +45,7 @@
         android:weightSum="1">
 
         <ImageView
+            android:id="@+id/backward_week"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
@@ -52,6 +54,7 @@
             tools:ignore="UseAppTint" />
 
         <TextView
+            android:id="@+id/week"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -61,6 +64,7 @@
             android:textSize="24sp" />
 
         <ImageView
+            android:id="@+id/forward_week"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="5dp"
@@ -94,14 +98,15 @@
             android:text="Daily Aim: "/>
 
         <TextView
+            android:id="@+id/waterlevel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:textColor="@color/colorAccent"
             android:paddingStart="5dp"
-            android:textSize="18sp"
-            android:text="0l"/>
+            android:text="0l"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

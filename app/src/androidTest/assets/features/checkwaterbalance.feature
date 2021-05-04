@@ -14,25 +14,35 @@ Scenario Outline: Adding water to waterbalance
     | 1.0     | 0.5      | 1.5       |  
     | 1.5     | 1.0	     | 2.5       |
 Scenario Outline: Canceling action
-	Given the waterbalance is $<balance>
-   When I press on the plus button
-   And I want to add $<wateradd>
-   And I press the cancel button
-   Then the new waterbalance is$<balance>
-  Examples: 
-    | balance | wateradd |  
-    | 1.0     | 0.5      | 
-    | 2.0     | 1.0	 |
-Scenario Outline: Notification when enough water has been drunk 
-	Given the waterbalance is $<balance> and waterlimit is $<limit>
-   When I press on the plus button
-   And I want to add $<wateradd>
-   And I press the add button
-   Then I get a Notification for reaching water limit
-  Examples: 
-    | balance | wateradd | limit| 
-    | 2.5     | 0.5      |3.0 |
-    | 2.0     | 1.5	 |3.0|
+  Given the waterbalance is $<balance>
+  When I press on the plus button
+  And I want to add $<wateradd>
+  And I press the cancel button
+  Then the new waterbalance is$<balance>
+  Examples:
+    | balance | wateradd |
+    | 1.0     | 0.5      |
+    | 2.0     | 1.0      |
+
+  Scenario Outline: Notification when enough water has been drunk
+    Given the waterbalance is $<balance> and waterlimit is $<limit>
+    When I press on the plus button
+    And I want to add $<wateradd>
+    And I press the add button
+    Then I get a Notification for reaching water limit
+    Examples:
+      | balance | wateradd | limit |
+      | 2.5     | 0.5      | 3.0   |
+      | 2.0     | 1.5      | 3.0   |
+
+  Scenario Outline: Added wrong amount of water
+    Given the waterbalance is $<balance> and waterlimit is $<limit>
+    When I press the reset button
+    Then the waterbalance is $<newbalance> and waterlimit is $<limit>
+    Examples:
+      | balance | limit | newbalance |
+      | 2.5     | 3.0   | 0          |
+      | 2.0     | 3.0   | 0          |
 Scenario: Press plus button and show add screen
 	Given: I am on the waterbalance screen
 	When I press plus button
