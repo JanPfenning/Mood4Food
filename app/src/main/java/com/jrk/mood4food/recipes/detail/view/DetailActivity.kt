@@ -2,9 +2,11 @@ package com.jrk.mood4food.recipes.detail.view
 
 import android.content.Intent
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
@@ -13,6 +15,8 @@ import com.jrk.mood4food.App
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
+import com.jrk.mood4food.model.api.endpoints.RecipeEndpoint
+import com.jrk.mood4food.model.api.entity.Recipe
 import com.jrk.mood4food.recipes.add_mod.Converter
 import com.jrk.mood4food.recipes.add_mod.view.Add_ModActivity
 import com.jrk.mood4food.recipes.detail.IngredientAdapter
@@ -20,6 +24,7 @@ import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.selection.view.SelectionActivity
+import kotlin.reflect.KFunction1
 
 
 class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
@@ -34,16 +39,53 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
 
         val id = intent.getStringExtra("id")
 
-        val recipe:RecipeEntity
+        var recipe:RecipeEntity
         if (id !is String){
             Log.e("RECIPE","id is not there")
         }else{
-            recipe = model.getRecipeRepository().loadRecipeDetails(id)
+            val api = intent.getBooleanExtra("api", false)
+            if(api){
+                val id = id.toInt();
+                RecipeEndpoint.get(App.getContext(), this::onApiResult as KFunction1<Any, Unit>, id)
+            }else
+            {
+                recipe = model.getRecipeRepository().loadRecipeDetails(id)
 
-            findViewById<ImageView>(R.id.edit_recipe).setOnClickListener{
-                val intent = Intent(this, Add_ModActivity::class.java);
-                intent.putExtra("recipe_id",recipe.storageAddress)
-                startActivity(intent);
+                findViewById<ImageView>(R.id.edit_recipe).setOnClickListener{
+                    val intent = Intent(this, Add_ModActivity::class.java);
+                    intent.putExtra("recipe_id",recipe.storageAddress)
+                    startActivity(intent);
+                }
+
+                //Filling the Recipe Data into the Views
+                /*Title*/
+                findViewById<TextView>(R.id.recipe_title).text = recipe.title
+                /*Picture*/
+                findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+                /*Fav*/
+                drawFav(recipe)
+                findViewById<ImageView>(R.id.noFav).setOnClickListener{
+                    toggleFav(recipe)
+                    drawFav(recipe)
+                }
+                findViewById<ImageView>(R.id.Fav).setOnClickListener{
+                    toggleFav(recipe)
+                    drawFav(recipe)
+                }
+                /*Ingredients*/
+                val ingredientView = findViewById<ListView>(R.id.ingredient_list)
+                ingredientView.adapter = IngredientAdapter(
+                        Converter.setToIngredient(recipe.ingredients).toTypedArray(),
+                        this)
+                /*Materials*/
+                val materialsView = findViewById<ListView>(R.id.materials_list)
+                materialsView.adapter = ArrayAdapter<String>(
+                        App.getContext(),
+                        R.layout.adapter_read_item,
+                        R.id.item_name,
+                        recipe.materials.toTypedArray())
+                /*Description*/
+                findViewById<TextView>(R.id.description_content).text = recipe.description
             }
 
             //Initialization of on-click-listeners for views
@@ -71,36 +113,6 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent)
             }
-
-            //Filling the Recipe Data into the Views
-            /*Title*/
-            findViewById<TextView>(R.id.recipe_title).text = recipe.title
-            /*Picture*/
-            findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
-            /*Fav*/
-            drawFav(recipe)
-            findViewById<ImageView>(R.id.noFav).setOnClickListener{
-                toggleFav(recipe)
-                drawFav(recipe)
-            }
-            findViewById<ImageView>(R.id.Fav).setOnClickListener{
-                toggleFav(recipe)
-                drawFav(recipe)
-            }
-            /*Ingredients*/
-            val ingredientView = findViewById<ListView>(R.id.ingredient_list)
-            ingredientView.adapter = IngredientAdapter(
-                    Converter.setToIngredient(recipe.ingredients).toTypedArray(),
-                    this)
-            /*Materials*/
-            val materialsView = findViewById<ListView>(R.id.materials_list)
-            materialsView.adapter = ArrayAdapter<String>(
-                    App.getContext(),
-                    R.layout.adapter_read_item,
-                    R.id.item_name,
-                    recipe.materials.toTypedArray())
-            /*Description*/
-            findViewById<TextView>(R.id.description_content).text = recipe.description
         }
     }
 
@@ -139,5 +151,45 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
     fun toggleFav(recipe: RecipeEntity){
         recipe.favorite = !recipe.favorite
         controller.updateFav(recipe)
+    }
+
+    fun onApiResult(recipe: Recipe){
+        val newEntity: RecipeEntity = RecipeEntity(App.getContext());
+        newEntity.description = recipe.description
+        newEntity.title = recipe.title;
+
+        findViewById<ImageView>(R.id.edit_recipe).visibility = View.GONE
+
+        //Filling the Recipe Data into the Views
+        /*Title*/
+        findViewById<TextView>(R.id.recipe_title).text = recipe.title
+        /*Picture*/
+        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+        /*Fav*/
+        findViewById<ImageView>(R.id.noFav).visibility = View.GONE;
+        findViewById<ImageView>(R.id.Fav).visibility = View.GONE;
+        /*drawFav(recipe)
+        findViewById<ImageView>(R.id.noFav).setOnClickListener{
+            toggleFav(recipe)
+            drawFav(recipe)
+        }
+        findViewById<ImageView>(R.id.Fav).setOnClickListener{
+            toggleFav(recipe)
+            drawFav(recipe)
+        }*/
+        /*Ingredients*/
+        val ingredientView = findViewById<ListView>(R.id.ingredient_list)
+        ingredientView.adapter = IngredientAdapter(
+                Converter.setToIngredient(newEntity.ingredients).toTypedArray(),
+                this)
+        /*Materials*/
+        val materialsView = findViewById<ListView>(R.id.materials_list)
+        materialsView.adapter = ArrayAdapter<String>(
+                App.getContext(),
+                R.layout.adapter_read_item,
+                R.id.item_name,
+                newEntity.materials.toTypedArray())
+        /*Description*/
+        findViewById<TextView>(R.id.description_content).text = newEntity.description
     }
 }

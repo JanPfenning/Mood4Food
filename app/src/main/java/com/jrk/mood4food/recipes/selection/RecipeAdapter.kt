@@ -1,7 +1,6 @@
 package com.jrk.mood4food.recipes.selection
 
 import android.net.Uri
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,8 @@ import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.selection.view.RecipeClickListener
 
 class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
-                    private val recipeClickListener: RecipeClickListener) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>(){
+                    private val recipeClickListener: RecipeClickListener,
+                    private val api: Boolean) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         //Define Views which are used in "onBindViewHolder"
@@ -38,7 +38,11 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
         // Put data into the views defined by viewHolder
         viewHolder.textView.text = dataSet[position].title
         viewHolder.cardView.setOnClickListener{
-            recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString())
+            if(api){
+                recipeClickListener.onRecipeClickListener(dataSet[position].APIid.toString(), api)
+            }else{
+                recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString(), api)
+            }
         }
         viewHolder.imageView.setImageURI(Uri.parse(dataSet[position].imageUri))
         if(dataSet[position].favorite){
