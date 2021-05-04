@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.RenderProcessGoneDetail
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +49,11 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
         if(dataSet[position].favorite){
             viewHolder.nofavView.visibility = View.GONE
         }else{
+            viewHolder.favView.visibility = View.GONE
+        }
+
+        if(api){
+            viewHolder.nofavView.visibility = View.GONE
             viewHolder.favView.visibility = View.GONE
         }
     }

@@ -93,9 +93,9 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
             closeSearch.visibility = View.GONE;
         }
 
-        showAPIRecipes();
         showFavRecipes(recipes)
         showAllRecipes(recipes)
+        getApi()
     }
 
     override fun onStart() {
@@ -129,13 +129,12 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
     }
 
     private fun showAPIRecipes() {
-        //TODO Show all Recipes coming from API
-        // TODO filter based on search
+        // TODO Show all Recipes coming from API
         //Fill Cloud recipes recycler
-        val recommendedView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
-        recommendedView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val recommendedAdapter = RecipeAdapter(this.API_result, this, true)
-        recommendedView.adapter = recommendedAdapter
+        val apiRecipeView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
+        apiRecipeView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val apiRecipeAdapter = RecipeAdapter(this.API_result, this, true)
+        apiRecipeView.adapter = apiRecipeAdapter
     }
 
     //Forwarded listener
@@ -150,6 +149,10 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
     //Called when users sends the query string
     fun onApiSearch(query: String){
         RecipeEndpoint.search(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, query, 20)
+    }
+
+    fun getApi(){
+        RecipeEndpoint.getAll(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, 20)
     }
 
     //Called when async backend call arrives
