@@ -47,6 +47,7 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
         chart.xAxis.setDrawGridLines(false)
         chart.description.isEnabled = false
         chart.legend.isEnabled = false
+        chart.setTouchEnabled(false)
         chart.axisLeft.axisMaximum = model.getWaterRepository().getWaterLevel()
         val xAxisLabel = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
         chart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel);

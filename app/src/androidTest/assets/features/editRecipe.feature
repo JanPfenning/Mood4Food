@@ -5,23 +5,23 @@ Feature: Edit Recipe
     And I am on edit recipe screen
 
   Scenario Outline: Delete Ingredient
-    When I press delte Button after the <Ingredient>
-	Then the the new Ingredients are <newIngredient>
+    When I press delete Button after the <Ingredient>
+    Then the the new Ingredients are <newIngredient>
     Examples:
-      | Ingredient     | newIngredient  | 
-      | Pizzacheese  |  |
-	  
-  Scenario : Delete Material
-    When I press delte Button after the <Material> 
-	Then the the new Ingredients are <newMaterial>
+      | Ingredient  | newIngredient |
+      | Pizzacheese |               |
+
+  Scenario Outline: Delete Material
+    When I press delete Button after the <Material>
+    Then the the new Ingredients are <newMaterial>
     Examples:
-      | material     | newMaterial  | 
-      | Ofen |  |
-	  
+      | material | newMaterial |
+      | Ofen     |             |
+
   Scenario: Adding Photo
     When I press chose photo
     Then open galery
-	
+
   Scenario Outline: Adding multiple ingredients
     When I type ingredient <ingredient>
     Then new ingredient-field should appear

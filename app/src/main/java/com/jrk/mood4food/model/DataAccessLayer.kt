@@ -58,8 +58,6 @@ class DataAccessLayer(
     fun performCalculateNeeds(calculationData: SettingsEntity) {
         getSettingsRepository().calculateNeeds(calculationData)
         notifyS(SettingsObserver::calculationOfNeedsDone as KFunction1<DomainObservers, Unit>)
-
-
     }
 
 

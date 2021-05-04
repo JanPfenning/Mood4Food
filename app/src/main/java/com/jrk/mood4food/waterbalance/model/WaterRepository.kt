@@ -68,7 +68,6 @@ class WaterRepository {
             if (it.calenderWeek == Calenderweek) {
                 entitiesFromWeek.add(it)
                 d.remove(it.dayOfWeek)
-
             }
         }
         for (i in d) {
@@ -76,7 +75,6 @@ class WaterRepository {
             waterEntity.dayOfWeek = i
             waterEntity.waterBalance = 0F
             entitiesFromWeek.add(waterEntity)
-
         }
         var isReached: MutableList<Boolean> = arrayListOf()
         entitiesFromWeek.sortedBy { it.dayOfWeek }
