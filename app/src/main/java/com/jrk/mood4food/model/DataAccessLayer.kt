@@ -54,6 +54,10 @@ class DataAccessLayer(
         observers.filterIsInstance<WaterBalanceObserver>().onEach { action(it) }
     }
 
+    private fun notifyR(action: KFunction1<WaterBalanceObserver, Unit>) {
+        //für Rezepte siehe notifyW und notifyS
+    }
+
 
     fun performCalculateNeeds(calculationData: SettingsEntity) {
         getSettingsRepository().calculateNeeds(calculationData)
