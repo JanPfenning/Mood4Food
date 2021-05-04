@@ -1,4 +1,6 @@
 package com.jrk.mood4food.recipes.add_mod
+import com.jrk.mood4food.model.api.entity.Ingredient as ApiIng
+import com.jrk.mood4food.model.api.entity.Material as ApiMat
 
 object Converter {
     fun setToIngredient(set: Set<Set<String>>): MutableSet<Ingredient> {
@@ -11,6 +13,26 @@ object Converter {
         }
         return retSet
     }
+
+    fun apiToIngredient(al: ArrayList<ApiIng>): MutableSet<Ingredient> {
+        val retSet = mutableSetOf<Ingredient>()
+        al.forEach { e ->
+            var i = Ingredient()
+            i.name = e.name
+            i.amount = e.amount
+            retSet.add(i)
+        }
+        return retSet
+    }
+
+    fun apiToMaterial(al: ArrayList<ApiMat>): MutableSet<String> {
+        val retSet = mutableSetOf<String>()
+        al.forEach { e ->
+            retSet.add(e.name)
+        }
+        return retSet
+    }
+
 
     fun setToMaterials(set: Set<String>): MutableSet<Material> {
         val retSet = mutableSetOf<Material>()

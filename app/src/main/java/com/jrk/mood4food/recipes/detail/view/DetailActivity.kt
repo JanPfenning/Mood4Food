@@ -180,7 +180,7 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         /*Ingredients*/
         val ingredientView = findViewById<ListView>(R.id.ingredient_list)
         ingredientView.adapter = IngredientAdapter(
-                Converter.setToIngredient(newEntity.ingredients).toTypedArray(),
+                Converter.apiToIngredient(recipe.ingredients).toTypedArray(),
                 this)
         /*Materials*/
         val materialsView = findViewById<ListView>(R.id.materials_list)
@@ -188,7 +188,7 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
                 App.getContext(),
                 R.layout.adapter_read_item,
                 R.id.item_name,
-                newEntity.materials.toTypedArray())
+                Converter.apiToMaterial(recipe.materials).toTypedArray())
         /*Description*/
         findViewById<TextView>(R.id.description_content).text = newEntity.description
     }
