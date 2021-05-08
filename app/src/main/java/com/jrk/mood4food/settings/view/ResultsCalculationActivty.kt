@@ -23,6 +23,7 @@ class ResultsCalculationActivty : NavBarActivity(), SettingsObserver {
         findViewById<TextView>(R.id.fatPerDay).text = data.fatPerDay.toString()
         findViewById<TextView>(R.id.saveCalcResults).setOnClickListener() {
             controller.saveCalculationResults(data)
+            finish()
         }
         findViewById<ImageView>(R.id.back).setOnClickListener {
             finish()
