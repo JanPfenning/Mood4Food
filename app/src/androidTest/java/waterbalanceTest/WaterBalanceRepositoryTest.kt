@@ -67,6 +67,43 @@ class WaterBalanceRepositoryTest {
         waterBalance = e[0].waterBalance
         Assert.assertEquals(40F, waterBalance)
     }
+
+    @Test
+    fun resetWaterbalanceTest() {
+        waterRepository.getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
+        waterRepository.storeWaterBalance(20F)
+        waterRepository.resetWaterbalance()
+        val e = TestStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
+        var waterBalance = e[0].waterBalance
+        Assert.assertEquals(0F, waterBalance)
+    }
+
+    @Test
+    fun getWaterEntityFromWeekOfYearTest() {
+        val entity1 = DummyData.getDummyWaterEntity(20F, "22.04.2000", 3, 1)
+        val entity2 = DummyData.getDummyWaterEntity(20F, "23.04.2000", 3, 3)
+        val entity3 = DummyData.getDummyWaterEntity(20F, "24.04.2000", 3, 4)
+        val entity4 = DummyData.getDummyWaterEntity(20F, "25.04.2000", 5, 4)
+        TestStorage.save(App.getContext(), entity1)
+        TestStorage.save(App.getContext(), entity2)
+        TestStorage.save(App.getContext(), entity3)
+        TestStorage.save(App.getContext(), entity4)
+        //val ret =waterRepository.getWaterEntityFromWeekOfYear(3)
+        //val entities = ret.first
+        //val isReached = ret.second
+
+        //Log.i("teste", entities[0].currentDate.toString())
+
+
+    }
+
+    @Test
+    fun convertDateToFormattedString() {
+        val dateString = convertDateToFormattedString(Date(100, 3, 22))
+        Assert.assertEquals("22.04.2000", dateString)
+
+
+    }
 }
 
 
