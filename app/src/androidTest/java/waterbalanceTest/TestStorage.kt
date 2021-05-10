@@ -7,7 +7,14 @@ import com.jrk.mood4food.model.localStorage.LocalStorageInterface
 object TestStorage : LocalStorageInterface {
     private var list: MutableList<LocalEntity> = emptyArray<LocalEntity>().toMutableList()
     override fun getAll(context: Context, entityClass: Class<*>): List<LocalEntity> {
-        return list
+        val ret: MutableList<LocalEntity> = emptyArray<LocalEntity>().toMutableList()
+
+        for (e in list) {
+            if (e.javaClass.canonicalName == entityClass.canonicalName) {
+                ret.add((e))
+            }
+        }
+        return ret
     }
 
     override fun load(context: Context, storageAddress: String?, entity: LocalEntity?) {
