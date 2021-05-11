@@ -4,15 +4,15 @@ import android.content.Context
 import java.io.File
 import java.util.*
 
-object LocalStorage {
-    fun getAll(context: Context, entityClass: Class<*>): List<LocalEntity> {
+object LocalStorage : LocalStorageInterface {
+    override fun getAll(context: Context, entityClass: Class<*>): List<LocalEntity> {
         val entities: MutableList<LocalEntity> = ArrayList()
         try {
             val entity = entityClass.getDeclaredConstructor(Context::class.java).newInstance(context) as LocalEntity
             if (entity.hasEntitySet()) {
                 val entitySetFile = context.getSharedPreferences(entityClass.name, 0)
                 for (key in entitySetFile.all.keys) {
-                    if(key.contains("#")) {
+                    if (key.contains("#")) {
 
                         val entry = entityClass.getDeclaredConstructor(Context::class.java).newInstance(context) as LocalEntity
                         load(context, key, entry)
@@ -31,7 +31,7 @@ object LocalStorage {
         return entities
     }
 
-    fun load(context: Context, storageAddress: String?, entity: LocalEntity?) {
+    override fun load(context: Context, storageAddress: String?, entity: LocalEntity?) {
         entity?.storageAddress = storageAddress
         val entityFile = context.getSharedPreferences(storageAddress, 0)
         for (attribute in entity?.attributes!!) {
@@ -50,7 +50,7 @@ object LocalStorage {
         }
     }
 
-    fun save(context: Context, entity: LocalEntity?) {
+    override fun save(context: Context, entity: LocalEntity?) {
         if (entity?.storageAddress == null) {
             if (entity?.hasEntitySet()!!) {
                 val entitySetFile = context.getSharedPreferences(entity.entityName, 0)
@@ -88,7 +88,7 @@ object LocalStorage {
         editor.apply()
     }
 
-    fun remove(context: Context, entity: LocalEntity?) {
+    override fun remove(context: Context, entity: LocalEntity?) {
         if (entity?.storageAddress != null) {
             val entityFile = context.getSharedPreferences(entity.storageAddress, 0)
             entityFile.edit().clear().commit()
