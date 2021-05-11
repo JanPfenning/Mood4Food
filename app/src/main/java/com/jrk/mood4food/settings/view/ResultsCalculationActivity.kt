@@ -9,7 +9,7 @@ import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.settings.controller.ResultController
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
 
-class ResultsCalculationActivty : NavBarActivity(), SettingsObserver {
+class ResultsCalculationActivity : NavBarActivity(), SettingsObserver {
     private val model = ModelModule.dataAccessLayer
     private val controller = ResultController(model)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +23,7 @@ class ResultsCalculationActivty : NavBarActivity(), SettingsObserver {
         findViewById<TextView>(R.id.fatPerDay).text = data.fatPerDay.toString()
         findViewById<TextView>(R.id.saveCalcResults).setOnClickListener() {
             controller.saveCalculationResults(data)
+            finish()
         }
         findViewById<ImageView>(R.id.back).setOnClickListener {
             finish()

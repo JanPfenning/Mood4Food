@@ -46,7 +46,7 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
 
     override fun calculationOfNeedsDone() {
 
-        startActivity(Intent(this, ResultsCalculationActivty::class.java))
+        startActivity(Intent(this, ResultsCalculationActivity::class.java))
 
     }
 
