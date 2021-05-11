@@ -88,9 +88,9 @@ class WaterBalanceRepositoryTest {
         val settingsEntity = SettingsEntity(App.getContext());
         settingsEntity.waterPerDay = 4.0F
         settingsRepository.storeSettings(settingsEntity)
-        val entity1 = DummyData.getDummyWaterEntity(20F, "22.04.2000", 3, 100)
-        val entity2 = DummyData.getDummyWaterEntity(20F, "23.04.2000", 3, 5)
-        val entity3 = DummyData.getDummyWaterEntity(20F, "24.04.2000", 3, 4)
+        val entity1 = DummyData.getDummyWaterEntity(20F, "22.04.2000", 3, 1)
+        val entity2 = DummyData.getDummyWaterEntity(20F, "23.04.2000", 3, 3)
+        val entity3 = DummyData.getDummyWaterEntity(20F, "24.04.2000", 3, 5)
         val entity4 = DummyData.getDummyWaterEntity(20F, "25.04.2000", 5, 4)
         TestStorage.save(App.getContext(), entity1)
         TestStorage.save(App.getContext(), entity2)
@@ -98,10 +98,9 @@ class WaterBalanceRepositoryTest {
         TestStorage.save(App.getContext(), entity4)
         val ret = waterRepository.getWaterEntityFromWeekOfYear(3)
         val entities = ret.first
-        val isReached = ret.second
         Assert.assertEquals("22.04.2000", entities[0].currentDate)
         Assert.assertEquals("23.04.2000", entities[2].currentDate)
-        Assert.assertEquals("24.04.2000", entities[3].currentDate)
+        Assert.assertEquals("24.04.2000", entities[4].currentDate)
     }
 
     @Test
@@ -109,8 +108,25 @@ class WaterBalanceRepositoryTest {
         val dateString = convertDateToFormattedString(Date(100, 3, 22))
         Assert.assertEquals("22.04.2000", dateString)
 
+    }
+
+    @Test
+    fun isWaterLevelReachedTest() {
+        val settingsRepository = SettingsRepository(TestStorage)
+        val settingsEntity = SettingsEntity(App.getContext());
+        settingsEntity.waterPerDay = 4.0F
+        settingsRepository.storeSettings(settingsEntity)
+        val entity1 = DummyData.getDummyWaterEntity(5F, "22.04.2000", 3, 1)
+        val entity2 = DummyData.getDummyWaterEntity(1F, "23.04.2000", 3, 1)
+        TestStorage.save(App.getContext(), entity1)
+        TestStorage.save(App.getContext(), entity2)
+        val e = waterRepository.getEntityFromDate("22.04.2000")
+        Assert.assertFalse(waterRepository.isWaterLevelReached(Date(100, 3, 23)))
+        Assert.assertTrue(waterRepository.isWaterLevelReached(Date(100, 3, 22)))
+
 
     }
+
 }
 
 

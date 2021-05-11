@@ -85,9 +85,9 @@ class WaterRepository(localStorage: LocalStorageInterface) {
             entitiesFromWeek.add(waterEntity)
         }
         var isReached: MutableList<Boolean> = arrayListOf()
-        //TODO DONT WORK
-        entitiesFromWeek.sortedBy { it.dayOfWeek }
 
+        var ret = entitiesFromWeek.sortedBy { it.dayOfWeek }
+        ret = ret.toMutableList()
         for (entity in entitiesFromWeek) {
             if (entity.waterBalance >= getWaterLevel()) {
                 isReached.add(true)
@@ -96,12 +96,12 @@ class WaterRepository(localStorage: LocalStorageInterface) {
             }
         }
 
-        return Pair(entitiesFromWeek, isReached)
+        return Pair(ret, isReached)
 
     }
 
     fun isWaterLevelReached(date: Date): Boolean {
-        return getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time)).waterBalance >= getWaterLevel()
+        return getEntityFromDate(convertDateToFormattedString(date)).waterBalance >= getWaterLevel()
 
     }
 
