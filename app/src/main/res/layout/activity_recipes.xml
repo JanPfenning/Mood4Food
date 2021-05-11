@@ -35,6 +35,7 @@
             tools:ignore="UseAppTint" />
 
         <TextView
+            android:id="@+id/recipe_selection_header"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -45,13 +46,14 @@
             android:textSize="24sp"/>
 
         <EditText
-            android:layout_width="0dp"
+            android:id="@+id/search_field"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:backgroundTint="@color/text"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
             android:layout_weight="1"
-            android:text="Recipes"
+            android:text=""
             android:visibility="gone"
             android:textColor="@color/text"
             android:textSize="24sp"/>
@@ -67,12 +69,23 @@
             tools:ignore="UseAppTint" />
 
         <ImageView
+            android:id="@+id/commitSearch"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="8dp"
-            android:src="@drawable/ic_baseline_search_24"
-            android:tint="@color/text"
             android:visibility="gone"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_check_24"
+            android:tint="@color/text"
+            tools:ignore="UseAppTint" />
+
+        <ImageView
+            android:id="@+id/cancelSearch"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:visibility="gone"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_close_24"
+            android:tint="@color/text"
             tools:ignore="UseAppTint" />
 
     </LinearLayout>
