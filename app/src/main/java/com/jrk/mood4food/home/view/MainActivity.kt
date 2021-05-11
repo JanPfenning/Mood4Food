@@ -43,6 +43,10 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         // Load recipes from API based on local liked / diskliked ingredients
         val likes = mutableListOf<String>()
         val dislikes = mutableListOf<String>()
+        val ingredientsGood = model.getSettingsRepository().getGoodIngredients()
+        ingredientsGood.forEach { likes.add(it.name) }
+        val ingredientsBad = model.getSettingsRepository().getBadIngredients()
+        ingredientsBad.forEach { likes.add(it.name) }
 
         RecipeEndpoint.getByRating(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, likes, dislikes, 10, 0)
     }
