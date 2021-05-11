@@ -58,7 +58,7 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         val ingredientsGood = model.getSettingsRepository().getGoodIngredients()
         ingredientsGood.forEach { likes.add(it.name) }
         val ingredientsBad = model.getSettingsRepository().getBadIngredients()
-        ingredientsBad.forEach { likes.add(it.name) }
+        ingredientsBad.forEach { dislikes.add(it.name) }
 
         RecipeEndpoint.getByRating(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, likes, dislikes, limit, offset)
     }
