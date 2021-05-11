@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:weightSum="5">
+        android:weightSum="4">
 
         <LinearLayout
             android:id="@+id/home"
@@ -85,28 +85,6 @@
                 android:gravity="center"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/nutrients"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="1dp"
-                android:src="@drawable/ic_baseline_pie_chart_24"
-                android:tint="@color/white"
-                tools:ignore="UseAppTint" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="Nutrients"
-                android:textColor="@color/white"
-                android:textSize="10sp"
-                android:gravity="center"/>
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/settings"
