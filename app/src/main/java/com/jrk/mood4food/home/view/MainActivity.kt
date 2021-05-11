@@ -3,6 +3,8 @@ package com.jrk.mood4food.home.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +28,9 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
     private val model = ModelModule.dataAccessLayer
     private val controller = SelectionController(model)
 
+    private var limit = 10
+    private var offset = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_home)
         super.onCreate(savedInstanceState)
@@ -34,6 +39,13 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         val waterBalance = model.getWaterRepository().getCurrentWaterBalancePercentage()
         val waterProgressBar = findViewById<ProgressBar>(R.id.homeWaterProgressBar)
         waterProgressBar.setProgress(waterBalance.toInt(), false)
+
+        // Refresh logic
+        val ivRefresh = findViewById<ImageView>(R.id.iv_refresh_recommendations)
+        ivRefresh.setOnClickListener {
+            offset += limit
+            loadRecommendedRecipes()
+        }
 
         // Start loading the recipes from API asynchronously
         loadRecommendedRecipes()
@@ -48,7 +60,7 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         val ingredientsBad = model.getSettingsRepository().getBadIngredients()
         ingredientsBad.forEach { likes.add(it.name) }
 
-        RecipeEndpoint.getByRating(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, likes, dislikes, 10, 0)
+        RecipeEndpoint.getByRating(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, likes, dislikes, limit, offset)
     }
 
     private fun showRecommendedRecipes(recipes: Array<RecipeEntity>){
