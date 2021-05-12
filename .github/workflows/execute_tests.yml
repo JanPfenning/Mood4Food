@@ -32,5 +32,7 @@ jobs:
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
+      - name: Code Coverage report generation
+        run: ./gradlew jacocoTestReport
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)
