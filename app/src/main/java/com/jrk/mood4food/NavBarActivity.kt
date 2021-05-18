@@ -21,13 +21,6 @@ open class NavBarActivity : AppCompatActivity() {
             startActivity(Intent(this, WaterBalanceActivity::class.java))
         }
 
-        //Navigate to Nutrietns UI
-        findViewById<LinearLayout>(R.id.nutrients).setOnClickListener{
-            //setContentView(R.layout.activity_nutrients)
-            finish()
-            startActivity(Intent(this,NutrientActivity::class.java))
-        }
-
         //Navigate to Settings UI
         findViewById<LinearLayout>(R.id.settings).setOnClickListener{
             finish()

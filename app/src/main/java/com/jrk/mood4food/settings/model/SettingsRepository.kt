@@ -1,11 +1,12 @@
 package com.jrk.mood4food.waterbalance.model
 
 import com.jrk.mood4food.App
-import com.jrk.mood4food.model.localStorage.LocalStorage
+import com.jrk.mood4food.model.localStorage.LocalStorageInterface
 import com.jrk.mood4food.settings.view.IngredientSettings
 import kotlin.math.roundToInt
 
-class SettingsRepository {
+class SettingsRepository(localStorage: LocalStorageInterface) {
+    var localStorage = localStorage
     lateinit var tmpEnitity: SettingsEntity
 
     fun calculateNeeds(calculationData: SettingsEntity) {
@@ -20,7 +21,7 @@ class SettingsRepository {
 
     fun storeSettings(calculationData: SettingsEntity) {
 
-        LocalStorage.save(App.getContext(), calculationData)
+        localStorage.save(App.getContext(), calculationData)
     }
 
 
@@ -58,7 +59,7 @@ class SettingsRepository {
 
     fun getSettings(): SettingsEntity {
 
-        var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
 
         var entity: SettingsEntity = entities[0]
         if (entity.gender.isNullOrEmpty()) {
@@ -72,7 +73,7 @@ class SettingsRepository {
     fun saveIngredients(ingredientsGood: MutableSet<IngredientSettings>, ingredientsBad: MutableSet<IngredientSettings>) {
         var ingredientsGood = ingToMutableSet(ingredientsGood)
         var ingredientsBad = ingToMutableSet(ingredientsBad)
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
         if (entity.ingredientsGood.isNullOrEmpty()) {
@@ -80,13 +81,13 @@ class SettingsRepository {
         }
         entity.ingredientsBad = ingredientsBad
         entity.ingredientsGood = ingredientsGood
-        LocalStorage.save(App.getContext(), entity)
+        localStorage.save(App.getContext(), entity)
 
 
     }
 
     fun getGoodIngredients(): MutableSet<IngredientSettings> {
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
         if (entity.ingredientsGood.isNullOrEmpty()) {
@@ -97,7 +98,7 @@ class SettingsRepository {
     }
 
     fun getBadIngredients(): MutableSet<IngredientSettings> {
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
         if (entity.ingredientsGood.isNullOrEmpty()) {

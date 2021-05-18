@@ -3,18 +3,20 @@ package com.jrk.mood4food.waterbalance.model
 import android.content.Context
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorage
+import com.jrk.mood4food.model.localStorage.LocalStorageInterface
 import java.text.SimpleDateFormat
 import java.util.*
 
-class WaterRepository {
+class WaterRepository(localStorage: LocalStorageInterface) {
+    var localStorage = localStorage
     fun storeWaterBalance(waterBalance: Float) {
         val context: Context = App.getContext()
-        val waterEntity = getEntityFromDate(Calendar.getInstance().time)
+        val waterEntity = getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
         waterEntity.waterBalance += waterBalance
         LocalStorage.save(context, waterEntity)
     }
 
-    private fun createWaterEntity(currentDate: String, waterBalance: Float): WaterBalanceEntity {
+    fun createWaterEntity(currentDate: String, waterBalance: Float): WaterBalanceEntity {
         val context: Context = App.getContext()
         val waterEntity = WaterBalanceEntity(context)
         val cal: Calendar = getCalenderFromDate(currentDate)
@@ -22,7 +24,7 @@ class WaterRepository {
         waterEntity.currentDate = currentDate
         waterEntity.calenderWeek = getCalenderWeekFromDate(cal)
         waterEntity.dayOfWeek = getDayOfWeek(cal)
-        LocalStorage.save(context, waterEntity)
+        localStorage.save(context, waterEntity)
         return waterEntity
 
     }
@@ -48,21 +50,26 @@ class WaterRepository {
 
 
     fun getCurrentWaterBalancePercentage(): Float {
-        val entity = getEntityFromDate(Calendar.getInstance().time)
+        val entity = getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
         return (entity.waterBalance * 100 / getWaterLevel())
 
     }
 
     fun getCurrentWaterBalanceAbsolut(): Float {
-        val entity = getEntityFromDate(Calendar.getInstance().time)
+        val entity = getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
         return (entity.waterBalance)
 
     }
 
-    //TODO REFCTOR
-    fun getWaterEntityFromWeekOfYear(Calenderweek: Int): Pair<MutableList<WaterBalanceEntity>, MutableList<Boolean>> {
-        val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
-        val entitiesFromWeek: MutableList<WaterBalanceEntity> = mutableListOf()
+    private fun convertDateToFormattedString(date: Date): String {
+        val formatter = SimpleDateFormat("dd.MM.yyyy")
+        return formatter.format(date).toString()
+        return formatter.format(date).toString()
+    }
+
+    fun getWaterEntityFromWeekOfYear(Calenderweek: Int): MutableList<WaterBalanceEntity> {
+        val entities = localStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
+        var entitiesFromWeek: MutableList<WaterBalanceEntity> = mutableListOf()
         var d = listOf(1, 2, 3, 4, 5, 6, 7).toMutableList()
         entities.forEach {
             if (it.calenderWeek == Calenderweek) {
@@ -76,47 +83,45 @@ class WaterRepository {
             waterEntity.waterBalance = 0F
             entitiesFromWeek.add(waterEntity)
         }
-        var isReached: MutableList<Boolean> = arrayListOf()
         entitiesFromWeek.sortedBy { it.dayOfWeek }
         for (entity in entitiesFromWeek) {
             if (entity.waterBalance >= getWaterLevel()) {
-                isReached.add(true)
-            } else {
-                isReached.add(false)
+                entity.isReached = true
             }
         }
-        return Pair(entitiesFromWeek, isReached)
+        return entitiesFromWeek
 
     }
 
     fun isWaterLevelReached(date: Date): Boolean {
-        return getEntityFromDate(date).waterBalance >= getWaterLevel()
+        return getEntityFromDate(convertDateToFormattedString(date)).waterBalance >= getWaterLevel()
 
     }
 
-    private fun getEntityFromDate(date: Date): WaterBalanceEntity {
-        val formatter = SimpleDateFormat("dd.MM.yyyy")
-        val entities = LocalStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
-        val dateFormatted = formatter.format(date)
+
+    fun getEntityFromDate(date: String): WaterBalanceEntity {
+
+        val entities = localStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
+
 
         entities.forEach {
-            if (it.currentDate == dateFormatted.toString()) {
+            if (it.currentDate == date) {
                 return it
             }
         }
-        return createWaterEntity(dateFormatted, 0.0F)
+        return createWaterEntity(date, 0.0F)
 
     }
 
     fun getWaterLevel(): Float {
-        var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
         return entities[0].waterPerDay
     }
 
     fun resetWaterbalance() {
-        val waterEntity = getEntityFromDate(Calendar.getInstance().time)
+        val waterEntity = getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
         waterEntity.waterBalance = 0F
-        LocalStorage.save(App.getContext(), waterEntity)
+        localStorage.save(App.getContext(), waterEntity)
     }
 
 

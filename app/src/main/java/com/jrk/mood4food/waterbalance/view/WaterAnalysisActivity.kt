@@ -80,21 +80,18 @@ class WaterAnalysisActivity : NavBarActivity(), WaterAnalyserView {
 
     private fun createChartData(): BarData? {
 
-        val ret = model.getWaterRepository().getWaterEntityFromWeekOfYear(weekOfYear)
-        val entities = ret.first
-        val isReached = ret.second
-
+        val entities = model.getWaterRepository().getWaterEntityFromWeekOfYear(weekOfYear)
 
         val values: ArrayList<BarEntry> = ArrayList()
         val colors: ArrayList<Int> = ArrayList()
-        for (i in entities.indices) {
+        for (entity in entities) {
             //Copyright Leonhard Stengel---
-            var rico = entities[i].dayOfWeek.toFloat() - 2
+            var rico = entity.dayOfWeek.toFloat() - 2
             if (rico < 0)
                 rico = 7 + rico
-            val bar = BarEntry(rico, entities[i].waterBalance)
+            val bar = BarEntry(rico, entity.waterBalance)
             //-----------------------------
-            if (isReached[i]) {
+            if (entity.isReached) {
                 colors.add(resources.getColor(R.color.waterLight))
             } else {
                 colors.add(resources.getColor(R.color.waterDark))
