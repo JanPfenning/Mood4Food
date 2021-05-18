@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath 'org.jacoco:org.jacoco.core:0.8.6'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.hiya:jacoco-android:0.2'
     }
 }
 
@@ -23,26 +22,6 @@ allprojects {
 apply plugin: 'com.android.application'
 apply plugin: 'jacoco'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.hiya.jacoco-android'
-
-jacoco {
-    toolVersion = "0.8.4"
-}
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-}
-
-jacocoAndroidUnitTestReport {
-    excludes += ['**/AutoValue_*.*',
-                 '**/*JavascriptBridge.class']
-}
-
-jacocoAndroidUnitTestReport {
-    csv.enabled false
-    html.enabled false
-    xml.enabled true
-}
 
 android {
     compileSdkVersion 29
@@ -71,12 +50,6 @@ android {
 
     }
 
-    sourceSets {
-        androidTest {
-            assets.srcDirs = ['src/androidTest/assets']
-        }
-    }
-
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -92,12 +65,6 @@ android {
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
     }
-
-    flavorDimensions "default"
-    productFlavors {
-        free {}
-        paid {}
-    }
 }
 
 dependencies {
@@ -109,8 +76,6 @@ dependencies {
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     androidTestImplementation 'androidx.annotation:annotation:1.1.0'
-    androidTestImplementation 'info.cukes:cucumber-android:1.2.5@jar'
-    androidTestImplementation 'info.cukes:cucumber-picocontainer:1.2.4'
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestUtil 'androidx.test:orchestrator:1.1.0'

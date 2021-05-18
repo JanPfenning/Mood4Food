@@ -33,6 +33,6 @@ jobs:
         if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
       - name: Code Coverage report generation
-        run: ./gradlew jacocoTestReport
+        run: ./gradlew createDebugCoverageReport
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)
