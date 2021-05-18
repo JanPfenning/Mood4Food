@@ -67,8 +67,7 @@ class WaterRepository(localStorage: LocalStorageInterface) {
         return formatter.format(date).toString()
     }
 
-    //TODO REFCTOR
-    fun getWaterEntityFromWeekOfYear(Calenderweek: Int): Pair<MutableList<WaterBalanceEntity>, MutableList<Boolean>> {
+    fun getWaterEntityFromWeekOfYear(Calenderweek: Int): MutableList<WaterBalanceEntity> {
         val entities = localStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
         var entitiesFromWeek: MutableList<WaterBalanceEntity> = mutableListOf()
         var d = listOf(1, 2, 3, 4, 5, 6, 7).toMutableList()
@@ -84,19 +83,13 @@ class WaterRepository(localStorage: LocalStorageInterface) {
             waterEntity.waterBalance = 0F
             entitiesFromWeek.add(waterEntity)
         }
-        var isReached: MutableList<Boolean> = arrayListOf()
-
-        var ret = entitiesFromWeek.sortedBy { it.dayOfWeek }
-        ret = ret.toMutableList()
+        entitiesFromWeek.sortedBy { it.dayOfWeek }
         for (entity in entitiesFromWeek) {
             if (entity.waterBalance >= getWaterLevel()) {
-                isReached.add(true)
-            } else {
-                isReached.add(false)
+                entity.isReached = true
             }
         }
-
-        return Pair(ret, isReached)
+        return entitiesFromWeek
 
     }
 
