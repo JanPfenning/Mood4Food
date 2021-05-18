@@ -36,8 +36,9 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          ndk: 21.0.6113669
-          cmake: 3.10.2.4988404
-          script: ./gradlew createDebugCoverageReport
+          script: |
+            ./gradlew connectedCheck
+            ./gradlew createDebugCoverageReport
+    
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)
