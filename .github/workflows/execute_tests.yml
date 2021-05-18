@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     name: Execute JUnit Tests
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
 
