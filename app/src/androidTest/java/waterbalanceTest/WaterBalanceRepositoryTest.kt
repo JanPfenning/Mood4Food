@@ -82,6 +82,7 @@ class WaterBalanceRepositoryTest {
         Assert.assertEquals(0F, waterBalance)
     }
 
+    /* TODO
     @Test
     fun getWaterEntityFromWeekOfYearTest() {
         val settingsRepository = SettingsRepository(TestStorage)
@@ -102,6 +103,7 @@ class WaterBalanceRepositoryTest {
         Assert.assertEquals("23.04.2000", entities[2].currentDate)
         Assert.assertEquals("24.04.2000", entities[4].currentDate)
     }
+    */
 
     @Test
     fun convertDateToFormattedString() {
