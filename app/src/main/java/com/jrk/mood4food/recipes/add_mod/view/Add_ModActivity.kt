@@ -127,6 +127,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("id", recipe.storageAddress)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            finish()
             startActivity(intent)
         }
 
@@ -152,16 +153,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         // On cancle modification
         findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener {
-            if (mode == MODE.NEW) {
-                intent = Intent(this, SelectionActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent)
-            } else if (mode == MODE.EDIT) {
-                val intent = Intent(this, DetailActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("id", recipe.storageAddress)
-                startActivity(intent)
-            }
+            finish()
         }
 
         findViewById<ImageView>(R.id.add_ingredient).setOnClickListener {
@@ -192,6 +184,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         val intent = Intent(this, SelectionActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        finish()
         startActivity(intent)
     }
 
