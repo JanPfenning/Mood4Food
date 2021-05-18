@@ -32,13 +32,12 @@ jobs:
         uses: asadmansr/android-test-report-action@v1.2.0
         if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
-      - name: Code Coverage report generation
-        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.2
+      - name: Create Report
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          cmd: ./gradlew createDebugCoverageReport
-          api: 29
-          tag: default
-          abi: x86
+          api-level: 29
+          arch: x86_64
+          script: ./gradlew createDebugCoverageReport
 
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)
