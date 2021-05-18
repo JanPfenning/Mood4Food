@@ -126,7 +126,6 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra("id", recipe.storageAddress)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             finish()
             startActivity(intent)
         }
@@ -181,11 +180,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
      * */
     private fun removeRecipe(recipe: RecipeEntity) {
         controller.removeRecipe(recipe)
-
-        val intent = Intent(this, SelectionActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         finish()
-        startActivity(intent)
     }
 
     private fun pickImageFromGallery() {
