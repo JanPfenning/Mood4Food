@@ -33,12 +33,6 @@ jobs:
         if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
       - name: Code Coverage report generation
-        #uses: malinskiy/action-android/emulator-run-cmd@release/0.1.2
-        #with:
-        #  cmd: ./gradlew createDebugCoverageReport
-        #  api: 29
-        #  tag: default
-        #  abi: x86
         with:
           uses: reactivecircus/android-emulator-runner@v2
           api-level: 29
