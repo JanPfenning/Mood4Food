@@ -2,6 +2,7 @@ package com.jrk.mood4food.home.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -15,6 +16,7 @@ import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.model.api.endpoints.RecipeEndpoint
 import com.jrk.mood4food.model.api.entity.Recipe
 import com.jrk.mood4food.model.localStorage.LocalStorage
+import com.jrk.mood4food.onboarding.view.OnboardingActivity
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.selection.RecipeAdapter
@@ -34,6 +36,9 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_home)
         super.onCreate(savedInstanceState)
+
+        startActivity(Intent(this, OnboardingActivity::class.java))
+        finish()
 
         // Fill Water Balance Progress-Bar
         val waterBalance = model.getWaterRepository().getCurrentWaterBalancePercentage()
