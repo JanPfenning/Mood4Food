@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     name: Execute JUnit Tests
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
 
@@ -33,12 +33,16 @@ jobs:
         if: ${{ always() }} # IMPORTANT: run Android Test Report regardless
 
       - name: Code Coverage report generation
-        uses: malinskiy/action-android/emulator-run-cmd@release/0.1.2
+        #uses: malinskiy/action-android/emulator-run-cmd@release/0.1.2
+        #with:
+        #  cmd: ./gradlew createDebugCoverageReport
+        #  api: 29
+        #  tag: default
+        #  abi: x86
         with:
-          cmd: ./gradlew createDebugCoverageReport
-          api: 29
-          tag: default
-          abi: x86
+          uses: reactivecircus/android-emulator-runner@v2
+          api-level: 29
+          script: ./gradlew createDebugCoverageReport
 
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)
