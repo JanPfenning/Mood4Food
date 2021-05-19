@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jrk.mood4food.App
 import com.jrk.mood4food.R
-import com.jrk.mood4food.home.view.MainActivity
+import com.jrk.mood4food.settings.view.SettingsActivity
 
 class OnboardingActivity() : AppCompatActivity() {
 
@@ -69,8 +69,13 @@ class OnboardingActivity() : AppCompatActivity() {
     }
 
     private fun finishOnboarding(){
-        // TODO set initial data
+        val onboardingFile = getSharedPreferences("onboarding", 0)
+        onboardingFile.edit().putBoolean("firstAppUsage", false).apply()
+
+        // Set base settings here
+        // ...
+
         finish()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

@@ -37,8 +37,11 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         setContentView(R.layout.activity_home)
         super.onCreate(savedInstanceState)
 
-        startActivity(Intent(this, OnboardingActivity::class.java))
-        finish()
+        val onboardingFile = getSharedPreferences("onboarding", 0)
+        if(onboardingFile.getBoolean("firstAppUsage", true)) {
+            startActivity(Intent(this, OnboardingActivity::class.java))
+            finish()
+        }
 
         // Fill Water Balance Progress-Bar
         val waterBalance = model.getWaterRepository().getCurrentWaterBalancePercentage()
