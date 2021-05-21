@@ -28,7 +28,6 @@
         <activity android:name=".waterbalance.view.WaterAnalysisActivity"/>
         <activity android:name=".settings.view.SettingsActivity" />
         <activity android:name=".settings.view.SetIngredientsActivity" />
-        <activity android:name=".NutrientActivity" />
         <activity android:name=".recipes.detail.view.DetailActivity"/>
         <activity android:name=".recipes.selection.view.SelectionActivity"/>
         <activity android:name=".recipes.add_mod.view.Add_ModActivity"/>
@@ -36,6 +35,7 @@
         <activity android:name=".settings.view.ResultsCalculationActivity" />
         <activity android:name=".settings.view.EditGoalsActivity"/>
         <activity android:name=".TestActivity" />
+        <activity android:name=".onboarding.view.OnboardingActivity"/>
 
     </application>
 
