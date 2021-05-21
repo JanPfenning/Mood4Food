@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -93,16 +92,17 @@
             android:layout_height="50dp"
             android:weightSum="1"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Gender"
-                android:textColor="@color/text"
-                android:textSize="16sp"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:gravity="center_vertical"/>
+                android:text="Gender"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
 
             <Spinner
                 android:id="@+id/gender"
@@ -111,6 +111,7 @@
                 android:layout_gravity="center"
                 android:background="@color/disabled"
                 android:minWidth="100dp" />
+
             <!--
                 Spinner Items:
                 - Male
@@ -206,8 +207,36 @@
                     android:text="kg"
                     android:textColor="@color/black"
                     android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:gravity="center" />
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Physical Activity"
+                android:textColor="@color/text"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/physicialActivity1"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/disabled"
+                android:minWidth="100dp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -216,6 +245,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:weightSum="1">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_weight="1"
@@ -224,6 +254,7 @@
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:textColor="@color/inactive"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

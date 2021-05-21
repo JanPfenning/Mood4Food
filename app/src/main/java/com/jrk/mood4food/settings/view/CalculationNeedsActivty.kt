@@ -10,7 +10,7 @@ import com.jrk.mood4food.App
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.settings.Gender
+import com.jrk.mood4food.settings.PhysicalActivity
 import com.jrk.mood4food.settings.controller.GoalController
 import com.jrk.mood4food.waterbalance.model.SettingsEntity
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
@@ -19,7 +19,8 @@ import com.jrk.mood4food.waterbalance.model.SettingsObserver
 class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationView {
     private val model = ModelModule.dataAccessLayer
     private val controller = GoalController(model)
-    private lateinit var dataAdapter: ArrayAdapter<String>
+    private lateinit var dataAdapterGender: ArrayAdapter<String>
+    private lateinit var dataAdapterActivity: ArrayAdapter<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_calculation)
         controller.bind(this)
@@ -30,14 +31,26 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
         findViewById<ImageView>(R.id.backToSettings).setOnClickListener {
             finish()
         }
+        val physicalActivitySpinnerItems: MutableList<String> = ArrayList()
+        physicalActivitySpinnerItems.add(PhysicalActivity.Lowest.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Low.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Middle.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.High.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Highest.text)
+
+        dataAdapterActivity = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, physicalActivitySpinnerItems)
+        var spinnerActivity = findViewById<Spinner>(R.id.physicialActivity1) as Spinner
+        spinnerActivity.adapter = dataAdapterActivity
+
 
         val genderSpinnerItems: MutableList<String> = ArrayList()
-        genderSpinnerItems.add(Gender.Female.name)
-        genderSpinnerItems.add(Gender.Male.name)
+        genderSpinnerItems.add("Female")
+        genderSpinnerItems.add("Male")
+        genderSpinnerItems.add("Diverse")
 
-        dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genderSpinnerItems)
+        dataAdapterGender = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, genderSpinnerItems)
         var spinner = findViewById<Spinner>(R.id.gender) as Spinner
-        spinner.adapter = dataAdapter
+        spinner.adapter = dataAdapterGender
         showCurrentSettings()
 
         super.onCreate(savedInstanceState)
@@ -57,6 +70,7 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
         settingsEntity.bodySize = findViewById<TextView>(R.id.bodySize).text.toString().toInt()
         settingsEntity.age = findViewById<TextView>(R.id.age).text.toString().toInt()
         settingsEntity.gender = findViewById<Spinner>(R.id.gender).selectedItem.toString()
+        settingsEntity.physicalActivity = findViewById<Spinner>(R.id.physicialActivity1).selectedItem.toString()
 
         return settingsEntity
     }
@@ -67,7 +81,7 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
         findViewById<TextView>(R.id.aimBodyWeight).text = currentSettings.aimBodyWeight.toString()
         findViewById<TextView>(R.id.bodySize).text = currentSettings.bodySize.toString()
         findViewById<TextView>(R.id.age).text = currentSettings.age.toString()
-        findViewById<Spinner>(R.id.gender).setSelection(dataAdapter.getPosition(currentSettings.gender))
+        findViewById<Spinner>(R.id.gender).setSelection(dataAdapterGender.getPosition(currentSettings.gender))
     }
 
     override fun onStart() {

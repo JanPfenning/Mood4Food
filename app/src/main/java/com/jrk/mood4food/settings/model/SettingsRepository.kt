@@ -1,7 +1,9 @@
 package com.jrk.mood4food.waterbalance.model
 
+import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
+import com.jrk.mood4food.settings.PhysicalActivity
 import com.jrk.mood4food.settings.view.IngredientSettings
 import kotlin.math.roundToInt
 
@@ -20,7 +22,6 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     }
 
     fun storeSettings(calculationData: SettingsEntity) {
-
         localStorage.save(App.getContext(), calculationData)
     }
 
@@ -50,7 +51,21 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
         }
         if (calculationData.gender == "Female")
             caloriesPerDay = ((655.1 + (9.6 * calculationData.currentBodyWeight) + (1.8 * calculationData.currentBodyWeight) - (4.7 * calculationData.age))).toInt()
-        return caloriesPerDay
+        Log.i("test", calculationData.physicalActivity)
+
+        var faktor: Float
+        when (PhysicalActivity.getByText(calculationData.physicalActivity)) {
+            PhysicalActivity.Lowest -> faktor = 1.2F
+            PhysicalActivity.Low -> faktor = 1.375F
+            PhysicalActivity.Middle -> faktor = 1.55F
+            PhysicalActivity.High -> faktor = 1.725F
+            PhysicalActivity.Highest -> faktor = 1.9F
+            else -> {
+                faktor = 1F
+            }
+        }
+
+        return (caloriesPerDay * faktor).toInt()
     }
 
     private fun calcWaterPerDay(calculationData: SettingsEntity): Float {
