@@ -2,9 +2,6 @@ package com.jrk.mood4food.home.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
-import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,14 +12,12 @@ import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
 import com.jrk.mood4food.model.api.endpoints.RecipeEndpoint
 import com.jrk.mood4food.model.api.entity.Recipe
-import com.jrk.mood4food.model.localStorage.LocalStorage
 import com.jrk.mood4food.onboarding.view.OnboardingActivity
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.selection.RecipeAdapter
 import com.jrk.mood4food.recipes.selection.controller.SelectionController
 import com.jrk.mood4food.recipes.selection.view.RecipeClickListener
-import com.jrk.mood4food.waterbalance.model.IngredientsSettingsEntity
 import kotlin.reflect.KFunction1
 
 class MainActivity : NavBarActivity(), RecipeClickListener {
@@ -41,6 +36,7 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         if(onboardingFile.getBoolean("firstAppUsage", true)) {
             startActivity(Intent(this, OnboardingActivity::class.java))
             finish()
+            model.firstStartApp()
         }
 
         // Fill Water Balance Progress-Bar

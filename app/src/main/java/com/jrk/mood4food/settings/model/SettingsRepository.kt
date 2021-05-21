@@ -132,5 +132,11 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
     }
 
+    fun firstStart() {
+        val settignsEntity = getSettings()
+        settignsEntity.waterPerDay = 2.0F
+        storeSettings(settignsEntity)
+    }
+
 
 }
