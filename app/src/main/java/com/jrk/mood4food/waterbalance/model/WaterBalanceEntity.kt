@@ -20,6 +20,7 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
         if (currentDate != other.currentDate) return false
         if (calenderWeek != other.calenderWeek) return false
         if (dayOfWeek != other.dayOfWeek) return false
+        if (isReached != other.isReached) return false
 
         return true
     }
@@ -29,6 +30,9 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
         result = 31 * result + currentDate.hashCode()
         result = 31 * result + calenderWeek
         result = 31 * result + dayOfWeek
+        result = 31 * result + isReached.hashCode()
         return result
     }
+
+
 }
