@@ -4,6 +4,7 @@ import android.util.Log
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
 import com.jrk.mood4food.settings.PhysicalActivity
+import com.jrk.mood4food.settings.model.SettingsConverter
 import com.jrk.mood4food.settings.view.IngredientSettings
 import kotlin.math.roundToInt
 
@@ -53,19 +54,18 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
             caloriesPerDay = ((655.1 + (9.6 * calculationData.currentBodyWeight) + (1.8 * calculationData.currentBodyWeight) - (4.7 * calculationData.age))).toInt()
         Log.i("test", calculationData.physicalActivity)
 
-        var faktor: Float
-        when (PhysicalActivity.getByText(calculationData.physicalActivity)) {
-            PhysicalActivity.Lowest -> faktor = 1.2F
-            PhysicalActivity.Low -> faktor = 1.375F
-            PhysicalActivity.Middle -> faktor = 1.55F
-            PhysicalActivity.High -> faktor = 1.725F
-            PhysicalActivity.Highest -> faktor = 1.9F
+        var factor: Float = when (PhysicalActivity.getByText(calculationData.physicalActivity)) {
+            PhysicalActivity.Lowest -> 1.2F
+            PhysicalActivity.Low -> 1.375F
+            PhysicalActivity.Middle -> 1.55F
+            PhysicalActivity.High -> 1.725F
+            PhysicalActivity.Highest -> 1.9F
             else -> {
-                faktor = 1F
+                1F
             }
         }
 
-        return (caloriesPerDay * faktor).toInt()
+        return (caloriesPerDay * factor).toInt()
     }
 
     private fun calcWaterPerDay(calculationData: SettingsEntity): Float {
@@ -86,8 +86,8 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
 
     fun saveIngredients(ingredientsGood: MutableSet<IngredientSettings>, ingredientsBad: MutableSet<IngredientSettings>) {
-        var ingredientsGood = ingToMutableSet(ingredientsGood)
-        var ingredientsBad = ingToMutableSet(ingredientsBad)
+        var ingredientsGood = SettingsConverter.ingToMutableSet(ingredientsGood)
+        var ingredientsBad = SettingsConverter.ingToMutableSet(ingredientsBad)
         var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
@@ -109,7 +109,7 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
             entity = IngredientsSettingsEntity(App.getContext())
         }
 
-        return setToIngredient(entity.ingredientsGood)
+        return SettingsConverter.setToIngredient(entity.ingredientsGood)
     }
 
     fun getBadIngredients(): MutableSet<IngredientSettings> {
@@ -119,31 +119,40 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
         if (entity.ingredientsGood.isNullOrEmpty()) {
             entity = IngredientsSettingsEntity(App.getContext())
         }
-        return setToIngredient(entity.ingredientsBad)
+        return SettingsConverter.setToIngredient(entity.ingredientsBad)
     }
 
-    private fun ingToMutableSet(set: Set<IngredientSettings>): MutableSet<Set<String>> {
-        val retSet = mutableSetOf<Set<String>>()
-        set.forEach { e ->
-            if (e.name != "") {
-                retSet.add(setOf(e.name))
-            }
-        }
-        return retSet
-    }
-
-    private fun setToIngredient(set: Set<Set<String>>): MutableSet<IngredientSettings> {
-        val retSet = mutableSetOf<IngredientSettings>()
-        set.forEach { e ->
-            var i = IngredientSettings()
-            i.name = e.elementAt(0)
-            retSet.add(i)
-        }
-        return retSet
-    }
 
     fun getTempEntity(): SettingsEntity {
         return tmpEnitity
+    }
+
+    fun calculateChangedGoals(changedSettings: SettingsEntity) {
+        val currentSettings = getSettings()
+        currentSettings.waterPerDay = calcWaterPerDay(currentSettings)
+        if (currentSettings.caloriesPerDay != changedSettings.caloriesPerDay) {
+            currentSettings.caloriesPerDay = changedSettings.caloriesPerDay
+            currentSettings.proteinPerDay = calcProteinPerDay(changedSettings)
+            currentSettings.carbohydratesPerDay = calcCarbohydratePerDay(changedSettings)
+            currentSettings.fatPerDay = calcFatPerDay(changedSettings)
+        } else if (currentSettings.physicalActivity != changedSettings.physicalActivity) {
+            currentSettings.physicalActivity = changedSettings.physicalActivity
+            currentSettings.caloriesPerDay = calcCaloriesPerDay(currentSettings)
+            currentSettings.proteinPerDay = calcProteinPerDay(currentSettings)
+            currentSettings.carbohydratesPerDay = calcCarbohydratePerDay(currentSettings)
+            currentSettings.fatPerDay = calcFatPerDay(currentSettings)
+        } else {
+            currentSettings.caloriesPerDay = (changedSettings.proteinPerDay * 4.1).toInt()
+            currentSettings.caloriesPerDay += (changedSettings.carbohydratesPerDay * 4.1).toInt()
+            currentSettings.caloriesPerDay += (changedSettings.fatPerDay * 9.3).toInt()
+            currentSettings.proteinPerDay = changedSettings.proteinPerDay
+            currentSettings.carbohydratesPerDay = changedSettings.carbohydratesPerDay
+            currentSettings.fatPerDay = changedSettings.fatPerDay
+        }
+
+
+        storeSettings(currentSettings)
+
 
     }
 

@@ -15,7 +15,7 @@ import com.jrk.mood4food.waterbalance.model.SettingsEntity
 class EditGoalsActivity : NavBarActivity() {
     private val model = ModelModule.dataAccessLayer
     private val controller = EditGoalsController(model)
-    private lateinit var dataAdapter: ArrayAdapter<String>
+    private lateinit var adapterPhysicialActivity: ArrayAdapter<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_goals)
         controller.bind(this)
@@ -23,30 +23,18 @@ class EditGoalsActivity : NavBarActivity() {
     }
 
     override fun onStart() {
-        val data = model.getSettingsRepository().getSettings()
-        findViewById<TextView>(R.id.currentWeight).text = data.currentBodyWeight.toString()
-        findViewById<TextView>(R.id.aimWeight).text = data.aimBodyWeight.toString()
-        //findViewById<Spinner>(R.id.weightChange).text = data.weightChange.toString()
-        findViewById<TextView>(R.id.weightChangePerMonth).text = data.weightChangePerMonth.toString()
-
-
         val physicalActivitySpinnerItems: MutableList<String> = ArrayList()
-        physicalActivitySpinnerItems.add(PhysicalActivity.Lowest.name)
-        physicalActivitySpinnerItems.add(PhysicalActivity.Low.name)
-        physicalActivitySpinnerItems.add(PhysicalActivity.Middle.name)
-        physicalActivitySpinnerItems.add(PhysicalActivity.High.name)
-        physicalActivitySpinnerItems.add(PhysicalActivity.Highest.name)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Lowest.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Low.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Middle.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.High.text)
+        physicalActivitySpinnerItems.add(PhysicalActivity.Highest.text)
 
-        dataAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, physicalActivitySpinnerItems)
-        var spinner = findViewById<Spinner>(R.id.physicialActivity1) as Spinner
-        spinner.adapter = dataAdapter
+        adapterPhysicialActivity = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, physicalActivitySpinnerItems)
+        var spinner = findViewById<Spinner>(R.id.physicialActivity2) as Spinner
+        spinner.adapter = adapterPhysicialActivity
 
-        //findViewById<TextView>(R.id.physicialActivity).text = data.physicalActivity
-        findViewById<TextView>(R.id.waterPerDay).text = data.waterPerDay.toString()
-        findViewById<TextView>(R.id.caloriesPerDay).text = data.caloriesPerDay.toString()
-        findViewById<TextView>(R.id.carbohydratesPerDay).text = data.carbohydratesPerDay.toString()
-        findViewById<TextView>(R.id.proteinPerDay).text = data.proteinPerDay.toString()
-        findViewById<TextView>(R.id.fatPerDay).text = data.fatPerDay.toString()
+        displayCurrentSettings()
         findViewById<ImageView>(R.id.backToSettings).setOnClickListener {
             finish()
         }
@@ -55,14 +43,26 @@ class EditGoalsActivity : NavBarActivity() {
 
     }
 
+    private fun displayCurrentSettings() {
+        val currentSettings = model.getSettingsRepository().getSettings()
+        findViewById<TextView>(R.id.currentWeight).text = currentSettings.currentBodyWeight.toString()
+        findViewById<TextView>(R.id.aimWeight).text = currentSettings.aimBodyWeight.toString()
+        findViewById<TextView>(R.id.weightChangePerMonth).text = currentSettings.weightChangePerMonth.toString()
+        findViewById<TextView>(R.id.waterPerDay).text = currentSettings.waterPerDay.toString()
+        findViewById<TextView>(R.id.caloriesPerDay).text = currentSettings.caloriesPerDay.toString()
+        findViewById<TextView>(R.id.carbohydratesPerDay).text = currentSettings.carbohydratesPerDay.toString()
+        findViewById<TextView>(R.id.proteinPerDay).text = currentSettings.proteinPerDay.toString()
+        findViewById<TextView>(R.id.fatPerDay).text = currentSettings.fatPerDay.toString()
+        findViewById<Spinner>(R.id.physicialActivity2).setSelection(adapterPhysicialActivity.getPosition(currentSettings.physicalActivity))
+    }
+
 
     override fun onStop() {
         var data: SettingsEntity = model.getSettingsRepository().getSettings()
         data.currentBodyWeight = findViewById<TextView>(R.id.currentWeight).text.toString().toFloat()
         data.aimBodyWeight = findViewById<TextView>(R.id.aimWeight).text.toString().toFloat()
-        //findViewById<Spinner>(R.id.weightChange).text = data.weightChange.toString()
         data.weightChangePerMonth = findViewById<TextView>(R.id.weightChangePerMonth).text.toString().toFloat()
-        data.physicalActivity = findViewById<Spinner>(R.id.physicalAcivity).selectedItem.toString()
+        data.physicalActivity = findViewById<Spinner>(R.id.physicialActivity2).selectedItem.toString()
         data.waterPerDay = findViewById<TextView>(R.id.waterPerDay).text.toString().toFloat()
         data.caloriesPerDay = findViewById<TextView>(R.id.caloriesPerDay).text.toString().toInt()
         data.carbohydratesPerDay = findViewById<TextView>(R.id.carbohydratesPerDay).text.toString().toInt()
