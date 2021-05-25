@@ -30,14 +30,14 @@ class WaterBalanceRepositoryTest {
         return formatter.format(date).toString()
     }
     
-    /* TODO
+
     @Test
     fun createWaterEntityTest() {
         val entity = DummyData.getDummyWaterEntity(4.0F, "01.01.2021", 53, 6)
         Assert.assertEquals(entity, waterRepository.createWaterEntity("01.01.2021", 4.0F))
         Assert.assertEquals(1, TestStorage.getAll(App.getContext(), WaterBalanceEntity::class.java).size)
     }
-    */
+
 
     @Test
     fun getEntityFromDateIfNoEntityExistTest() {
@@ -84,7 +84,7 @@ class WaterBalanceRepositoryTest {
         Assert.assertEquals(0F, waterBalance)
     }
 
-    /* TODO
+
     @Test
     fun getWaterEntityFromWeekOfYearTest() {
         val settingsRepository = SettingsRepository(TestStorage)
@@ -93,19 +93,16 @@ class WaterBalanceRepositoryTest {
         settingsRepository.storeSettings(settingsEntity)
         val entity1 = DummyData.getDummyWaterEntity(20F, "22.04.2000", 3, 1)
         val entity2 = DummyData.getDummyWaterEntity(20F, "23.04.2000", 3, 3)
-        val entity3 = DummyData.getDummyWaterEntity(20F, "24.04.2000", 3, 5)
-        val entity4 = DummyData.getDummyWaterEntity(20F, "25.04.2000", 5, 4)
+        val entity3 = DummyData.getDummyWaterEntity(20F, "27.04.2000", 3, 5)
         TestStorage.save(App.getContext(), entity1)
         TestStorage.save(App.getContext(), entity2)
         TestStorage.save(App.getContext(), entity3)
-        TestStorage.save(App.getContext(), entity4)
-        val ret = waterRepository.getWaterEntityFromWeekOfYear(3)
-        val entities = ret.first
+        val entities = waterRepository.getWaterEntityFromWeekOfYear(3)
         Assert.assertEquals("22.04.2000", entities[0].currentDate)
         Assert.assertEquals("23.04.2000", entities[2].currentDate)
-        Assert.assertEquals("24.04.2000", entities[4].currentDate)
+        Assert.assertEquals("27.04.2000", entities[4].currentDate)
     }
-    */
+
 
     @Test
     fun convertDateToFormattedString() {
