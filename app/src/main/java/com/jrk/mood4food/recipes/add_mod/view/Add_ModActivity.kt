@@ -8,10 +8,14 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import com.jrk.mood4food.App
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
@@ -21,7 +25,10 @@ import com.jrk.mood4food.recipes.add_mod.controller.Add_ModController
 import com.jrk.mood4food.recipes.add_mod.model.Add_ModObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.detail.view.DetailActivity
-import com.jrk.mood4food.recipes.selection.view.SelectionActivity
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
@@ -29,6 +36,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
     private val controller = Add_ModController(model)
     private var mode = MODE.NEW
     private var imageUri = Uri.EMPTY
+    private var photoUri = Uri.EMPTY
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_edit_recipe)
@@ -132,23 +140,56 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         // On upload picutre:
         findViewById<TextView>(R.id.upload_picture).setOnClickListener {
-            //check runtime permission
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                        PackageManager.PERMISSION_DENIED) {
-                    //permission denied
-                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                    //show popup to request runtime permission
-                    requestPermissions(permissions, PERMISSION_CODE);
+            val makePicture = true
+            if(makePicture){
+                // TODO
+                //check runtime permission
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(arrayOf(Manifest.permission.CAMERA), MY_CAMERA_PERMISSION_CODE)
                 } else {
-                    //permission already granted
+                    val takePictureIntent : Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    // Ensure that there's a camera activity to handle the intent
+                    takePictureIntent.resolveActivity(packageManager)
+                    // Create the File where the photo should go
+                    val photoFile: File? = try {
+                        createImageFile()
+                    } catch (ex: IOException) {
+                        // Error occurred while creating the File
+                        null
+                    }
+                    // Continue only if the File was successfully created
+                    if(photoFile != null){
+                        this.photoUri = FileProvider.getUriForFile(
+                                this,
+                                "com.jrk.mood4food.fileprovider",
+                                photoFile
+                        )
+                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                        startActivityForResult(takePictureIntent, CAMERA_REQUEST)
+
+                    }else{
+                        Log.e("ERROR","photoFile is null")
+                    }
+                }
+            }else{
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+                        //permission denied
+                        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                        //show popup to request runtime permission
+                        requestPermissions(permissions, PERMISSION_CODE);
+                    } else {
+                        //permission already granted
+                        pickImageFromGallery();
+                    }
+                } else {
+                    //system OS is < Marshmallow
                     pickImageFromGallery();
                 }
-            } else {
-                //system OS is < Marshmallow
-                pickImageFromGallery();
             }
         }
+
 
         // On cancle modification
         findViewById<ImageView>(R.id.cancel_modify_recipe).setOnClickListener {
@@ -196,6 +237,10 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         //Permission code
         private val PERMISSION_CODE = 1001;
+
+        private const val CAMERA_REQUEST = 1888
+        private const val MY_CAMERA_PERMISSION_CODE = 100
+
     }
 
 
@@ -237,6 +282,34 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
                 this.imageUri = data.data
             };
         }
+        else if(requestCode == CAMERA_REQUEST){
+            if(resultCode == Activity.RESULT_OK){
+                this.imageUri = this.photoUri
+                findViewById<ImageView>(R.id.imageView).setImageURI(imageUri)
+            }
+        }
     }
 
+    lateinit var currentPhotoPath: String
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        // Create an image file name
+        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir: File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(
+                "JPEG_${timeStamp}_", /* prefix */
+                ".jpg", /* suffix */
+                storageDir /* directory */
+        ).apply {
+            // Save a file: path for use with ACTION_VIEW intents
+            currentPhotoPath = absolutePath
+        }
+    }
+
+    private fun onActivityResult(requestCode: Integer,resultCode: Integer,intent: Intent) {
+        if(requestCode.toInt() == CAMERA_REQUEST){
+
+        }
+    }
 }
