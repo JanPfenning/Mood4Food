@@ -109,9 +109,7 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
 
             //Backnavigation
             findViewById<ImageView>(R.id.back).setOnClickListener {
-                intent = Intent(this, SelectionActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent)
+                finish()
             }
         }
     }
