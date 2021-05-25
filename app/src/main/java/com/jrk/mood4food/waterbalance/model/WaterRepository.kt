@@ -102,8 +102,6 @@ class WaterRepository(localStorage: LocalStorageInterface) {
     fun getEntityFromDate(date: String): WaterBalanceEntity {
 
         val entities = localStorage.getAll(App.getContext(), WaterBalanceEntity::class.java) as List<WaterBalanceEntity>
-
-
         entities.forEach {
             if (it.currentDate == date) {
                 return it
@@ -122,6 +120,10 @@ class WaterRepository(localStorage: LocalStorageInterface) {
         val waterEntity = getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
         waterEntity.waterBalance = 0F
         localStorage.save(App.getContext(), waterEntity)
+    }
+
+    fun firstStart() {
+        getEntityFromDate(convertDateToFormattedString(Calendar.getInstance().time))
     }
 
 

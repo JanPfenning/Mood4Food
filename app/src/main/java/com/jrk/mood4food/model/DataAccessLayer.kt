@@ -70,5 +70,10 @@ class DataAccessLayer(
         notifyW(WaterBalanceObserver::goalsChanged)
     }
 
+    fun firstStartApp() {
+        waterRepository.firstStart()
+        settingsRepository.firstStart()
+    }
+
 
 }
