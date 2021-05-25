@@ -1,2 +1,2 @@
 ignore:
-*/view/*
+  - "*/view/*"  # ignore folders all content in view folders
