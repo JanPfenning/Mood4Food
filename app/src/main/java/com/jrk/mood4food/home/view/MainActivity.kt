@@ -2,6 +2,7 @@ package com.jrk.mood4food.home.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,6 +57,7 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
     }
 
     fun loadRecommendedRecipes(){
+        Log.d("TEST", "load" + offset)
         // Load recipes from API based on local liked / diskliked ingredients
         val likes = mutableListOf<String>()
         val dislikes = mutableListOf<String>()
@@ -71,15 +73,17 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         // Fill recommended recipes recycler
         val recyclerView: RecyclerView = findViewById(R.id.rec_recommended_recipes)
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val recipeAdapter = RecipeAdapter(recipes,this, true)
+        val recipeAdapter = RecipeAdapter(recipes,this, true, this@MainActivity)
         recyclerView.adapter = recipeAdapter
     }
 
     // Called when async backend call arrives
     fun onApiResult(recipes: List<Recipe>){
+        Log.d("TEST", "apiResult" + recipes.size)
         val translateList = mutableListOf<RecipeEntity>()
         recipes.forEach {
             translateList.add(controller.toRecipeEntity(it))
+            Log.d("TEST", it.title)
         }
         val result = translateList.toTypedArray();
         showRecommendedRecipes(result)
