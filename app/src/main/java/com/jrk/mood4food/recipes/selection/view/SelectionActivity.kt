@@ -2,7 +2,6 @@ package com.jrk.mood4food.recipes.selection.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
@@ -115,7 +114,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         val favoriteView: RecyclerView = findViewById(R.id.favorite_recipes_recycler)
         favoriteView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         val favs = recipes.filter { recipeEntity -> recipeEntity.favorite }
-        val favoriteAdapter = RecipeAdapter(favs.toTypedArray(), this, false)
+        val favoriteAdapter = RecipeAdapter(favs.toTypedArray(), this, false, this@SelectionActivity)
         favoriteView.adapter = favoriteAdapter
     }
 
@@ -124,7 +123,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         // TODO filter based on search
         val ownRecipesView:RecyclerView = findViewById(R.id.own_recipes_recycler)
         ownRecipesView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL ,false)
-        val recipesAdapter = RecipeAdapter(recipes, this, false)
+        val recipesAdapter = RecipeAdapter(recipes, this, false, this@SelectionActivity)
         ownRecipesView.adapter = recipesAdapter
     }
 
@@ -133,7 +132,7 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         //Fill Cloud recipes recycler
         val apiRecipeView: RecyclerView = findViewById(R.id.recommended_recipes_recycler)
         apiRecipeView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        val apiRecipeAdapter = RecipeAdapter(this.API_result, this, true)
+        val apiRecipeAdapter = RecipeAdapter(this.API_result, this, true, this@SelectionActivity)
         apiRecipeView.adapter = apiRecipeAdapter
     }
 
