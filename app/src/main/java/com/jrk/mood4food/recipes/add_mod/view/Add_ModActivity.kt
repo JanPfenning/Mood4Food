@@ -140,54 +140,7 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
         // On upload picutre:
         findViewById<TextView>(R.id.upload_picture).setOnClickListener {
-            val makePicture = true
-            if(makePicture){
-                // TODO
-                //check runtime permission
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA), MY_CAMERA_PERMISSION_CODE)
-                } else {
-                    val takePictureIntent : Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                    // Ensure that there's a camera activity to handle the intent
-                    takePictureIntent.resolveActivity(packageManager)
-                    // Create the File where the photo should go
-                    val photoFile: File? = try {
-                        createImageFile()
-                    } catch (ex: IOException) {
-                        // Error occurred while creating the File
-                        null
-                    }
-                    // Continue only if the File was successfully created
-                    if(photoFile != null){
-                        this.photoUri = FileProvider.getUriForFile(
-                                this,
-                                "com.jrk.mood4food.fileprovider",
-                                photoFile
-                        )
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                        startActivityForResult(takePictureIntent, CAMERA_REQUEST)
-
-                    }else{
-                        Log.e("ERROR","photoFile is null")
-                    }
-                }
-            }else{
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED) {
-                        //permission denied
-                        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                        //show popup to request runtime permission
-                        requestPermissions(permissions, PERMISSION_CODE);
-                    } else {
-                        //permission already granted
-                        pickImageFromGallery();
-                    }
-                } else {
-                    //system OS is < Marshmallow
-                    pickImageFromGallery();
-                }
-            }
+            openDialog() // TODO
         }
 
 
@@ -307,9 +260,63 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
         }
     }
 
-    private fun onActivityResult(requestCode: Integer,resultCode: Integer,intent: Intent) {
-        if(requestCode.toInt() == CAMERA_REQUEST){
+    private fun openDialog(){
+        val builder1 = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val view = inflater.inflate(R.layout.dialog_image_selection, null)
+        builder1.setView(view)
+        builder1.setCancelable(true)
+        val alert11 = builder1.create()
+        val photo = view.findViewById<LinearLayout>(R.id.Photo)
+        photo.setOnClickListener{
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), MY_CAMERA_PERMISSION_CODE)
+            } else {
+                val takePictureIntent : Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                // Ensure that there's a camera activity to handle the intent
+                takePictureIntent.resolveActivity(packageManager)
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    null
+                }
+                // Continue only if the File was successfully created
+                if(photoFile != null){
+                    this.photoUri = FileProvider.getUriForFile(
+                            this,
+                            "com.jrk.mood4food.fileprovider",
+                            photoFile
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST)
 
+                }else{
+                    Log.e("ERROR","photoFile is null")
+                }
+            }
+            alert11.cancel()
         }
+        val gallery = view.findViewById<LinearLayout>(R.id.Gallery)
+        gallery.setOnClickListener{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                        PackageManager.PERMISSION_DENIED) {
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE);
+                } else {
+                    //permission already granted
+                    pickImageFromGallery();
+                }
+            } else {
+                //system OS is < Marshmallow
+                pickImageFromGallery();
+            }
+            alert11.cancel()
+        }
+        alert11.show()
     }
 }
