@@ -2,6 +2,7 @@ package com.jrk.mood4food.waterbalance.model
 
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
+import com.jrk.mood4food.settings.model.IngredientType
 import com.jrk.mood4food.settings.model.NeedsCalculator
 import com.jrk.mood4food.settings.model.SettingsConverter
 import com.jrk.mood4food.settings.view.IngredientSettings
@@ -52,25 +53,16 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
     }
 
-    fun getGoodIngredients(): MutableSet<IngredientSettings> {
+    fun getIngredients(ingredientType: IngredientType): MutableSet<IngredientSettings> {
         var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
-
         var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
+        if (ingredientType == IngredientType.Bad) {
+            return SettingsConverter.setToIngredient(entity.ingredientsBad)
+        } else {
+            return SettingsConverter.setToIngredient(entity.ingredientsGood)
         }
 
-        return SettingsConverter.setToIngredient(entity.ingredientsGood)
-    }
 
-    fun getBadIngredients(): MutableSet<IngredientSettings> {
-        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
-
-        var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
-        }
-        return SettingsConverter.setToIngredient(entity.ingredientsBad)
     }
 
 
