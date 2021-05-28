@@ -19,6 +19,7 @@ import com.jrk.mood4food.recipes.detail.view.DetailActivity
 import com.jrk.mood4food.recipes.selection.RecipeAdapter
 import com.jrk.mood4food.recipes.selection.controller.SelectionController
 import com.jrk.mood4food.recipes.selection.view.RecipeClickListener
+import com.jrk.mood4food.settings.model.IngredientType
 import kotlin.reflect.KFunction1
 
 class MainActivity : NavBarActivity(), RecipeClickListener {
@@ -61,9 +62,9 @@ class MainActivity : NavBarActivity(), RecipeClickListener {
         // Load recipes from API based on local liked / diskliked ingredients
         val likes = mutableListOf<String>()
         val dislikes = mutableListOf<String>()
-        val ingredientsGood = model.getSettingsRepository().getGoodIngredients()
+        val ingredientsGood = model.getSettingsRepository().getIngredients(IngredientType.Good)
         ingredientsGood.forEach { likes.add(it.name) }
-        val ingredientsBad = model.getSettingsRepository().getBadIngredients()
+        val ingredientsBad = model.getSettingsRepository().getIngredients(IngredientType.Bad)
         ingredientsBad.forEach { dislikes.add(it.name) }
 
         RecipeEndpoint.getByRating(App.getContext(), this::onApiResult as KFunction1<List<Any>, Unit>, likes, dislikes, limit, offset)
