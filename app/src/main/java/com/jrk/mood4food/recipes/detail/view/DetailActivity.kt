@@ -135,6 +135,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         model.unregister(this)
     }
 
+    override fun onResume(){
+        super.onResume()
+        val recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("id"))
+        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+    }
+
     fun drawFav(recipe: RecipeEntity){
         if(recipe.favorite){
             findViewById<ImageView>(R.id.noFav).visibility = View.GONE
