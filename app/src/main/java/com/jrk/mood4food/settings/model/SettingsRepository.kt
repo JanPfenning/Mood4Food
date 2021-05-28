@@ -8,7 +8,7 @@ import com.jrk.mood4food.settings.view.IngredientSettings
 
 class SettingsRepository(localStorage: LocalStorageInterface) {
     var localStorage = localStorage
-    lateinit var tmpEnitity: SettingsEntity
+    private lateinit var tampEntity: SettingsEntity
 
     fun calculateNeeds(calculationData: SettingsEntity) {
         calculationData.waterPerDay = NeedsCalculator.calcWaterPerDay(calculationData)
@@ -16,7 +16,7 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
         calculationData.proteinPerDay = NeedsCalculator.calcProteinPerDay(calculationData)
         calculationData.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(calculationData)
         calculationData.fatPerDay = NeedsCalculator.calcFatPerDay(calculationData)
-        tmpEnitity = calculationData
+        tampEntity = calculationData
 
     }
 
@@ -75,7 +75,7 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
 
     fun getTempEntity(): SettingsEntity {
-        return tmpEnitity
+        return tampEntity
     }
 
     fun calculateChangedGoals(changedSettings: SettingsEntity) {
@@ -100,8 +100,6 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
             currentSettings.carbohydratesPerDay = changedSettings.carbohydratesPerDay
             currentSettings.fatPerDay = changedSettings.fatPerDay
         }
-
-
         storeSettings(currentSettings)
 
 

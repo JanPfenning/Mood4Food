@@ -1,6 +1,5 @@
 package com.jrk.mood4food.settings.model
 
-import android.util.Log
 import com.jrk.mood4food.settings.PhysicalActivity
 import com.jrk.mood4food.waterbalance.model.SettingsEntity
 import kotlin.math.roundToInt
@@ -31,7 +30,6 @@ object NeedsCalculator {
         }
         if (calculationData.gender == "Female")
             caloriesPerDay = ((655.1 + (9.6 * calculationData.currentBodyWeight) + (1.8 * calculationData.currentBodyWeight) - (4.7 * calculationData.age))).toInt()
-        Log.i("test", calculationData.physicalActivity)
 
         var factor: Float = when (PhysicalActivity.getByText(calculationData.physicalActivity)) {
             PhysicalActivity.Lowest -> 1.2F
