@@ -108,6 +108,14 @@ class SelectionActivity : NavBarActivity(), SelectionView, SelectionObserver, Re
         model.unregister(this)
     }
 
+    override fun onResume(){
+        super.onResume()
+        val recipes:Array<RecipeEntity> = model.getRecipeRepository().loadAllRecipes().toTypedArray()
+        showFavRecipes(recipes)
+        showAllRecipes(recipes)
+        showAPIRecipes()
+    }
+
     private fun showFavRecipes(recipes: Array<RecipeEntity>){
         //Fill Favorite recipes recycler
         // TODO filter based on search
