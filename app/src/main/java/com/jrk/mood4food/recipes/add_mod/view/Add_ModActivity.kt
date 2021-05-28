@@ -132,10 +132,10 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
             controller.onSave(recipe)
 
-            val intent = Intent(this, DetailActivity::class.java)
-            intent.putExtra("id", recipe.storageAddress)
+            //val intent = Intent(this, DetailActivity::class.java)
+            //intent.putExtra("id", recipe.storageAddress)
             finish()
-            startActivity(intent)
+            //startActivity(intent)
         }
 
         // On upload picutre:
@@ -210,16 +210,46 @@ class Add_ModActivity : AppCompatActivity(), Add_ModView, Add_ModObserver {
 
     //handle requested permission result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                        PackageManager.PERMISSION_GRANTED) {
-                    //permission from popup granted
-                    pickImageFromGallery()
-                } else {
-                    //permission from popup denied
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+        if (requestCode == PERMISSION_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                //permission from popup granted
+                pickImageFromGallery()
+            } else {
+                //permission from popup denied
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else if(requestCode == MY_CAMERA_PERMISSION_CODE){
+            if (grantResults.isNotEmpty() && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                //permission from popup granted
+                val takePictureIntent : Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                // Ensure that there's a camera activity to handle the intent
+                takePictureIntent.resolveActivity(packageManager)
+                // Create the File where the photo should go
+                val photoFile: File? = try {
+                    createImageFile()
+                } catch (ex: IOException) {
+                    // Error occurred while creating the File
+                    null
                 }
+                // Continue only if the File was successfully created
+                if(photoFile != null){
+                    this.photoUri = FileProvider.getUriForFile(
+                            this,
+                            "com.jrk.mood4food.fileprovider",
+                            photoFile
+                    )
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                    startActivityForResult(takePictureIntent, CAMERA_REQUEST)
+
+                }else{
+                    Log.e("ERROR","photoFile is null")
+                }
+            } else {
+                //permission from popup denied
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
             }
         }
     }
