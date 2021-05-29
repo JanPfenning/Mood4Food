@@ -1,5 +1,3 @@
-package waterbalanceTest
-
 import android.content.Context
 import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
