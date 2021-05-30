@@ -29,11 +29,12 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
         var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
 
-        var entity: SettingsEntity = entities[0]
-        if (entity.gender.isNullOrEmpty()) {
-            entity = SettingsEntity(App.getContext())
+
+        if (entities.isEmpty()) {
+            return SettingsEntity(App.getContext())
         }
-        return entity
+        return entities[0]
+
 
     }
 
@@ -56,10 +57,10 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     fun getIngredients(ingredientType: IngredientType): MutableSet<IngredientSettings> {
         var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
         var entity: IngredientsSettingsEntity = entities[0]
-        if (ingredientType == IngredientType.Bad) {
-            return SettingsConverter.setToIngredient(entity.ingredientsBad)
+        return if (ingredientType == IngredientType.Bad) {
+            SettingsConverter.setToIngredient(entity.ingredientsBad)
         } else {
-            return SettingsConverter.setToIngredient(entity.ingredientsGood)
+            SettingsConverter.setToIngredient(entity.ingredientsGood)
         }
 
 
