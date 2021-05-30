@@ -30,8 +30,9 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
         var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
 
 
-        if (entities.isEmpty()) {
+        if (entities[0] == SettingsEntity(App.getContext())) {
             return SettingsEntity(App.getContext())
+
         }
         return entities[0]
 
@@ -74,11 +75,13 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     fun calculateChangedGoals(changedSettings: SettingsEntity) {
         val currentSettings = getSettings()
         currentSettings.waterPerDay = NeedsCalculator.calcWaterPerDay(currentSettings)
+
         if (currentSettings.caloriesPerDay != changedSettings.caloriesPerDay) {
+
             currentSettings.caloriesPerDay = changedSettings.caloriesPerDay
-            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(changedSettings)
-            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(changedSettings)
-            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(changedSettings)
+            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(currentSettings)
+            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(currentSettings)
+            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(currentSettings)
         } else if (currentSettings.physicalActivity != changedSettings.physicalActivity) {
             currentSettings.physicalActivity = changedSettings.physicalActivity
             currentSettings.caloriesPerDay = NeedsCalculator.calcCaloriesPerDay(currentSettings)

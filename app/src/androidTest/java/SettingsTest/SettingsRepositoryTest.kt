@@ -16,7 +16,6 @@ class SettingsRepositoryTest {
     @Before
     fun resetAll() {
         settingsRepository = SettingsRepository(TestStorage)
-
         TestStorage.reset()
 
     }
@@ -32,6 +31,20 @@ class SettingsRepositoryTest {
     fun firstStartTest() {
         settingsRepository.firstStart()
         Assert.assertEquals(2.0F, settingsRepository.getSettings().waterPerDay)
+    }
+
+    @Test
+    fun calculateChangedGoalsTestIfCaloriesChanged() {
+        var entityMale = DummyData.getDummySettingsEntity(80F, 187, "Male", "Extreme Belastung", 18)
+        settingsRepository.calculateNeeds(entityMale)
+        TestStorage.save(App.getContext(), settingsRepository.getTempEntity())
+        var c = DummyData.getDummySettingsEntity(5000)
+        settingsRepository.calculateChangedGoals(c)
+        Assert.assertEquals(670, settingsRepository.getSettings().carbohydratesPerDay)
+        Assert.assertEquals(161, settingsRepository.getSettings().fatPerDay)
+        Assert.assertEquals(182, settingsRepository.getSettings().proteinPerDay)
+
+
     }
 
 
