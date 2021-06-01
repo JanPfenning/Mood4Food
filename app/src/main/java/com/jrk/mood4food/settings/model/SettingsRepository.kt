@@ -29,11 +29,13 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
         var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
 
-        var entity: SettingsEntity = entities[0]
-        if (entity.gender.isNullOrEmpty()) {
-            entity = SettingsEntity(App.getContext())
+
+        if (entities[0] == SettingsEntity(App.getContext())) {
+            return SettingsEntity(App.getContext())
+
         }
-        return entity
+        return entities[0]
+
 
     }
 
@@ -56,10 +58,10 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     fun getIngredients(ingredientType: IngredientType): MutableSet<IngredientSettings> {
         var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
         var entity: IngredientsSettingsEntity = entities[0]
-        if (ingredientType == IngredientType.Bad) {
-            return SettingsConverter.setToIngredient(entity.ingredientsBad)
+        return if (ingredientType == IngredientType.Bad) {
+            SettingsConverter.setToIngredient(entity.ingredientsBad)
         } else {
-            return SettingsConverter.setToIngredient(entity.ingredientsGood)
+            SettingsConverter.setToIngredient(entity.ingredientsGood)
         }
 
 
@@ -73,11 +75,13 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     fun calculateChangedGoals(changedSettings: SettingsEntity) {
         val currentSettings = getSettings()
         currentSettings.waterPerDay = NeedsCalculator.calcWaterPerDay(currentSettings)
+
         if (currentSettings.caloriesPerDay != changedSettings.caloriesPerDay) {
+
             currentSettings.caloriesPerDay = changedSettings.caloriesPerDay
-            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(changedSettings)
-            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(changedSettings)
-            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(changedSettings)
+            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(currentSettings)
+            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(currentSettings)
+            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(currentSettings)
         } else if (currentSettings.physicalActivity != changedSettings.physicalActivity) {
             currentSettings.physicalActivity = changedSettings.physicalActivity
             currentSettings.caloriesPerDay = NeedsCalculator.calcCaloriesPerDay(currentSettings)
