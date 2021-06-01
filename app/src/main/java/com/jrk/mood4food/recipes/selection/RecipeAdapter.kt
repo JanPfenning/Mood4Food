@@ -1,20 +1,24 @@
 package com.jrk.mood4food.recipes.selection
 
+import android.app.Activity
+import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.RenderProcessGoneDetail
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jrk.mood4food.R
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
 import com.jrk.mood4food.recipes.selection.view.RecipeClickListener
+import java.net.URL
 
 class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
                     private val recipeClickListener: RecipeClickListener,
-                    private val api: Boolean) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>(){
+                    private val api: Boolean,
+                    private val activity: Activity) : RecyclerView.Adapter<RecipeAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         //Define Views which are used in "onBindViewHolder"
@@ -45,7 +49,24 @@ class RecipeAdapter(private val dataSet: Array<RecipeEntity>,
                 recipeClickListener.onRecipeClickListener(dataSet[position].storageAddress.toString(), api)
             }
         }
-        viewHolder.imageView.setImageURI(Uri.parse(dataSet[position].imageUri))
+        if(api){
+            val thread = Thread(Runnable {
+                val thumb_u = URL(dataSet[position].imageUri)
+                val thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src")
+                activity.runOnUiThread(java.lang.Runnable {
+                    try {
+                        viewHolder.imageView.setImageDrawable(thumb_d)
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
+                        Log.e("IMAGE",e.toString()+dataSet[position].imageUri)
+                    }
+                })
+            })
+            thread.start()
+        }
+        else{
+            viewHolder.imageView.setImageURI(Uri.parse(dataSet[position].imageUri))
+        }
         if(dataSet[position].favorite){
             viewHolder.nofavView.visibility = View.GONE
         }else{

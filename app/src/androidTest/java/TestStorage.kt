@@ -1,8 +1,8 @@
-package waterbalanceTest
-
 import android.content.Context
+import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
+import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
 object TestStorage : LocalStorageInterface {
     private var list: MutableList<LocalEntity> = emptyArray<LocalEntity>().toMutableList()
@@ -11,9 +11,15 @@ object TestStorage : LocalStorageInterface {
 
         for (e in list) {
             if (e.javaClass.canonicalName == entityClass.canonicalName) {
+
                 ret.add((e))
             }
         }
+
+        if (entityClass.canonicalName == SettingsEntity(App.getContext()).javaClass.canonicalName) {
+            ret.add(SettingsEntity(App.getContext()))
+        }
+
         return ret
     }
 

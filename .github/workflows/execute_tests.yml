@@ -34,7 +34,9 @@ jobs:
         with:
           api-level: 29
           arch: x86_64
-          script: ./gradlew createDebugCoverageReport
+          script: |
+            ./gradlew connectedCheck
+            ./gradlew createDebugCoverageReport
 
       - name: CodeCov report deploy
         run: bash <(curl -s https://codecov.io/bash)

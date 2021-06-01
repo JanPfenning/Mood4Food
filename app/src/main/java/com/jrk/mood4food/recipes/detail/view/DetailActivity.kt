@@ -1,12 +1,11 @@
 package com.jrk.mood4food.recipes.detail.view
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.GONE
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.ListView
@@ -23,7 +22,7 @@ import com.jrk.mood4food.recipes.detail.IngredientAdapter
 import com.jrk.mood4food.recipes.detail.controller.DetailController
 import com.jrk.mood4food.recipes.detail.model.DetailObserver
 import com.jrk.mood4food.recipes.detail.model.RecipeEntity
-import com.jrk.mood4food.recipes.selection.view.SelectionActivity
+import java.net.URL
 import kotlin.reflect.KFunction1
 
 
@@ -109,9 +108,7 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
 
             //Backnavigation
             findViewById<ImageView>(R.id.back).setOnClickListener {
-                intent = Intent(this, SelectionActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent)
+                finish()
             }
         }
     }
@@ -138,6 +135,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         model.unregister(this)
     }
 
+    override fun onResume(){
+        super.onResume()
+        val recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("id"))
+        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+    }
+
     fun drawFav(recipe: RecipeEntity){
         if(recipe.favorite){
             findViewById<ImageView>(R.id.noFav).visibility = View.GONE
@@ -154,17 +157,23 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
     }
 
     fun onApiResult(recipe: Recipe){
-        val newEntity: RecipeEntity = RecipeEntity(App.getContext());
-        newEntity.description = recipe.description
-        newEntity.title = recipe.title;
-
         findViewById<ImageView>(R.id.edit_recipe).visibility = View.GONE
 
         //Filling the Recipe Data into the Views
         /*Title*/
         findViewById<TextView>(R.id.recipe_title).text = recipe.title
         /*Picture*/
-        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+        val thread = Thread(Runnable {
+            try {
+                val thumb_u = URL(recipe.imageUri)
+                val thumb_d = Drawable.createFromStream(thumb_u.openStream(), "src")
+                findViewById<ImageView>(R.id.recipe_pic).setImageDrawable(thumb_d)
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+                Log.e("IMAGE",e.toString())
+            }
+        })
+        thread.start()
         /*Fav*/
         findViewById<ImageView>(R.id.noFav).visibility = View.GONE;
         findViewById<ImageView>(R.id.Fav).visibility = View.GONE;
@@ -190,6 +199,6 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
                 R.id.item_name,
                 Converter.apiToMaterial(recipe.materials).toTypedArray())
         /*Description*/
-        findViewById<TextView>(R.id.description_content).text = newEntity.description
+        findViewById<TextView>(R.id.description_content).text = recipe.description
     }
 }

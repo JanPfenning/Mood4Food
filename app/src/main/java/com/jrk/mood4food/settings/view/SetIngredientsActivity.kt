@@ -1,14 +1,13 @@
 package com.jrk.mood4food.settings.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import android.widget.ListView
 import com.jrk.mood4food.NavBarActivity
 import com.jrk.mood4food.R
 import com.jrk.mood4food.model.ModelModule
-import com.jrk.mood4food.recipes.add_mod.IngredientAdapter
 import com.jrk.mood4food.settings.controller.SetIngredientsController
+import com.jrk.mood4food.settings.model.IngredientType
 import com.jrk.mood4food.waterbalance.model.SettingsObserver
 import com.jrk.mood4food.waterbalance.view.SettingsView
 
@@ -23,8 +22,8 @@ class SetIngredientsActivity : NavBarActivity(), SettingsView, SettingsObserver 
         controller.bind(this)
         val ingredientsGoodList = findViewById<ListView>(R.id.mod_ingredient_good_list)
         val ingredientsBadList = findViewById<ListView>(R.id.mod_ingredient_bad_list)
-        ingredientsGood=  model.getSettingsRepository().getGoodIngredients()
-        ingredientsBad=  model.getSettingsRepository().getBadIngredients()
+        ingredientsGood = model.getSettingsRepository().getIngredients(IngredientType.Good)
+        ingredientsBad = model.getSettingsRepository().getIngredients(IngredientType.Bad)
         ingredientsGoodList.adapter = IngredientAdapterSettings(
                 ingredientsGood.toTypedArray(),
                 this
@@ -33,7 +32,7 @@ class SetIngredientsActivity : NavBarActivity(), SettingsView, SettingsObserver 
                 ingredientsBad.toTypedArray(),
                 this
         )
-        findViewById<ImageView>(R.id.backToSettings).setOnClickListener{
+        findViewById<ImageView>(R.id.backToSettings).setOnClickListener {
             finish()
         }
         findViewById<ImageView>(R.id.addIngredientGood).setOnClickListener{

@@ -10,6 +10,8 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
     var calenderWeek = 0
     var dayOfWeek = 0
     var isReached = false
+
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -18,8 +20,6 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
 
         if (waterBalance != other.waterBalance) return false
         if (currentDate != other.currentDate) return false
-        if (calenderWeek != other.calenderWeek) return false
-        if (dayOfWeek != other.dayOfWeek) return false
 
         return true
     }
@@ -27,8 +27,8 @@ class WaterBalanceEntity(context: Context) : LocalEntity(context, WaterBalanceEn
     override fun hashCode(): Int {
         var result = waterBalance.hashCode()
         result = 31 * result + currentDate.hashCode()
-        result = 31 * result + calenderWeek
-        result = 31 * result + dayOfWeek
         return result
     }
+
+
 }

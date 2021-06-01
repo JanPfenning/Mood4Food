@@ -16,6 +16,7 @@ class SelectionController(private val model: DataAccessLayer) {
         val recipeEntity: RecipeEntity = RecipeEntity(App.getContext());
         recipeEntity.title = it.title
         recipeEntity.APIid = it.recipeId
+        recipeEntity.imageUri = it.imageUri
         return recipeEntity;
     }
 }
