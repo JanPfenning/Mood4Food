@@ -26,6 +26,11 @@ class WaterBalanceRepositoryTest {
 
     }
 
+    @Test
+    fun test(){
+        Assert.assertEquals(true,false)
+    }
+
     private fun convertDateToFormattedString(date: Date): String {
         val formatter = SimpleDateFormat("dd.MM.yyyy")
         return formatter.format(date).toString()
