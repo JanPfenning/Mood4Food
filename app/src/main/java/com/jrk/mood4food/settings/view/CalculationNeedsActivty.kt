@@ -66,7 +66,6 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
     override fun getCalculationData(): SettingsEntity {
         var settingsEntity = SettingsEntity(App.getContext())
         settingsEntity.currentBodyWeight = findViewById<TextView>(R.id.currentWeight).text.toString().toFloat()
-        settingsEntity.aimBodyWeight = findViewById<TextView>(R.id.aimBodyWeight).text.toString().toFloat()
         settingsEntity.bodySize = findViewById<TextView>(R.id.bodySize).text.toString().toInt()
         settingsEntity.age = findViewById<TextView>(R.id.age).text.toString().toInt()
         settingsEntity.gender = findViewById<Spinner>(R.id.gender).selectedItem.toString()
@@ -78,7 +77,6 @@ class CalculationNeedsActivty : NavBarActivity(), SettingsObserver, CalculationV
     override fun showCurrentSettings() {
         var currentSettings = model.getSettingsRepository().getSettings()
         findViewById<TextView>(R.id.currentWeight).text = currentSettings.currentBodyWeight.toString()
-        findViewById<TextView>(R.id.aimBodyWeight).text = currentSettings.aimBodyWeight.toString()
         findViewById<TextView>(R.id.bodySize).text = currentSettings.bodySize.toString()
         findViewById<TextView>(R.id.age).text = currentSettings.age.toString()
         findViewById<Spinner>(R.id.gender).setSelection(dataAdapterGender.getPosition(currentSettings.gender))

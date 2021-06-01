@@ -46,8 +46,6 @@ class EditGoalsActivity : NavBarActivity() {
     private fun displayCurrentSettings() {
         val currentSettings = model.getSettingsRepository().getSettings()
         findViewById<TextView>(R.id.currentWeight).text = currentSettings.currentBodyWeight.toString()
-        findViewById<TextView>(R.id.aimWeight).text = currentSettings.aimBodyWeight.toString()
-        findViewById<TextView>(R.id.weightChangePerMonth).text = currentSettings.weightChangePerMonth.toString()
         findViewById<TextView>(R.id.waterPerDay).text = currentSettings.waterPerDay.toString()
         findViewById<TextView>(R.id.caloriesPerDay).text = currentSettings.caloriesPerDay.toString()
         findViewById<TextView>(R.id.carbohydratesPerDay).text = currentSettings.carbohydratesPerDay.toString()
@@ -60,8 +58,6 @@ class EditGoalsActivity : NavBarActivity() {
     override fun onStop() {
         var data: SettingsEntity = model.getSettingsRepository().getSettings()
         data.currentBodyWeight = findViewById<TextView>(R.id.currentWeight).text.toString().toFloat()
-        data.aimBodyWeight = findViewById<TextView>(R.id.aimWeight).text.toString().toFloat()
-        data.weightChangePerMonth = findViewById<TextView>(R.id.weightChangePerMonth).text.toString().toFloat()
         data.physicalActivity = findViewById<Spinner>(R.id.physicialActivity2).selectedItem.toString()
         data.waterPerDay = findViewById<TextView>(R.id.waterPerDay).text.toString().toFloat()
         data.caloriesPerDay = findViewById<TextView>(R.id.caloriesPerDay).text.toString().toInt()
