@@ -138,7 +138,10 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
     override fun onResume(){
         super.onResume()
         val recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("id"))
-        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+        val api = intent.getBooleanExtra("api", false)
+        if(!api){
+            findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+        }
     }
 
     fun drawFav(recipe: RecipeEntity){
