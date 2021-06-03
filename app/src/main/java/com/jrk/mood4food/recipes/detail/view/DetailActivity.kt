@@ -49,42 +49,12 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
             }else
             {
                 recipe = model.getRecipeRepository().loadRecipeDetails(id)
-
+                fillData()
                 findViewById<ImageView>(R.id.edit_recipe).setOnClickListener{
                     val intent = Intent(this, Add_ModActivity::class.java);
                     intent.putExtra("recipe_id",recipe.storageAddress)
                     startActivity(intent);
                 }
-
-                //Filling the Recipe Data into the Views
-                /*Title*/
-                findViewById<TextView>(R.id.recipe_title).text = recipe.title
-                /*Picture*/
-                findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
-                /*Fav*/
-                drawFav(recipe)
-                findViewById<ImageView>(R.id.noFav).setOnClickListener{
-                    toggleFav(recipe)
-                    drawFav(recipe)
-                }
-                findViewById<ImageView>(R.id.Fav).setOnClickListener{
-                    toggleFav(recipe)
-                    drawFav(recipe)
-                }
-                /*Ingredients*/
-                val ingredientView = findViewById<ListView>(R.id.ingredient_list)
-                ingredientView.adapter = IngredientAdapter(
-                        Converter.setToIngredient(recipe.ingredients).toTypedArray(),
-                        this)
-                /*Materials*/
-                val materialsView = findViewById<ListView>(R.id.materials_list)
-                materialsView.adapter = ArrayAdapter<String>(
-                        App.getContext(),
-                        R.layout.adapter_read_item,
-                        R.id.item_name,
-                        recipe.materials.toTypedArray())
-                /*Description*/
-                findViewById<TextView>(R.id.description_content).text = recipe.description
             }
 
             //Initialization of on-click-listeners for views
@@ -141,7 +111,41 @@ class DetailActivity : NavBarActivity(), DetailView, DetailObserver {
         val api = intent.getBooleanExtra("api", false)
         if(!api){
             findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+            fillData()
         }
+    }
+
+    fun fillData(){
+        val recipe = model.getRecipeRepository().loadRecipeDetails(intent.getStringExtra("id"))
+        //Filling the Recipe Data into the Views
+        /*Title*/
+        findViewById<TextView>(R.id.recipe_title).text = recipe.title
+        /*Picture*/
+        findViewById<ImageView>(R.id.recipe_pic).setImageURI(Uri.parse(recipe.imageUri))
+        /*Fav*/
+        drawFav(recipe)
+        findViewById<ImageView>(R.id.noFav).setOnClickListener{
+            toggleFav(recipe)
+            drawFav(recipe)
+        }
+        findViewById<ImageView>(R.id.Fav).setOnClickListener{
+            toggleFav(recipe)
+            drawFav(recipe)
+        }
+        /*Ingredients*/
+        val ingredientView = findViewById<ListView>(R.id.ingredient_list)
+        ingredientView.adapter = IngredientAdapter(
+                Converter.setToIngredient(recipe.ingredients).toTypedArray(),
+                this)
+        /*Materials*/
+        val materialsView = findViewById<ListView>(R.id.materials_list)
+        materialsView.adapter = ArrayAdapter<String>(
+                App.getContext(),
+                R.layout.adapter_read_item,
+                R.id.item_name,
+                recipe.materials.toTypedArray())
+        /*Description*/
+        findViewById<TextView>(R.id.description_content).text = recipe.description
     }
 
     fun drawFav(recipe: RecipeEntity){
