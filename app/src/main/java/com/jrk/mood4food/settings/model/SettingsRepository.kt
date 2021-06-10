@@ -45,9 +45,7 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
         var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
-        }
+
         entity.ingredientsBad = ingredientsBad
         entity.ingredientsGood = ingredientsGood
         localStorage.save(App.getContext(), entity)
@@ -104,6 +102,7 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
     fun firstStart() {
         val settingsEntity = getSettings()
         settingsEntity.waterPerDay = 2.0F
+        saveIngredients(mutableSetOf(), mutableSetOf())
         storeSettings(settingsEntity)
     }
 
