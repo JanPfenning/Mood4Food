@@ -72,10 +72,9 @@ class SettingsRepository(localStorage: LocalStorageInterface) {
 
     fun calculateChangedGoals(changedSettings: SettingsEntity) {
         val currentSettings = getSettings()
-        currentSettings.waterPerDay = NeedsCalculator.calcWaterPerDay(currentSettings)
-
+        currentSettings.waterPerDay = changedSettings.waterPerDay
+        currentSettings.currentBodyWeight = changedSettings.currentBodyWeight
         if (currentSettings.caloriesPerDay != changedSettings.caloriesPerDay) {
-
             currentSettings.caloriesPerDay = changedSettings.caloriesPerDay
             currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(currentSettings)
             currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(currentSettings)

@@ -2,6 +2,7 @@ import android.content.Context
 import com.jrk.mood4food.App
 import com.jrk.mood4food.model.localStorage.LocalEntity
 import com.jrk.mood4food.model.localStorage.LocalStorageInterface
+import com.jrk.mood4food.waterbalance.model.IngredientsSettingsEntity
 import com.jrk.mood4food.waterbalance.model.SettingsEntity
 
 object TestStorage : LocalStorageInterface {
@@ -18,6 +19,9 @@ object TestStorage : LocalStorageInterface {
 
         if (entityClass.canonicalName == SettingsEntity(App.getContext()).javaClass.canonicalName) {
             ret.add(SettingsEntity(App.getContext()))
+        }
+        if (entityClass.canonicalName == IngredientsSettingsEntity(App.getContext()).javaClass.canonicalName) {
+            ret.add(IngredientsSettingsEntity(App.getContext()))
         }
 
         return ret
