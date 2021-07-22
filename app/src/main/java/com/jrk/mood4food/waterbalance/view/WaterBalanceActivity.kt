@@ -68,7 +68,7 @@ class WaterBalanceActivity : NavBarActivity(), WaterBalanceView, WaterBalanceObs
         val level = model.getWaterRepository().getWaterLevel()
         val sb = StringBuilder()
         findViewById<WaveView>(R.id.waveView).setProgress(percentage.toInt())
-        sb.append(percentage).append(" %")
+        sb.append("%.2f".format(percentage)).append(" %")
         findViewById<TextView>(R.id.waterlevelPercentage).text = sb.toString()
         sb.clear()
         sb.append(absolut).append("/").append(level)

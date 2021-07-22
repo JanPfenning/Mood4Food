@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -28,15 +29,26 @@
         <activity android:name=".waterbalance.view.WaterAnalysisActivity"/>
         <activity android:name=".settings.view.SettingsActivity" />
         <activity android:name=".settings.view.SetIngredientsActivity" />
-        <activity android:name=".NutrientActivity" />
         <activity android:name=".recipes.detail.view.DetailActivity"/>
         <activity android:name=".recipes.selection.view.SelectionActivity"/>
         <activity android:name=".recipes.add_mod.view.Add_ModActivity"/>
         <activity android:name=".settings.view.CalculationNeedsActivty"/>
-        <activity android:name=".settings.view.ResultsCalculationActivty"/>
+        <activity android:name=".settings.view.ResultsCalculationActivity" />
         <activity android:name=".settings.view.EditGoalsActivity"/>
         <activity android:name=".TestActivity" />
+        <activity android:name=".onboarding.view.OnboardingActivity"/>
 
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.jrk.mood4food.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths">
+            </meta-data>
+        </provider>
     </application>
 
 </manifest>

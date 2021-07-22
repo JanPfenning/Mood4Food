@@ -1,0 +1,4 @@
+ignore:
+  - "**/view/*"  # ignore folders all content in view folders
+  - "**/*Activity.*" # Ignore all Activities (Views)
+  - "**/*Adapter.*" # Ignote all Adapters (Fragments for Views)

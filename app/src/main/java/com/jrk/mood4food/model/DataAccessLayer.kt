@@ -66,8 +66,13 @@ class DataAccessLayer(
 
 
     fun saveChangedGoals(data: SettingsEntity) {
-        getSettingsRepository().storeSettings(data)
+        getSettingsRepository().calculateChangedGoals(data)
         notifyW(WaterBalanceObserver::goalsChanged)
+    }
+
+    fun firstStartApp() {
+        waterRepository.firstStart()
+        settingsRepository.firstStart()
     }
 
 

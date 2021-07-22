@@ -1,134 +1,108 @@
 package com.jrk.mood4food.waterbalance.model
 
 import com.jrk.mood4food.App
-import com.jrk.mood4food.model.localStorage.LocalStorage
+import com.jrk.mood4food.model.localStorage.LocalStorageInterface
+import com.jrk.mood4food.settings.model.IngredientType
+import com.jrk.mood4food.settings.model.NeedsCalculator
+import com.jrk.mood4food.settings.model.SettingsConverter
 import com.jrk.mood4food.settings.view.IngredientSettings
-import kotlin.math.roundToInt
 
-class SettingsRepository {
-    lateinit var tmpEnitity: SettingsEntity
+class SettingsRepository(localStorage: LocalStorageInterface) {
+    var localStorage = localStorage
+    private lateinit var tampEntity: SettingsEntity
 
     fun calculateNeeds(calculationData: SettingsEntity) {
-        calculationData.waterPerDay = calcWaterPerDay(calculationData)
-        calculationData.caloriesPerDay = calcCaloriesPerDay(calculationData)
-        calculationData.proteinPerDay = calcProteinPerDay(calculationData)
-        calculationData.carbohydratesPerDay = calcCarbohydratePerDay(calculationData)
-        calculationData.fatPerDay = calcFatPerDay(calculationData)
-        tmpEnitity = calculationData
+        calculationData.waterPerDay = NeedsCalculator.calcWaterPerDay(calculationData)
+        calculationData.caloriesPerDay = NeedsCalculator.calcCaloriesPerDay(calculationData)
+        calculationData.proteinPerDay = NeedsCalculator.calcProteinPerDay(calculationData)
+        calculationData.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(calculationData)
+        calculationData.fatPerDay = NeedsCalculator.calcFatPerDay(calculationData)
+        tampEntity = calculationData
 
     }
 
     fun storeSettings(calculationData: SettingsEntity) {
-
-        LocalStorage.save(App.getContext(), calculationData)
-    }
-
-
-    private fun calcCarbohydratePerDay(calculationData: SettingsEntity): Int {
-        var proportion = calculationData.caloriesPerDay * 0.55
-        return (proportion * (1 / 4.1)).toInt()
-
-    }
-
-    private fun calcFatPerDay(calculationData: SettingsEntity): Int {
-        var proportion = calculationData.caloriesPerDay * 0.30
-        return (proportion * (1 / 9.3)).toInt()
-
-    }
-
-    private fun calcProteinPerDay(calculationData: SettingsEntity): Int {
-        var proportion = calculationData.caloriesPerDay * 0.15
-        return (proportion * (1 / 4.1)).toInt()
-    }
-
-
-    private fun calcCaloriesPerDay(calculationData: SettingsEntity): Int {
-        var caloriesPerDay = 0
-        if (calculationData.gender == "Male") {
-            caloriesPerDay = ((13.7 * calculationData.currentBodyWeight) + (5 * calculationData.bodySize) - (6.8 * calculationData.age)).toInt()
-        }
-        if (calculationData.gender == "Female")
-            caloriesPerDay = ((655.1 + (9.6 * calculationData.currentBodyWeight) + (1.8 * calculationData.currentBodyWeight) - (4.7 * calculationData.age))).toInt()
-        return caloriesPerDay
-    }
-
-    private fun calcWaterPerDay(calculationData: SettingsEntity): Float {
-        return ((((calculationData.currentBodyWeight * calculationData.age) / 28.3F) * 0.03F) * 10.0).roundToInt() / 10.0F
+        localStorage.save(App.getContext(), calculationData)
     }
 
     fun getSettings(): SettingsEntity {
 
-        var entities = LocalStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
+        var entities = localStorage.getAll(App.getContext(), SettingsEntity::class.java) as List<SettingsEntity>
 
-        var entity: SettingsEntity = entities[0]
-        if (entity.gender.isNullOrEmpty()) {
-            entity = SettingsEntity(App.getContext())
+
+        if (entities[0] == SettingsEntity(App.getContext())) {
+            return SettingsEntity(App.getContext())
+
         }
-        return entity
+        return entities[0]
+
 
     }
-
 
     fun saveIngredients(ingredientsGood: MutableSet<IngredientSettings>, ingredientsBad: MutableSet<IngredientSettings>) {
-        var ingredientsGood = ingToMutableSet(ingredientsGood)
-        var ingredientsBad = ingToMutableSet(ingredientsBad)
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
+        var ingredientsGood = SettingsConverter.ingToMutableSet(ingredientsGood)
+        var ingredientsBad = SettingsConverter.ingToMutableSet(ingredientsBad)
+        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
 
         var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
-        }
+
         entity.ingredientsBad = ingredientsBad
         entity.ingredientsGood = ingredientsGood
-        LocalStorage.save(App.getContext(), entity)
+        localStorage.save(App.getContext(), entity)
 
 
     }
 
-    fun getGoodIngredients(): MutableSet<IngredientSettings> {
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
-
+    fun getIngredients(ingredientType: IngredientType): MutableSet<IngredientSettings> {
+        var entities = localStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
         var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
+        return if (ingredientType == IngredientType.Bad) {
+            SettingsConverter.setToIngredient(entity.ingredientsBad)
+        } else {
+            SettingsConverter.setToIngredient(entity.ingredientsGood)
         }
 
-        return setToIngredient(entity.ingredientsGood)
+
     }
 
-    fun getBadIngredients(): MutableSet<IngredientSettings> {
-        var entities = LocalStorage.getAll(App.getContext(), IngredientsSettingsEntity::class.java) as List<IngredientsSettingsEntity>
-
-        var entity: IngredientsSettingsEntity = entities[0]
-        if (entity.ingredientsGood.isNullOrEmpty()) {
-            entity = IngredientsSettingsEntity(App.getContext())
-        }
-        return setToIngredient(entity.ingredientsBad)
-    }
-
-    private fun ingToMutableSet(set: Set<IngredientSettings>): MutableSet<Set<String>> {
-        val retSet = mutableSetOf<Set<String>>()
-        set.forEach { e ->
-            if (e.name != "") {
-                retSet.add(setOf(e.name))
-            }
-        }
-        return retSet
-    }
-
-    private fun setToIngredient(set: Set<Set<String>>): MutableSet<IngredientSettings> {
-        val retSet = mutableSetOf<IngredientSettings>()
-        set.forEach { e ->
-            var i = IngredientSettings()
-            i.name = e.elementAt(0)
-            retSet.add(i)
-        }
-        return retSet
-    }
 
     fun getTempEntity(): SettingsEntity {
-        return tmpEnitity
+        return tampEntity
+    }
 
+    fun calculateChangedGoals(changedSettings: SettingsEntity) {
+        val currentSettings = getSettings()
+        currentSettings.waterPerDay = changedSettings.waterPerDay
+        currentSettings.currentBodyWeight = changedSettings.currentBodyWeight
+        if (currentSettings.caloriesPerDay != changedSettings.caloriesPerDay) {
+            currentSettings.caloriesPerDay = changedSettings.caloriesPerDay
+            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(currentSettings)
+            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(currentSettings)
+            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(currentSettings)
+        } else if (currentSettings.physicalActivity != changedSettings.physicalActivity) {
+            currentSettings.physicalActivity = changedSettings.physicalActivity
+            currentSettings.caloriesPerDay = NeedsCalculator.calcCaloriesPerDay(currentSettings)
+            currentSettings.proteinPerDay = NeedsCalculator.calcProteinPerDay(currentSettings)
+            currentSettings.carbohydratesPerDay = NeedsCalculator.calcCarbohydratePerDay(currentSettings)
+            currentSettings.fatPerDay = NeedsCalculator.calcFatPerDay(currentSettings)
+        } else {
+            currentSettings.caloriesPerDay = (changedSettings.proteinPerDay * 4.1).toInt()
+            currentSettings.caloriesPerDay += (changedSettings.carbohydratesPerDay * 4.1).toInt()
+            currentSettings.caloriesPerDay += (changedSettings.fatPerDay * 9.3).toInt()
+            currentSettings.proteinPerDay = changedSettings.proteinPerDay
+            currentSettings.carbohydratesPerDay = changedSettings.carbohydratesPerDay
+            currentSettings.fatPerDay = changedSettings.fatPerDay
+        }
+        storeSettings(currentSettings)
+
+
+    }
+
+    fun firstStart() {
+        val settingsEntity = getSettings()
+        settingsEntity.waterPerDay = 2.0F
+        saveIngredients(mutableSetOf(), mutableSetOf())
+        storeSettings(settingsEntity)
     }
 
 
